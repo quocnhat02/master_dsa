@@ -6,7 +6,8 @@ export default makeStyles((theme) => ({
     alignItems: "center",
   },
   smMargin: {
-    margin: theme.spacing(1),
+    margin: "2px",
+    // margin: theme.spacing(1),
   },
   actionDiv: {
     textAlign: "center",
