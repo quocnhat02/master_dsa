@@ -6,8 +6,6 @@ import postRoutes from "./routes/posts.js";
 
 const app = express();
 
-app.use("/posts", postRoutes);
-
 app.use(
   express.json({
     extended: true,
@@ -21,6 +19,8 @@ app.use(
   })
 );
 app.use(cors());
+
+app.use("/posts", postRoutes);
 
 const CONNECTION_URL = "mongodb://localhost:27017/fullstack-mern";
 const PORT = process.env.PORT || 5000;
