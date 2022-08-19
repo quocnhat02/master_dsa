@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { TextField, Button, Typography, Paper } from "@mui/material";
 import FileBase from "react-file-base64";
+import { useDispatch } from "react-redux";
 
 import useStyles from "./styles";
+import { createPost } from "../../actions/posts";
 
 const Form = () => {
   const [postData, setPostData] = useState({
@@ -13,8 +15,13 @@ const Form = () => {
     selectedFile: "",
   });
   const classes = useStyles();
+  const dispatch = useDispatch();
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    dispatch(createPost(postData));
+  };
 
   const clear = () => {};
 
@@ -43,9 +50,7 @@ const Form = () => {
           label="Title"
           fullWidth
           value={postData.title}
-          onChange={(e) =>
-            setPostData({ ...postData, creator: e.target.value })
-          }
+          onChange={(e) => setPostData({ ...postData, title: e.target.value })}
         />
         <TextField
           name="message"
@@ -54,7 +59,7 @@ const Form = () => {
           fullWidth
           value={postData.message}
           onChange={(e) =>
-            setPostData({ ...postData, creator: e.target.value })
+            setPostData({ ...postData, message: e.target.value })
           }
         />
         <TextField
@@ -63,9 +68,7 @@ const Form = () => {
           label="Tags"
           fullWidth
           value={postData.tags}
-          onChange={(e) =>
-            setPostData({ ...postData, creator: e.target.value })
-          }
+          onChange={(e) => setPostData({ ...postData, tags: e.target.value })}
         />
         <div className={classes.fileInput}>
           <FileBase
@@ -83,6 +86,7 @@ const Form = () => {
           size="large"
           type="submit"
           fullWidth
+          style={{ marginBottom: "10px" }}
         >
           Submit
         </Button>
