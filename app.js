@@ -17,6 +17,9 @@ db.once("open", () => {
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.get("/", (req, res) => {
   res.render("home");
 });
@@ -28,6 +31,10 @@ app.get("/campgrounds", async (req, res) => {
 
 app.get("/campgrounds/new", (req, res) => {
   res.render("campgrounds/new");
+});
+
+app.post("/campgrounds", async (req, res) => {
+  res.send(req.body);
 });
 
 app.get("/campgrounds/:id", async (req, res) => {
