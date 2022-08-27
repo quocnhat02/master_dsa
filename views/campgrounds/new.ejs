@@ -13,6 +13,7 @@
           name="campground[title]"
           required
         />
+        <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3">
         <label for="location" class="form-label">Location</label>
@@ -23,6 +24,7 @@
           name="campground[location]"
           required
         />
+        <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3">
         <label for="image" class="form-label">Image Url</label>
@@ -33,6 +35,7 @@
           name="campground[image]"
           required
         />
+        <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3">
         <label for="price" class="form-label">Campground Price</label>
@@ -48,6 +51,7 @@
             name="campground[price]"
             required
           />
+          <div class="valid-feedback">Looks good!</div>
         </div>
       </div>
 
@@ -60,6 +64,7 @@
           name="campground[description]"
           required
         ></textarea>
+        <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3">
         <button class="btn btn-success">Add Campground</button>
@@ -68,28 +73,3 @@
     <a href="/campgrounds">All Campgrounds</a>
   </div>
 </div>
-
-<script>
-  (function () {
-    "use strict";
-
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    const forms = document.querySelectorAll(".validated-form");
-
-    // Loop over them and prevent submission
-    Array.from(forms).forEach(function (form) {
-      form.addEventListener(
-        "submit",
-        function (event) {
-          if (!form.checkValidity()) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-
-          form.classList.add("was-validated");
-        },
-        false
-      );
-    });
-  })();
-</script>
