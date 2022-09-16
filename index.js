@@ -1,30 +1,10 @@
-function isPowerOfTwoBitWise(n) {
-  if (n < 1) {
-    return false;
+function recursiveFibonacci(n) {
+  if (n < 2) {
+    return n;
   }
-  return (n & (n - 1)) === 0;
+  return recursiveFibonacci(n - 1) + recursiveFibonacci(n - 2);
 }
 
-// function isPowerOfTwo(n) {
-//   if (n < 1) {
-//     return false;
-//   }
-//   while (n > 1) {
-//     if (n % 2 !== 0) {
-//       return false;
-//     }
-//     n /= 2;
-//   }
-//   return true;
-// }
-
-// function numberPowerOfTwo(n) {
-//   if (n === 0) {
-//     return 1;
-//   }
-//   return numberPowerOfTwo(n - 1) * 2;
-// }
-// console.log(numberPowerOfTwo(3));
-console.log(isPowerOfTwoBitWise(1));
-console.log(isPowerOfTwoBitWise(2));
-console.log(isPowerOfTwoBitWise(5));
+console.log(recursiveFibonacci(0));
+console.log(recursiveFibonacci(1));
+console.log(recursiveFibonacci(6));
