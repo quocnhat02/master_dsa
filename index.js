@@ -1,9 +1,10 @@
-function fibonacci(n) {
-  const fib = [0, 1];
-  for (let i = 2; i < n; i++) {
-    fib[i] = fib[i - 2] + fib[i - 1];
+function factorial(n) {
+  if (n <= 1) {
+    return 1;
   }
-  return fib;
+  return factorial(n - 1) * n;
 }
 
-console.log(fibonacci(5));
+console.log(factorial(0));
+console.log(factorial(1));
+console.log(factorial(5));
