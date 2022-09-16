@@ -1,14 +1,32 @@
-function binarySearch(arr, n, t, l = 0, r = n - 1) {
-  let m = Number.parseInt((l + r) / 2);
-  if (arr[m] === t) {
-    return m;
-  } else if (arr[m] > t) {
-    return binarySearch(arr, n, t, 0, m - 1);
-  } else if (arr[m] < t) {
-    return binarySearch(arr, n, t, m + 1, n);
-  } else {
-    return -1;
+// function binarySearch(arr, n, t, l = 0, r = n - 1) {
+//   let m = Number.parseInt((l + r) / 2);
+//   if (arr[m] === t) {
+//     return m;
+//   } else if (arr[m] > t) {
+//     return binarySearch(arr, n, t, 0, m - 1);
+//   } else if (arr[m] < t) {
+//     return binarySearch(arr, n, t, m + 1, n);
+//   } else {
+//     return -1;
+//   }
+// }
+
+function binarySearch(arr, target) {
+  let leftIndex = 0;
+  let rightIndex = arr.length - 1;
+
+  while (leftIndex <= rightIndex) {
+    let middleIndex = Math.floor((leftIndex + rightIndex) / 2);
+    if (target === arr[middleIndex]) {
+      return middleIndex;
+    } else if (target < arr[middleIndex]) {
+      rightIndex = middleIndex - 1;
+    } else {
+      leftIndex = middleIndex + 1;
+    }
   }
+
+  return -1;
 }
 
 function swap(a, b) {
@@ -28,6 +46,6 @@ function sortArray(arr) {
 }
 
 let arr = [-5, 2, 4, 6, 10];
-console.log(binarySearch(arr, arr.length, 10, 0, arr.length - 1));
-console.log(binarySearch(arr, arr.length, 6, 0, arr.length - 1));
-console.log(binarySearch(arr, arr.length, 20, 0, arr.length - 1));
+console.log(binarySearch(arr, 10));
+console.log(binarySearch(arr, 6));
+console.log(binarySearch(arr, 20));
