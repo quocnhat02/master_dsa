@@ -1,18 +1,18 @@
-function insertionSort(arr) {
-  for (let i = 1; i < arr.length; i++) {
-    let numberToInsert = arr[i];
-    let j = i - 1;
-    while (j >= 0 && arr[j] > numberToInsert) {
-      arr[j + 1] = arr[j];
-      j--;
+function linearSearch(arr, x) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === x) {
+      return i;
     }
-    arr[j + 1] = numberToInsert;
   }
+  return -1;
 }
 
-const array = [20, 16, -8, 2, 7, 4];
-// 20, 16, -8, 2, 7, 4 NTS=16, SE=20
-// 16, 20, -8, 2, 7, 4 NTS=20 SE=
+const linearSearchRecursive = (arr, n, x) =>
+  n === 0 ? -1 : arr[n] === x ? n : linearSearchRecursive(arr, n - 1, x);
 
-insertionSort(array);
-console.log(array);
+const arr = [10, 20, 80, 30, 60, 50, 110, 100, 130, 170];
+// console.log(linearSearch(arr, 175));
+console.log(linearSearchRecursive(arr, arr.length - 1, 80));
+
+// Time complexity: O(N)
+// Auxiliary Space: O(1)
