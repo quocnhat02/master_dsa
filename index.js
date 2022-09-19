@@ -1,42 +1,29 @@
-function containsCommonItem1(arr1, arr2) {
-  for (let i = 0; i < arr1.length; i++) {
-    for (let j = 0; j < arr2.length; j++) {
-      if (arr1[i] === arr2[j]) {
-        return true;
-      }
-    }
-  }
-  return false;
-}
+function jumpSearch(arr, x, n) {
+  let step = Math.sqrt(n);
 
-// O(n^2)
-
-function containsCommonItem2(arr1, arr2) {
-  const object = {};
-  for (let i = 0; i < arr1.length; i++) {
-    if (!object[arr1[i]]) {
-      const item = arr1[i];
-      object[item] = true;
+  let prev = 0;
+  while (arr[Math.min(step, n) - 1] < x) {
+    prev = step;
+    step += Math.sqrt(n);
+    if (prev >= n) {
+      return -1;
     }
   }
 
-  for (let j = 0; j < arr2.length; j++) {
-    if (object[arr2[j]]) {
-      return true;
+  while (arr[prev] < x) {
+    prev++;
+    if (prev === Math.min(step, n)) {
+      return -1;
     }
   }
+
+  if (arr[prev] === x) {
+    return prev;
+  }
+
   return -1;
 }
 
-// O(a + b)
+let arr = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610];
 
-function containsCommonItem3(arr1, arr2) {
-  return arr1.some((item) => arr2.includes(item));
-}
-
-const arr1 = ['1', 'b', 'c', 'd'];
-const arr2 = [1, 'cd', 'r', 'x'];
-
-console.log(containsCommonItem1(arr1, arr2));
-console.log(containsCommonItem2(arr1, arr2));
-console.log(containsCommonItem3(arr1, arr2));
+console.log(jumpSearch(arr, 500, arr.length));
