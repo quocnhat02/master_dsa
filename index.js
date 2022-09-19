@@ -1,23 +1,25 @@
-const strings = ['a', 'b', 'c', 'd'];
+function interpolationSearch(arr, l, r, x) {
+  let pos;
+  if (l <= r && x >= arr[l] && x <= arr[r]) {
+    pos = l + Math.floor(((r - l) / (arr[r] - arr[l])) * (x - arr[l]));
 
-// function addFirstArray(arr, newItem) {
-//   for (let i = arr.length; i > 0; i--) {
-//     arr[i] = arr[i - 1];
-//   }
-//   arr[0] = newItem;
-//   return arr;
-// }
+    if (arr[pos] === x) {
+      return pos;
+    }
 
-// push
-// strings.push('e'); // O(1)
+    if (arr[pos] < x) {
+      return interpolationSearch(arr, pos + 1, r, x);
+    }
 
-// pop
-// strings.pop(); // O(1)
+    if (arr[pos] > x) {
+      return interpolationSearch(arr, l, pos - 1, x);
+    }
+  }
+  return -1;
+}
 
-// unshift
-// strings.unshift('z'); // O(n)
+let arr = [10, 12, 13, 16, 18, 19, 20, 21, 22, 23, 24, 33, 35, 42, 47];
 
-// splice
-// strings.splice(2, 0, 'alien'); // O(n)
+let n = arr.length;
 
-console.log(strings);
+console.log(interpolationSearch(arr, 0, n - 1, 12));
