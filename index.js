@@ -29,6 +29,10 @@ function ternarySearch2(
   mid2 = r - Math.floor((r - l) / 3)
 ) {
   const start = performance.now();
+  if (target > arr[l] || target < arr[r]) {
+    console.log(performance.now() - start);
+    return -1;
+  }
   while (r >= l) {
     mid1 = l + Math.floor((r - l) / 3);
     mid2 = r - Math.floor((r - l) / 3);
@@ -55,8 +59,11 @@ function ternarySearch2(
 }
 
 const mang = [];
-for (let index = 1; index <= 10; index++) {
+for (let index = 1; index <= 1000; index++) {
+  if (index === 570) {
+    continue;
+  }
   mang.push(index);
 }
 
-console.log(ternarySearch2(mang, 4509));
+console.log(ternarySearch2(mang, 570));
