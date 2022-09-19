@@ -23,4 +23,32 @@ function binarySearch(
   return -1;
 }
 
-console.log(binarySearch([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 10));
+function binarySearch2(
+  arr,
+  target,
+  left = 0,
+  right = arr.length - 1,
+  mid = Math.floor((left + right) / 2)
+) {
+  const start = performance.now();
+  while (right - left > 0) {
+    mid = Math.floor((left + right) / 2);
+    if (arr[mid] < target) {
+      left = mid + 1;
+    } else {
+      right = mid;
+    }
+  }
+  if (arr[left] === target) {
+    console.log(performance.now() - start);
+    return left;
+  } else if (arr[right] === target) {
+    console.log(performance.now() - start);
+    return right;
+  } else {
+    console.log(performance.now() - start);
+    return -1;
+  }
+}
+
+console.log(binarySearch2([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 10));
