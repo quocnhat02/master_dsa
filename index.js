@@ -18,6 +18,6 @@ const strings = ['a', 'b', 'c', 'd'];
 // strings.unshift('z'); // O(n)
 
 // splice
-strings.splice(2, 0, 'alien');
+// strings.splice(2, 0, 'alien'); // O(n)
 
 console.log(strings);
