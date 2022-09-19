@@ -1,17 +1,8 @@
-function boooo(n) {
-  for (let i = 0; i < n.length; i++) {
-    console.log('boooooooo!');
-  }
-}
-
-// boooo([1, 2, 3, 4, 5]); // O(1)
-
-function arrayOfHiNTimes(n) {
-  let hiArray = [];
-  for (let i = 0; i < n; i++) {
-    hiArray[i] = 'hi';
-  }
-  return hiArray;
-}
-
-console.log(arrayOfHiNTimes(6)); // O(n)
+// Find 1st, Find Nth...
+const array = [
+  { tweet: 'hi', date: 2012 },
+  { tweet: 'my', date: 2014 },
+  { tweet: 'teddy', date: 2018 },
+];
+array[0]; // O(1)
+array[array.length - 1]; // O(1)
