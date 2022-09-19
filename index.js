@@ -1,66 +1,25 @@
-function binarySearch(arr, target, left = 0, right = arr.length - 1) {
-  let mid = Math.floor((left + right) / 2);
-  if (arr[mid] === target) {
-    return mid;
-  } else if (arr[mid] > target) {
-    return binarySearch(arr, target, 0, mid - 1);
-  } else if (arr[mid] < target) {
-    return binarySearch(arr, target, mid + 1, arr.length - 1);
-  } else {
-    return -1;
-  }
-}
+function ternarySearch(arr, target, l, r) {
+  if (r >= l) {
+    let mid1 = l + Math.floor((r - l) / 3);
+    let mid2 = r - Math.floor((r - l) / 3);
+    if (arr[mid1] === target) {
+      return mid1;
+    }
+    if (arr[mid2] === target) {
+      return mid2;
+    }
 
-function binarySearch2(
-  arr,
-  target,
-  left = 0,
-  right = arr.length - 1,
-  mid = Math.floor((left + right) / 2)
-) {
-  const start = performance.now();
-  while (right - left > 0) {
-    mid = Math.floor((left + right) / 2);
-    if (arr[mid] < target) {
-      left = mid + 1;
+    if (target < arr[mid1]) {
+      return ternarySearch(arr, target, l, mid1 - 1);
+    } else if (target > arr[mid2]) {
+      return ternarySearch(arr, target, mid2 + 1, r);
     } else {
-      right = mid;
+      return ternarySearch(arr, target, mid1 + 1, mid2 - 1);
     }
   }
-  if (arr[left] === target) {
-    console.log(performance.now() - start);
-    return left;
-  } else if (arr[right] === target) {
-    console.log(performance.now() - start);
-    return right;
-  } else {
-    console.log(performance.now() - start);
-    return -1;
-  }
+  return -1;
 }
 
-function binarySearch3(
-  arr,
-  target,
-  left = 0,
-  right = arr.length - 1,
-  mid = Math.floor((left + right) / 2)
-) {
-  const start = performance.now();
-  while (right >= left) {
-    mid = Math.floor((left + right) / 2);
+const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-    if (arr[mid] === target) {
-      console.log(performance.now() - start);
-      return mid;
-    }
-
-    if (arr[mid] > target) {
-      right = mid - 1;
-    } else {
-      left = mid + 1;
-    }
-  }
-}
-
-console.log(binarySearch3([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 10));
+console.log(ternarySearch(array, 8, 0, array.length - 1));
