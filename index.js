@@ -4,5 +4,4 @@ const array = [
   { tweet: 'my', date: 2014 },
   { tweet: 'teddy', date: 2018 },
 ];
-array[0]; // O(1)
-array[array.length - 1]; // O(1)
+// O(n^2)
