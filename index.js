@@ -1,3 +1,6 @@
 const strings = ['a', 'b', 'c', 'd'];
 
-console.log(strings[2]);
+// push
+strings.push('e'); // O(1)
+
+console.log(strings);
