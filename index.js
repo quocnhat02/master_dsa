@@ -1,5 +1,7 @@
 const strings = ['a', 'b', 'c', 'd'];
 
+// strings[2] // O(1)
+
 // push
 // strings.push('e'); // O(1)
 
@@ -7,6 +9,9 @@ const strings = ['a', 'b', 'c', 'd'];
 // strings.pop(); // O(1)
 
 // unshift
+// strings.unshift('x'); // O(n)
+
+// shift
 // strings.unshift('x'); // O(n)
 
 // splice
