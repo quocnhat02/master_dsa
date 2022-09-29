@@ -1,0 +1,114 @@
+public class studentContext:DbContext {
+    public studentContext() : base("name=con") { }
+
+    public DbSet<Student> Emplist { get; set }
+}
+
+public class Student 
+{
+    public int studentID { get; set }
+    public string name { get; set }
+    public string email { get; set }
+    public string image { get; set }
+}
+
+using (OpenFileDialog ofd = new OpenFileDialog() { Filter = "Images|*.*})
+{
+    if (ofd.ShowDialog() == DialogResult.OK) 
+    {
+        picHinhAnh.Image = Image.FromFile(ofd.FileName);
+        Student obj = studentsBindingSource.Current as Student;
+        if (obj != null)
+        {
+            obj.image = ofd.FileName;
+        }
+    }
+}
+
+{
+    picHinhAnh.Image = null;
+    panel1.Enabled = true;
+    studentsBindingSource.Add(new Student());
+    studentsBindingSource.MoveLast();
+    txtName.Focus();
+}
+
+{
+    using (studentContext db = new studentContext())
+    {
+        studentsBindingSource.DataSource = db.Emplist.ToList();
+    }
+    panel1.Enabled = false;
+    Student obj = studentsBindingSource.Current as Student;
+    if (obj != null) {
+        picHinhAnh.Image = Image.FromFile(obj.image);
+    }
+}
+
+// btnSave
+using (studentContext db = new studentContext())
+{
+    Student obj = studentsBindingSource.Current as Student;
+    if (obj != null)
+    {
+        if (db.Entry<Student>(obj).State == System.Data.Entity.EntityState.Detached)
+        {
+            db.Set<Student>().Attach(obj);
+        }
+        if (obj.studentID == 0) 
+        {
+            db.Entry<Student>(obj).State = System.Data.Entity,EntityState.Added;
+        }
+        else {
+            db.Entry<Student>(obj).State = System.Data.Entity.EntityState.Modified;
+        }
+        db.SaveChanges();
+        MessageBox.Show(this, "Lưu thành công");
+        dgvThongTinSinhVien.Refresh();
+        panel1.Enabled = false;
+    }
+}
+
+// update
+{
+    panel1.Enabled = true;
+    txtName.Focus();
+    Student obj = studentsBindingSource.Current as Student;
+}
+
+// delete
+if (MessageBox.Show("Bạn muốn xóa dòng này", "Thông báo", MessageBoxButton.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+{
+    using (studentContext db = new studentContext())
+    {
+        Student obj = studentsBindingSource.Current as Student;
+        if (obj != null)
+        {
+            if (db.Entry<Student>(obj).State == System.Data.Entity.EntityState.Detached)
+            {
+                db.Set<Student>().Attach(obj);
+            }
+            db.Entry<Student>(obj).State = System.Data.Entity.EntityState.Deleted;
+            db.SaveChanges();
+            MessageBox.Show(this, "Xóa thành công");
+            studentsBindingSource.RemoveCurrent();
+            picHinhAnh.Image = null;
+        }
+    }
+}
+
+// cancel
+{
+    panel1.Enabled = false;
+    studentsBindingSource.ResetBindings(false);
+    Form1_Load(sender, e);
+}
+
+// click
+{
+    Student obj = studentsBindingSource.Current as Student;
+    if (obj != null)
+    {
+        picHinhAnh.Image = Image.FromFile(obj.image);
+    }
+}
