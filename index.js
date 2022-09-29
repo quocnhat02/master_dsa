@@ -6,3 +6,5 @@ let user = {
     console.log('ahhhhhhhhhhhhh!');
   },
 };
+
+console.log(user.age); // O(1)
