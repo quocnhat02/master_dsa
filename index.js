@@ -1,10 +1,16 @@
-let user = {
-  age: 54,
-  name: 'Kylie',
-  magic: true,
-  scream: function () {
-    console.log('ahhhhhhhhhhhhh!');
-  },
-};
+class HashTable {
+  constructor(size) {
+    this.data = new Array(size);
+  }
 
-console.log(user.age); // O(1)
+  _hash(key) {
+    let hash = 0;
+    for (let i = 0; i < key.length; i++) {
+      hash = (hash + key.charCodeAt(i) * i) % this.data.length;
+    }
+    return hash;
+  }
+}
+
+const myHashTable = new HashTable(50);
+console.log(myHashTable._hash());
