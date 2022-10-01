@@ -1,7 +1,11 @@
 const subtractDays = (date, days) => {
-  date.setDate(date.getDate() - days);
-  return date;
+  const dateCopy = new Date(date);
+  dateCopy.setDate(dateCopy.getDate() - days);
+  return dateCopy;
 };
 
-let newDate = new Date();
-console.log(subtractDays(newDate, 10).getDate());
+const date = new Date();
+
+const newDate = subtractDays(date, 10);
+
+console.log(newDate);
