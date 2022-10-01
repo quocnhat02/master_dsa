@@ -1,16 +1,7 @@
-class HashTable {
-  constructor(size) {
-    this.data = new Array(size);
-  }
+const subtractDays = (date, days) => {
+  date.setDate(date.getDate() - days);
+  return date;
+};
 
-  _hash(key) {
-    let hash = 0;
-    for (let i = 0; i < key.length; i++) {
-      hash = (hash + key.charCodeAt(i) * i) % this.data.length;
-    }
-    return hash;
-  }
-}
-
-const myHashTable = new HashTable(50);
-console.log(myHashTable._hash());
+let newDate = new Date();
+console.log(subtractDays(newDate, 10).getDate());
