@@ -1,30 +1,12 @@
-import React, { useState } from 'react';
+const url = 'https://example.com/posts?page=5&sort=desc#hash';
 
-const index = () => {
-  const [message, setMessage] = useState('');
-  const [updated, setUpdated] = useState('');
+const urlObj = new URL(url);
 
-  const handleChange = (e) => setMessage(e.target.value);
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      setUpdated(message);
-    }
-  };
+// urlObj.search = '';
 
-  return (
-    <div>
-      <input
-        type="text"
-        id="message"
-        name="message"
-        value={message}
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-      />
-      <h2>Message: {message}</h2>
-      <h2>Updated: {updated}</h2>
-    </div>
-  );
-};
+// const result = urlObj.toString();
 
-export default index;
+console.log(urlObj.host);
+console.log(urlObj.protocol);
+console.log(urlObj.origin);
+console.log(urlObj.pathname);
