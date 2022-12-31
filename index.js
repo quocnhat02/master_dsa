@@ -61,12 +61,33 @@ class Stack {
   }
 }
 
-let myStack = new Stack();
-myStack.push(2);
-myStack.push(3);
-myStack.push(9);
-myStack.push(1);
+class Queue {
+  constructor() {
+    this.queue = [];
+  }
 
-myStack.pop();
+  enqueue(data) {
+    this.queue.push(data);
+  }
 
-console.log(myStack.printStack());
+  dequeue() {
+    return this.queue.shift();
+  }
+
+  printQueue() {
+    var str = '';
+    for (var i = 0; i < this.queue.length; i++) str += this.queue[i] + ' ';
+    return str;
+  }
+}
+
+let myQueue = new Queue();
+
+myQueue.enqueue(2);
+myQueue.enqueue(3);
+myQueue.enqueue(9);
+myQueue.enqueue(1);
+
+myQueue.dequeue();
+
+console.log(myQueue.printQueue());
