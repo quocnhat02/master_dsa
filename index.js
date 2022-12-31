@@ -10,6 +10,7 @@ function isUnique(str) {
   return true;
 }
 
+// T:O(n) S:O(n)
 function flatten(nestedArray) {
   const newArray = [];
 
@@ -30,4 +31,10 @@ function flatten(nestedArray) {
   return newArray;
 }
 
-console.log(flatten([[[[1], 2], 3], [4], [], [[5]]]));
+// T:O(n) S:O(n)
+function removeDupes(str) {
+  let uniqueCharacters = new Set(str);
+  return Array.from(uniqueCharacters).join('');
+}
+
+console.log(removeDupes('abababcdcdcd'));
