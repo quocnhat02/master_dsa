@@ -38,7 +38,7 @@ function removeDupes(str) {
 }
 
 // Stack
-// T:Get, search: O(n), Insert,delete: O(n) S:O(1)
+// T:Get, search: O(n), Insert,delete: O(1) S:O(n)
 class Stack {
   constructor() {
     this.stack = [];
@@ -61,6 +61,8 @@ class Stack {
   }
 }
 
+// Queue
+// T:Get, search, delete: O(n), Insert: O(1) S:O(n)
 class Queue {
   constructor() {
     this.queue = [];
@@ -81,13 +83,69 @@ class Queue {
   }
 }
 
-let myQueue = new Queue();
+function Node(data) {
+  this.data = data;
+  this.next = null;
+}
 
-myQueue.enqueue(2);
-myQueue.enqueue(3);
-myQueue.enqueue(9);
-myQueue.enqueue(1);
+class SinglyLinkedList {
+  constructor() {
+    this.head = null;
+    this.tail = null;
+  }
 
-myQueue.dequeue();
+  addNode(data) {
+    const node = new Node(data);
+    if (!this.head) {
+      this.tail = node;
+      this.head = node;
+    } else {
+      this.tail.next = node;
+      this.tail = node;
+    }
+  }
 
-console.log(myQueue.printQueue());
+  insertAfter(data, toNodeData) {
+    let current = this.head;
+    while (current) {
+      if (current.data === toNodeData) {
+        const node = new Node(data);
+        if (current === this.tail) {
+          this.tail.next = node;
+          this.tail = node;
+        } else {
+          node.next = current.next;
+          current.next = node;
+          break;
+        }
+      }
+      current = current.next;
+    }
+  }
+
+  removeNode(data) {
+    let previous = this.head;
+    let current = this.head;
+    while (current) {
+      if (current.data === data) {
+        if (current === this.head) {
+          this.head = this.head.next;
+        }
+        if (current === this.tail) {
+          this.tail = previous;
+        }
+        previous.next = current.next;
+      } else {
+        previous = current;
+      }
+      current = current.next;
+    }
+  }
+}
+
+const list = new SinglyLinkedList();
+list.addNode(23);
+list.addNode(24);
+list.insertAfter(23.5, 23);
+
+console.log(list);
