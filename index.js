@@ -37,4 +37,36 @@ function removeDupes(str) {
   return Array.from(uniqueCharacters).join('');
 }
 
-console.log(removeDupes('abababcdcdcd'));
+// Stack
+// T:Get, search: O(n), Insert,delete: O(n) S:O(1)
+class Stack {
+  constructor() {
+    this.stack = [];
+  }
+
+  push(data) {
+    this.stack.push(data);
+  }
+
+  pop() {
+    return this.stack.pop();
+  }
+
+  printStack() {
+    var str = '';
+    for (var i = 0; i < this.stack.length; i++) {
+      str += this.stack[i] + '\n';
+    }
+    return str;
+  }
+}
+
+let myStack = new Stack();
+myStack.push(2);
+myStack.push(3);
+myStack.push(9);
+myStack.push(1);
+
+myStack.pop();
+
+console.log(myStack.printStack());
