@@ -1,21 +1,31 @@
-function maxSumOfKArray(arr, k) {
-  let sum = 0,
-    max = 0,
-    count = 0;
-
-  for (let i = 0; i < arr.length - k + 1; i++) {
-    sum = 0;
-    count = 0;
-    while (count < k) {
-      sum += arr[i + count];
-      count++;
-    }
-    if (max < sum) {
-      max = sum;
+function minSumGreaterEqualS(s, arr) {
+  let sum = 0;
+  let min = Infinity;
+  let start = 0;
+  for (let end = 0; end < arr.length; end++) {
+    sum += arr[end];
+    if (sum >= s) {
+      min = Math.min(min, sum);
+      sum -= arr[start];
+      start++;
     }
   }
-  return max;
+
+  return min;
 }
 
-console.log(maxSumOfKArray([2, 3, 4, 1, 5], 2));
-console.log(maxSumOfKArray([2, 1, 5, 1, 3, 2], 3));
+console.log(
+  `Smallest subarray length: ${minSumGreaterEqualS(7, [2, 1, 5, 2, 3, 2])}`
+);
+console.log(
+  `Smallest subarray length: ${minSumGreaterEqualS(7, [2, 1, 5, 2, 8])}`
+);
+console.log(
+  `Smallest subarray length: ${minSumGreaterEqualS(8, [3, 4, 1, 1, 6])}`
+);
+console.log(
+  `Smallest subarray length: ${minSumGreaterEqualS(7, [2, 1, 5, 2, 3, 2])}`
+);
+console.log(
+  `Smallest subarray length: ${minSumGreaterEqualS(7, [2, 1, 5, 2, 8])}`
+);
