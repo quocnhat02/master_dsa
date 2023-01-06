@@ -1,16 +1,21 @@
-function maxSum(k, arr) {
-  let maxSum = 0,
-    windowSum = 0;
+function maxSumOfKArray(arr, k) {
+  let sum = 0,
+    max = 0,
+    count = 0;
 
-  for (i = 0; i < arr.length - k + 1; i++) {
-    windowSum = 0;
-    for (j = i; j < i + k; j++) {
-      windowSum += arr[j];
+  for (let i = 0; i < arr.length - k + 1; i++) {
+    sum = 0;
+    count = 0;
+    while (count < k) {
+      sum += arr[i + count];
+      count++;
     }
-    maxSum = Math.max(maxSum, windowSum);
+    if (max < sum) {
+      max = sum;
+    }
   }
-  return maxSum;
+  return max;
 }
 
-console.log(`Maximum sum of a subarray of size K: ${maxSum(3, [2, 1, 5, 1, 3, 2])}`);
-console.log(`Maximum sum of a subarray of size K: ${maxSum(2, [2, 3, 4, 1, 5])}`);
+console.log(maxSumOfKArray([2, 3, 4, 1, 5], 2));
+console.log(maxSumOfKArray([2, 1, 5, 1, 3, 2], 3));
