@@ -14,6 +14,6 @@ const palindrome3 = (str) =>
   str.split('').every((char, i) => char === str[str.length - 1 - i]);
 
 console.log(palindrome('avcs'));
-console.log(palindrome('abba'));
+console.log(palindrome('abxvba'));
 console.log(palindrome2('abba'));
 console.log(palindrome3('ababa'));
