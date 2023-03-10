@@ -8,5 +8,8 @@ const palindrome = (str) => {
   return true;
 };
 
+const palindrome2 = (str) => str.split('').reverse().join('') === str;
+
 console.log(palindrome('avcs'));
 console.log(palindrome('abba'));
+console.log(palindrome2('avcs'));
