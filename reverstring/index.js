@@ -7,6 +7,10 @@ const reverse2 = (str) => {
   }
   return reverse;
 };
-
+const reverse3 = (str) =>
+  str
+    .split('')
+    .reduce((rev, char, i, arr) => rev + arr[arr.length - 1 - i], '');
 console.log(reverse1('abc'));
 console.log(reverse2('abc'));
+console.log(reverse3('abc'));
