@@ -1,22 +1,35 @@
-function smallest_subarray_with_given_sum(arr, s) {
-  let minLength = Infinity;
-  let windowSum = 0;
-  let windowStart = 0;
+function longest_subarray_with_k_distinct(str, k) {
+  let maxLength = 0,
+    windowStart = 0,
+    leftChar = 0,
+    rightChar = 0,
+    charFrequency = {};
 
-  for (let windowEnd = 0; windowEnd < arr.length; windowEnd++) {
-    windowSum += arr[windowEnd];
+  for (let windowEnd = 0; windowEnd < str.length; windowEnd++) {
+    rightChar = str[windowEnd];
 
-    while (windowSum >= s) {
-      minLength = Math.min(minLength, windowEnd - windowStart + 1);
-      windowSum -= arr[windowStart];
+    if (!(rightChar in charFrequency)) {
+      charFrequency[rightChar] = 0;
+    }
+
+    charFrequency[rightChar]++;
+
+    while (Object.keys(charFrequency).length > k) {
+      leftChar = str[windowStart];
+      charFrequency[leftChar]--;
+      if (charFrequency[leftChar] === 0) {
+        delete charFrequency[leftChar];
+      }
       windowStart++;
     }
+
+    maxLength = Math.max(maxLength, windowEnd - windowStart + 1);
   }
 
-  return minLength === Infinity ? 0 : minLength;
+  return maxLength;
 }
 
-let arr = [2, 1, 5, 2, 3, 2];
-let s = 7;
+let str = 'araaci';
+let k = 2;
 
-console.log(smallest_subarray_with_given_sum(arr, s));
+console.log(longest_subarray_with_k_distinct(str, k));
