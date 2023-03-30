@@ -1,22 +1,22 @@
-function max_sub_array_of_size_k(arr, k) {
-  let maxSum = 0;
+function smallest_subarray_with_given_sum(arr, s) {
+  let minLength = Infinity;
   let windowSum = 0;
   let windowStart = 0;
 
   for (let windowEnd = 0; windowEnd < arr.length; windowEnd++) {
     windowSum += arr[windowEnd];
 
-    if (windowEnd >= k - 1) {
-      maxSum = Math.max(maxSum, windowSum);
+    while (windowSum >= s) {
+      minLength = Math.min(minLength, windowEnd - windowStart + 1);
       windowSum -= arr[windowStart];
       windowStart++;
     }
   }
 
-  return maxSum;
+  return minLength === Infinity ? 0 : minLength;
 }
 
-let arr = [2, 3, 4, 1, 5];
-let k = 2;
+let arr = [2, 1, 5, 2, 3, 2];
+let s = 7;
 
-console.log(max_sub_array_of_size_k(arr, k));
+console.log(smallest_subarray_with_given_sum(arr, s));
