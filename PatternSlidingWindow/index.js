@@ -1,5 +1,5 @@
-function findAverages(arr, k) {
-  let result = [];
+function max_sub_array_of_size_k(arr, k) {
+  let maxSum = 0;
   let windowSum = 0;
   let windowStart = 0;
 
@@ -7,16 +7,16 @@ function findAverages(arr, k) {
     windowSum += arr[windowEnd];
 
     if (windowEnd >= k - 1) {
-      result[windowStart] = windowSum / k;
+      maxSum = Math.max(maxSum, windowSum);
       windowSum -= arr[windowStart];
       windowStart++;
     }
   }
 
-  return result;
+  return maxSum;
 }
 
-let arr = [1, 3, 2, 6, -1, 4, 1, 8, 2];
-let k = 5;
+let arr = [2, 3, 4, 1, 5];
+let k = 2;
 
-console.log(findAverages(arr, k));
+console.log(max_sub_array_of_size_k(arr, k));
