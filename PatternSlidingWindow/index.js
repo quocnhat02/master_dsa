@@ -1,25 +1,26 @@
-function longest_subarray_with_k_distinct(str, k) {
+function fruits_into_baskets(arr) {
   let maxLength = 0,
     windowStart = 0,
     leftChar = 0,
     rightChar = 0,
-    charFrequency = {};
+    fruitFrequency = {};
 
-  for (let windowEnd = 0; windowEnd < str.length; windowEnd++) {
-    rightChar = str[windowEnd];
+  for (let windowEnd = 0; windowEnd < arr.length; windowEnd++) {
+    rightChar = arr[windowEnd];
 
-    if (!(rightChar in charFrequency)) {
-      charFrequency[rightChar] = 0;
+    if (!(rightChar in fruitFrequency)) {
+      fruitFrequency[rightChar] = 0;
     }
 
-    charFrequency[rightChar]++;
+    fruitFrequency[rightChar]++;
 
-    while (Object.keys(charFrequency).length > k) {
-      leftChar = str[windowStart];
-      charFrequency[leftChar]--;
-      if (charFrequency[leftChar] === 0) {
-        delete charFrequency[leftChar];
+    while (Object.keys(fruitFrequency).length > 2) {
+      leftChar = arr[windowStart];
+      fruitFrequency[leftChar]--;
+      if (fruitFrequency[leftChar] === 0) {
+        delete fruitFrequency[leftChar];
       }
+
       windowStart++;
     }
 
@@ -29,7 +30,6 @@ function longest_subarray_with_k_distinct(str, k) {
   return maxLength;
 }
 
-let str = 'araaci';
-let k = 2;
+let arr = ['A', 'B', 'C', 'A', 'C'];
 
-console.log(longest_subarray_with_k_distinct(str, k));
+console.log(fruits_into_baskets(arr));
