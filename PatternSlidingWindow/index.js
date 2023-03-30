@@ -1,28 +1,16 @@
-function fruits_into_baskets(arr) {
+function non_repeat_substring(str) {
   let maxLength = 0,
     windowStart = 0,
-    leftChar = 0,
-    rightChar = 0,
-    fruitFrequency = {};
+    charIndexMap = {};
 
-  for (let windowEnd = 0; windowEnd < arr.length; windowEnd++) {
-    rightChar = arr[windowEnd];
+  for (let windowEnd = 0; windowEnd < str.length; windowEnd++) {
+    rightChar = str[windowEnd];
 
-    if (!(rightChar in fruitFrequency)) {
-      fruitFrequency[rightChar] = 0;
+    if (rightChar in charIndexMap) {
+      windowStart = Math.max(windowStart, charIndexMap[rightChar] + 1);
     }
 
-    fruitFrequency[rightChar]++;
-
-    while (Object.keys(fruitFrequency).length > 2) {
-      leftChar = arr[windowStart];
-      fruitFrequency[leftChar]--;
-      if (fruitFrequency[leftChar] === 0) {
-        delete fruitFrequency[leftChar];
-      }
-
-      windowStart++;
-    }
+    charIndexMap[rightChar] = windowEnd;
 
     maxLength = Math.max(maxLength, windowEnd - windowStart + 1);
   }
@@ -30,6 +18,6 @@ function fruits_into_baskets(arr) {
   return maxLength;
 }
 
-let arr = ['A', 'B', 'C', 'A', 'C'];
+let str = 'aabccbb';
 
-console.log(fruits_into_baskets(arr));
+console.log(non_repeat_substring(str));
