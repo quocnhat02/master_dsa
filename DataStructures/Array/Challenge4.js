@@ -1,38 +1,38 @@
 function findProduct1(arr) {
-  let result = [];
+  let result = [],
+    left = 1;
   for (let i = 0; i < arr.length; i++) {
-    let sum = 1;
-    for (let j = 0; j < arr.length; j++) {
-      sum *= arr[j];
+    let cur = 1;
+    for (let j = i + 1; j < arr.length; j++) {
+      cur *= arr[j];
     }
-    result.push(sum / arr[i]);
+    result.push(cur * left);
+    left *= arr[i];
   }
 
   return result;
 }
 
 function findProduct2(arr) {
-  let t = 1,
-    result = [];
-  for (let i = 0; i < arr.length; i++) {
-    t *= arr[i];
+  const len = arr.length;
+  const productExceptAtIndex = new Array(len).fill(1);
+
+  let productSoFar = 1;
+  for (let i = 0; i < len; i++) {
+    productExceptAtIndex[i] = productSoFar;
+    productSoFar *= arr[i];
   }
 
-  for (let j = 0; j < arr.length; j++) {
-    result.push(t / arr[j]);
+  productSoFar = 1;
+  for (let i = len - 1; i >= 0; i--) {
+    productExceptAtIndex[i] *= productSoFar;
+    productSoFar *= arr[i];
   }
 
-  return result;
-}
-
-function findProduct3(arr) {
-  let t = arr.reduce((acc, cur) => acc * cur, 1);
-
-  return arr.map((val) => t / val);
+  return productExceptAtIndex;
 }
 
 let arr = [1, 2, 3, 4];
 
 console.log(findProduct1(arr));
 console.log(findProduct2(arr));
-console.log(findProduct3(arr));
