@@ -16,7 +16,7 @@ function containItem2(arr1, arr2) {
   let obj = {};
 
   arr1.forEach((element) => {
-    obj[element] = true;
+    if (!obj[element]) obj[element] = true;
   });
 
   for (let element of arr2) {
