@@ -1,44 +1,22 @@
-class MyArray {
-  constructor() {
-    this.length = 0;
-    this.data = {};
+function reverse(str) {
+  if (!str || str.length < 2 || typeof str !== 'string') {
+    return 'Error';
+  }
+  let reverseStr = '';
+  let totalItems = str.length - 1;
+  for (let i = totalItems; i >= 0; i--) {
+    reverseStr += str[i];
   }
 
-  get(index) {
-    return this.data[index];
-  }
-
-  push(item) {
-    this.data[this.length] = item;
-    this.length++;
-    return this.length;
-  }
-
-  pop() {
-    const lastItem = this.data[this.length - 1];
-    delete this.data[this.length - 1];
-    this.length--;
-    return lastItem;
-  }
-
-  delete(index) {
-    const item = this.data[index];
-    this.shiftItems(index);
-    return item;
-  }
-
-  shiftItems(index) {
-    for (let i = index; i < this.length - 1; i++) {
-      this.data[i] = this.data[i + 1];
-    }
-    delete this.data[this.length - 1];
-    this.length--;
-  }
+  return reverseStr;
 }
 
-const newArray = new MyArray();
-newArray.push('hello');
-newArray.push('hi');
-newArray.push('yeah');
-newArray.delete(1);
-console.log(newArray);
+function reverse2(str) {
+  return str.split('').reverse().join('');
+}
+
+const reverse3 = (str) => [...str].reverse().join('');
+
+console.log(reverse('Hello'));
+console.log(reverse2('Hello'));
+console.log(reverse3('Hello'));
