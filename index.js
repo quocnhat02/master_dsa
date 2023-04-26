@@ -1,44 +1,44 @@
-function containItem1(arr1, arr2) {
-  for (let i = 0; i < arr1.length; i++) {
-    for (let j = 0; j < arr2.length; j++) {
-      if (arr1[i] === arr2[j]) {
-        return true;
-      }
-    }
+class MyArray {
+  constructor() {
+    this.length = 0;
+    this.data = {};
   }
 
-  return false;
-}
-
-// O(n^2)
-// O(1) Space Complexity
-
-function containItem2(arr1, arr2) {
-  let obj = {};
-
-  arr1.forEach((element) => {
-    if (!obj[element]) obj[element] = true;
-  });
-
-  for (let element of arr2) {
-    if (obj[element]) {
-      return true;
-    }
+  get(index) {
+    return this.data[index];
   }
 
-  return false;
+  push(item) {
+    this.data[this.length] = item;
+    this.length++;
+    return this.length;
+  }
+
+  pop() {
+    const lastItem = this.data[this.length - 1];
+    delete this.data[this.length - 1];
+    this.length--;
+    return lastItem;
+  }
+
+  delete(index) {
+    const item = this.data[index];
+    this.shiftItems(index);
+    return item;
+  }
+
+  shiftItems(index) {
+    for (let i = index; i < this.length - 1; i++) {
+      this.data[i] = this.data[i + 1];
+    }
+    delete this.data[this.length - 1];
+    this.length--;
+  }
 }
 
-// O(n)
-// O(n) Space Complexity
-
-function containItem3(arr1, arr2) {
-  return arr1.some((item) => arr2.includes(item));
-}
-
-let arr1 = [1, 2, 3, 4, 5];
-let arr2 = [6, 7, 4];
-
-console.log(containItem1(arr1, arr2));
-console.log(containItem2(arr1, arr2));
-console.log(containItem3(arr1, arr2));
+const newArray = new MyArray();
+newArray.push('hello');
+newArray.push('hi');
+newArray.push('yeah');
+newArray.delete(1);
+console.log(newArray);
