@@ -1,26 +1,40 @@
-const mergeSortedArrays = (arr1, arr2) =>
-  [...arr1, ...arr2].sort((a, b) => a - b);
-
-function mergeSortedArrays2(arr1, arr2) {
-  if (arr1.length === 0) {
-    return arr2;
-  }
-  if (arr2.length === 0) {
-    return arr1;
+class HashTable {
+  constructor(size) {
+    this.data = new Array(size);
   }
 
-  let mergeArrays = [],
-    i = 0,
-    j = 0;
-
-  while (arr1[i] || arr2[j]) {
-    arr1[i] > arr2[j]
-      ? mergeArrays.push(arr2[j++])
-      : mergeArrays.push(arr1[i++]);
+  _hash(key) {
+    let hash = 0;
+    for (let i = 0; i < key.length; i++) {
+      hash = (hash + key.charCodeAt(i) * i) % this.data.length;
+    }
+    return hash;
   }
 
-  return mergeArrays;
+  set(key, value) {
+    let address = this._hash(key);
+    if (!this.data[address]) {
+      this.data[address] = [];
+    }
+    this.data[address].push([key, value]);
+  }
+
+  get(key) {
+    let address = this._hash(key);
+    const currentBucket = this.data[address];
+    if (currentBucket) {
+      for (let i = 0; i < currentBucket.length; i++) {
+        if (currentBucket[i][0] === key) {
+          return currentBucket[i][1];
+        }
+      }
+    }
+
+    return undefined;
+  }
 }
 
-console.log(mergeSortedArrays([0, 3, 4, 31], [1, 6, 30]));
-console.log(mergeSortedArrays2([0, 3, 4, 31], [1, 6, 30]));
+const myHashTable = new HashTable(2);
+myHashTable.set('grapes', 1000);
+myHashTable.set('apples', 54);
+console.log(myHashTable.get('apples'));
