@@ -2,10 +2,11 @@ class Node {
   constructor(value) {
     this.value = value;
     this.next = null;
+    this.prev = null;
   }
 }
 
-class LinkList {
+class DoublyLinkList {
   constructor(value) {
     this.head = new Node(value);
     this.tail = this.head;
@@ -25,6 +26,7 @@ class LinkList {
 
   append(value) {
     const newNode = new Node(value);
+    newNode.prev = this.tail;
     this.tail.next = newNode;
     this.tail = newNode;
     this.length++;
@@ -34,6 +36,7 @@ class LinkList {
   prepend(value) {
     const newNode = new Node(value);
     newNode.next = this.head;
+    this.head.prev = newNode;
     this.head = newNode;
     this.length++;
     return this;
@@ -58,9 +61,11 @@ class LinkList {
     }
     const newNode = new Node(value);
     const leader = this.traverseToIndex(index - 1);
-    const holdingPointer = leader.next;
+    const follower = leader.next;
     leader.next = newNode;
-    newNode.next = holdingPointer;
+    newNode.prev = leader;
+    newNode.next = follower;
+    follower.prev = newNode;
     this.length++;
     return this.printList();
   }
@@ -72,15 +77,16 @@ class LinkList {
     let leader = this.traverseToIndex(index - 1);
     let unwantedNode = leader.next;
     leader.next = unwantedNode.next;
+    unwantedNode.next.prev = leader;
     this.length--;
     return this.printList();
   }
 }
 
-let myLinkList = new LinkList(1);
+let myLinkList = new DoublyLinkList(1);
 myLinkList.append(2);
 myLinkList.append(3);
 myLinkList.prepend(0);
-// myLinkList.insert(2, 99);
+myLinkList.insert(2, 99);
 myLinkList.remove(3);
 console.log(myLinkList.printList());
