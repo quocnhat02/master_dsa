@@ -1,8 +1,27 @@
-const basket = ['apples', 'grapes', 'pears'];
+// let myLinkedList = {
+//   head: {
+//     value: 10,
+//     next: {
+//       value: 5,
+//       next: {
+//         value: 16,
+//         next: null,
+//       },
+//     },
+//   },
+// };
 
-let obj1 = { a: true };
-let obj2 = obj1;
-obj1.a = 'hello';
-delete obj1;
-obj2 = 'hello2';
-console.log('2', obj2);
+class LinkedList {
+  constructor(value) {
+    this.head = {
+      value,
+      next: null,
+    };
+    this.tail = this.head;
+    this.length = 1;
+  }
+}
+
+let myLinkedList2 = new LinkedList(10);
+
+console.log(myLinkedList2);
