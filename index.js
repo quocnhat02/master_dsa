@@ -2,11 +2,10 @@ class Node {
   constructor(value) {
     this.value = value;
     this.next = null;
-    this.prev = null;
   }
 }
 
-class DoublyLinkList {
+class LinkList {
   constructor(value) {
     this.head = new Node(value);
     this.tail = this.head;
@@ -26,7 +25,6 @@ class DoublyLinkList {
 
   append(value) {
     const newNode = new Node(value);
-    newNode.prev = this.tail;
     this.tail.next = newNode;
     this.tail = newNode;
     this.length++;
@@ -36,7 +34,6 @@ class DoublyLinkList {
   prepend(value) {
     const newNode = new Node(value);
     newNode.next = this.head;
-    this.head.prev = newNode;
     this.head = newNode;
     this.length++;
     return this;
@@ -61,11 +58,9 @@ class DoublyLinkList {
     }
     const newNode = new Node(value);
     const leader = this.traverseToIndex(index - 1);
-    const follower = leader.next;
+    const holdingPointer = leader.next;
     leader.next = newNode;
-    newNode.prev = leader;
-    newNode.next = follower;
-    follower.prev = newNode;
+    newNode.next = holdingPointer;
     this.length++;
     return this.printList();
   }
@@ -77,16 +72,36 @@ class DoublyLinkList {
     let leader = this.traverseToIndex(index - 1);
     let unwantedNode = leader.next;
     leader.next = unwantedNode.next;
-    unwantedNode.next.prev = leader;
     this.length--;
     return this.printList();
   }
+
+  reverse() {
+    if (!this.head.next) {
+      return this.head;
+    }
+
+    let first = this.head;
+    this.tail = first;
+    let second = first.next;
+    while (second) {
+      const temp = second.next;
+      second.next = first;
+      first = second;
+      second = temp;
+    }
+
+    this.head.next = null;
+    this.head = first;
+  }
 }
 
-let myLinkList = new DoublyLinkList(1);
+let myLinkList = new LinkList(1);
 myLinkList.append(2);
 myLinkList.append(3);
+myLinkList.append(4);
 myLinkList.prepend(0);
-myLinkList.insert(2, 99);
-myLinkList.remove(3);
+// myLinkList.insert(2, 99);
+// myLinkList.remove(3);
+myLinkList.reverse();
 console.log(myLinkList.printList());
