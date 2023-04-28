@@ -5,32 +5,49 @@ class Node {
   }
 }
 
-class Stack {
+class Queue {
   constructor() {
-    this.array = [];
+    this.first = null;
+    this.last = null;
+    this.length = 0;
   }
 
   peek() {
-    return this.array[this.array.length - 1];
+    return this.first;
   }
 
-  push(value) {
-    this.array.push(value);
+  enqueue(value) {
+    const newNode = new Node(value);
+    if (this.length === 0) {
+      this.first = newNode;
+      this.last = newNode;
+    } else {
+      this.last.next = newNode;
+      this.last = newNode;
+    }
+    this.length++;
     return this;
   }
 
-  pop() {
-    this.array.pop();
+  dequeue() {
+    if (!this.first) {
+      return null;
+    }
+    if (this.first === this.last) {
+      this.last = null;
+    }
+    this.first = this.first.next;
+    this.length--;
     return this;
   }
 }
 
-const myStack = new Stack();
+const myQueue = new Queue();
 
-myStack.push(1);
-myStack.push(2);
-myStack.push(3);
-myStack.pop();
-myStack.pop();
+myQueue.enqueue(1);
+myQueue.enqueue(2);
+myQueue.enqueue(3);
+myQueue.dequeue();
+myQueue.dequeue();
 
-console.log(myStack);
+console.log(myQueue);
