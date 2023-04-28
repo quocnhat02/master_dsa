@@ -7,37 +7,20 @@ class Node {
 
 class Stack {
   constructor() {
-    this.top = null;
-    this.bottom = null;
-    this.length = 0;
+    this.array = [];
   }
 
   peek() {
-    return this.top;
+    return this.array[this.array.length - 1];
   }
 
   push(value) {
-    const newNode = new Node(value);
-    if (this.length === 0) {
-      this.top = newNode;
-      this.bottom = newNode;
-    } else {
-      newNode.next = this.top;
-      this.top = newNode;
-    }
-    this.length++;
+    this.array.push(value);
     return this;
   }
 
   pop() {
-    if (!this.top) {
-      return null;
-    }
-    if (this.top === this.bottom) {
-      this.bottom = null;
-    }
-    this.top = this.top.next;
-    this.length--;
+    this.array.pop();
     return this;
   }
 }
