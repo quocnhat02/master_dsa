@@ -1,20 +1,23 @@
-// Challenge 5: Find Minimum Value in Array
+//Challenge 6: Find First Unique Integer in an Array
 
-function findMinimum(arr) {
-  let min = arr[0];
+function findFirstUnique(arr) {
+  let map = new Map();
+
   for (let num of arr) {
-    if (num < min) {
-      min = num;
+    if (map.has(num)) {
+      map.set(num, false);
+    } else {
+      map.set(num, true);
     }
   }
-  return min;
+
+  for (let [num, isUnique] of map) {
+    if (isUnique) {
+      return num;
+    }
+  }
+
+  return -1;
 }
 
-function findMinimum2(arr) {
-  return arr.sort((a, b) => a - b)[0];
-}
-
-let arr = [9, 2, 3, 6];
-
-console.log(findMinimum(arr));
-console.log(findMinimum2(arr));
+console.log(findFirstUnique([2, 3, 5, 3, 7, 9, 5, 2]));
