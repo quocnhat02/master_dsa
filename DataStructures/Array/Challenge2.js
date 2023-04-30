@@ -1,30 +1,35 @@
 // Challenge 2: Merge Two Sorted Arrays
 
-function mergeArrays1(arr1, arr2) {
-  let result = [];
+const mergeArrays1 = (arr1, arr2) => [...arr1, ...arr2].sort((a, b) => a - b);
 
+const mergeArrays2 = (arr1, arr2) => {
+  let mergeArray = [];
   let i = 0,
     j = 0;
 
   while (i < arr1.length && j < arr2.length) {
     if (arr1[i] > arr2[j]) {
-      result.push(arr2[j]);
+      mergeArray.push(arr2[j]);
       j++;
     } else {
-      result.push(arr1[i]);
+      mergeArray.push(arr1[i]);
       i++;
     }
   }
 
-  result = result.concat(arr1.slice(i)).concat(arr2.slice(j));
+  if (i <= arr1.length - 1) {
+    arr1.splice(0, i);
+    mergeArray = mergeArray.concat(arr1);
+  } else if (j <= arr2.length - 1) {
+    arr2.splice(0, j);
+    mergeArray = mergeArray.concat(arr2);
+  }
 
-  return result;
-}
+  return mergeArray;
+};
 
-const mergeArrays2 = (arr1, arr2) => [...arr1, ...arr2].sort();
-
-let arr1 = [1, 3, 4, 5];
-let arr2 = [2, 6, 7, 8];
+let arr1 = [1, 3, 5, 7];
+let arr2 = [2, 4, 6, 8];
 
 console.log(mergeArrays1(arr1, arr2));
 console.log(mergeArrays2(arr1, arr2));
