@@ -1,75 +1,56 @@
-function findSum1(arr, value) {
-  for (let i = 0; i < arr.length - 1; i++) {
-    for (let j = i + 1; j < arr.length; j++) {
-      if (arr[i] + arr[j] === value) {
-        return [arr[i], arr[j]];
-      }
+function binarySearch(arr, s) {
+  let l = 0,
+    r = arr.length - 1;
+  while (l <= r) {
+    let m = Math.floor((l + r) / 2);
+
+    if (arr[m] === s) {
+      return m;
+    } else if (arr[m] > s) {
+      r = m - 1;
+    } else {
+      l = m + 1;
     }
   }
 
-  return false;
+  return undefined;
 }
 
-function binarySearch(arr, item) {
-  let l = 0,
-    r = arr.length - 1,
-    found = false,
-    indexArr;
-  while (l <= r && !found) {
-    const mid = Math.floor((l + r) / 2);
-    if (arr[mid] === item) {
-      indexArr = mid;
-      found = true;
-    } else if (arr[mid] > item) {
-      r = mid - 1;
-    } else {
-      l = mid + 1;
+function findSum(arr, value) {
+  arr.sort((a, b) => a - b);
+  let find;
+  for (let i = 0; i < arr.length; i++) {
+    find = binarySearch(arr, value - arr[i]);
+    if (find) {
+      return [arr[i], arr[find]];
     }
   }
 
-  if (found) {
-    return indexArr;
-  } else {
-    return false;
-  }
+  return undefined;
 }
 
 function findSum2(arr, value) {
   arr.sort((a, b) => a - b);
+  let i1 = 0,
+    i2 = arr.length - 1,
+    sum = 0;
 
-  for (let i = 0; i < arr.length; i++) {
-    let indexArr = binarySearch(arr, value - arr[i]);
-    if (indexArr) {
-      return [arr[i], value - arr[i]];
-    }
-  }
-
-  return false;
-}
-
-function findSum3(arr, value) {
-  arr.sort((a, b) => a - b);
-
-  let l = 0,
-    r = arr.length - 1;
-
-  for (; l < r; ) {
-    const sum = arr[l] + arr[r];
+  while (i1 !== i2) {
+    sum = arr[i1] + arr[i2];
     if (sum < value) {
-      l++;
+      i1++;
     } else if (sum > value) {
-      r--;
+      i2--;
     } else {
-      return [arr[l], arr[r]];
+      return [arr[i1], arr[i2]];
     }
   }
 
-  return false;
+  return undefined;
 }
 
 let arr = [1, 21, 3, 14, 5, 60, 7, 6];
-let value = 12;
+let value = 81;
 
-console.log(findSum1(arr, value));
+console.log(findSum(arr, value));
 console.log(findSum2(arr, value));
-console.log(findSum3(arr, value));
