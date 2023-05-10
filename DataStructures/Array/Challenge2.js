@@ -28,8 +28,8 @@ const mergeArrays2 = (arr1, arr2) => {
   return mergeArray;
 };
 
-let arr1 = [1, 3, 5, 7];
-let arr2 = [2, 4, 6, 8];
+let arr1 = [1, 3, 4, 7];
+let arr2 = [2, 5, 6, 8];
 
-console.log(mergeArrays1(arr1, arr2));
+// console.log(mergeArrays1(arr1, arr2));
 console.log(mergeArrays2(arr1, arr2));

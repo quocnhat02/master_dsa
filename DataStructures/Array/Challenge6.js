@@ -4,20 +4,20 @@ function findFirstUnique(arr) {
   let map = new Map();
 
   for (let num of arr) {
-    if (map.has(num)) {
-      map.set(num, false);
+    if (map[num]) {
+      map[num]++;
     } else {
-      map.set(num, true);
+      map[num] = 1;
     }
   }
 
-  for (let [num, isUnique] of map) {
-    if (isUnique) {
+  for (let num of arr) {
+    if (map[num] === 1) {
       return num;
     }
   }
 
-  return -1;
+  return null;
 }
 
-console.log(findFirstUnique([2, 3, 5, 3, 7, 9, 5, 2]));
+console.log(findFirstUnique([2, 3, 5, 3, 3, 7, 9, 5, 2]));

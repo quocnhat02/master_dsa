@@ -52,5 +52,5 @@ function findSum2(arr, value) {
 let arr = [1, 21, 3, 14, 5, 60, 7, 6];
 let value = 81;
 
-console.log(findSum(arr, value));
+// console.log(findSum(arr, value));
 console.log(findSum2(arr, value));

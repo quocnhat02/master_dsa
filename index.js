@@ -1,53 +1,33 @@
-class Node {
-  constructor(value) {
-    this.value = value;
-    this.next = null;
-  }
+function mergeArrays(arr1, arr2) {
+  return [...arr1, ...arr2].sort((a, b) => a - b);
 }
 
-class Queue {
-  constructor() {
-    this.first = null;
-    this.last = null;
-    this.length = 0;
-  }
+function mergeArrays2(arr1, arr2) {
+  let merged = [];
+  let i = 0,
+    j = 0;
 
-  peek() {
-    return this.first;
-  }
-
-  enqueue(value) {
-    const newNode = new Node(value);
-    if (this.length === 0) {
-      this.first = newNode;
-      this.last = newNode;
+  while (i < arr1.length && j < arr2.length) {
+    if (arr1[i] > arr2[j]) {
+      merged.push(arr2[j]);
+      j++;
     } else {
-      this.last.next = newNode;
-      this.last = newNode;
+      merged.push(arr1[i]);
+      i++;
     }
-    this.length++;
-    return this;
   }
 
-  dequeue() {
-    if (!this.first) {
-      return null;
-    }
-    if (this.first === this.last) {
-      this.last = null;
-    }
-    this.first = this.first.next;
-    this.length--;
-    return this;
+  if (i < arr1.length) {
+    merged = merged.concat(arr1.splice(i));
+  } else if (j < arr2.length) {
+    merged = merged.concat(arr2.splice(j));
   }
+
+  return merged;
 }
 
-const myQueue = new Queue();
+let arr1 = [1, 3, 4, 5];
+let arr2 = [2, 6, 7, 8];
 
-myQueue.enqueue(1);
-myQueue.enqueue(2);
-myQueue.enqueue(3);
-myQueue.dequeue();
-myQueue.dequeue();
-
-console.log(myQueue);
+console.log(mergeArrays(arr1, arr2));
+console.log(mergeArrays2(arr1, arr2));
