@@ -4,11 +4,8 @@ function findLength(array, k) {
   let longest = 0;
   let map = {};
   let start = 0;
-  let sum = 0;
 
   for (let end = 0; end < array.length; end++) {
-    sum += 1;
-
     if (map[array[end]]) {
       map[array[end]]++;
     } else {
@@ -21,8 +18,9 @@ function findLength(array, k) {
       } else {
         map[array[start]]--;
       }
-      sum -= 1;
       start++;
+      console.log(map);
+
       if (end - start + 1 > longest) {
         longest = end - start + 1;
       }
