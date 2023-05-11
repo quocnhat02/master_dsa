@@ -58,6 +58,43 @@ class LinkedList {
 
     return false;
   }
+
+  searchPrevNode(value) {
+    let currentNode = this.head;
+    let prevNode = this.head;
+
+    while (currentNode.nextElement !== null) {
+      if (currentNode.data === value) {
+        return prevNode;
+      }
+      prevNode = currentNode;
+      currentNode = currentNode.nextElement;
+    }
+
+    return false;
+  }
+
+  delete(value) {
+    if (this.length === 0) {
+      return false;
+    }
+
+    let currentNode = this.head;
+
+    if (currentNode.data == value) {
+      this.head = currentNode.nextElement;
+      return true;
+    }
+
+    while (currentNode.nextElement != null) {
+      if (currentNode.nextElement.data == value) {
+        currentNode.nextElement = currentNode.nextElement.nextElement;
+        return true;
+      }
+      currentNode = currentNode.nextElement;
+    }
+    return false;
+  }
 }
 
 let linkedList = new LinkedList();
