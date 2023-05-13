@@ -4,7 +4,6 @@ function findLength(str, k) {
   let longest = 0;
   let map = {};
   let start = 0;
-  let temp = 0;
 
   for (let end = 0; end < str.length; end++) {
     if (!map[str[end]]) {
@@ -13,13 +12,17 @@ function findLength(str, k) {
       map[str[end]]++;
     }
 
-    console.log(map);
+    if (Object.keys(map).length > 1) {
+      if (Object.keys(map).length > 2) {
+        let temp = map[str[start]];
+        delete map[str[start]];
+        start += temp;
+      }
 
-    if (Object.keys(map).length > 1 && map[str[end]] > k) {
-      temp = map[str[start]];
-      delete map[str[start]];
-
-      start += temp;
+      while (map[str[end]] > k && str[end] !== str[start]) {
+        delete map[str[start]];
+        start++;
+      }
     }
 
     if (longest < end - start + 1) {
