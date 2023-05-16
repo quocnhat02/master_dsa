@@ -75,7 +75,7 @@ class LinkedList {
     }
 
     let currentNode = this.head.next;
-    while (currentNode.next !== null) {
+    while (currentNode.next !== null && currentNode !== this.tail) {
       if (currentNode.data === value) {
         return true;
       }
@@ -86,9 +86,6 @@ class LinkedList {
 
   deleteVal(value) {
     if (this.isEmpty()) {
-      return false;
-    }
-    if (!this.search(value)) {
       return false;
     }
 
@@ -127,6 +124,6 @@ linked.insertAtTail(1);
 linked.insertAtTail(2);
 linked.insertAtTail(3);
 
-linked.deleteVal(1);
+// linked.deleteVal(3);
 
-console.log(linked);
+console.log(linked.search(1));
