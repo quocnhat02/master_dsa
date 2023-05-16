@@ -56,30 +56,77 @@ class LinkedList {
     }
     this.head = this.head.next;
     this.length--;
+
+    if (this.length === 1) {
+      this.tail = this.head;
+    }
     return true;
   }
 
   search(value) {
     if (this.isEmpty()) {
-      return null;
+      return false;
+    }
+    if (this.head.data === value) {
+      return true;
+    }
+    if (this.tail.data === value) {
+      return true;
     }
 
-    let currentNode = this.head;
-    while (currentNode.next !== null && currentNode !== this.tail) {
+    let currentNode = this.head.next;
+    while (currentNode.next !== null) {
       if (currentNode.data === value) {
-        return currentNode;
+        return true;
       }
       currentNode = currentNode.next;
     }
+    return false;
+  }
 
-    return null;
+  deleteVal(value) {
+    if (this.isEmpty()) {
+      return false;
+    }
+    if (!this.search(value)) {
+      return false;
+    }
+
+    if (this.head.data === value) {
+      return this.deleteAtHead();
+    }
+    let currentNode = this.head.next;
+    let previousNode = this.head;
+    while (currentNode.next !== null) {
+      if (currentNode.data === value) {
+        previousNode.next = currentNode.next;
+        this.length--;
+        if (this.length === 1) {
+          this.tail = this.head;
+        }
+        return this.length;
+      }
+      previousNode = currentNode;
+      currentNode = currentNode.next;
+    }
+
+    if (currentNode.data === value) {
+      previousNode.next = currentNode.next;
+      this.tail = previousNode;
+      this.length--;
+      return this.length;
+    }
+
+    return false;
   }
 }
 
 let linked = new LinkedList();
 
-linked.insertAtHead(1);
-linked.insertAtHead(2);
-linked.insertAtHead(3);
+linked.insertAtTail(1);
+linked.insertAtTail(2);
+linked.insertAtTail(3);
 
-console.log(linked.search(3));
+linked.deleteVal(1);
+
+console.log(linked);
