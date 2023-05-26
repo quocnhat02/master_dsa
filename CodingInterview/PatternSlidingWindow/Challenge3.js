@@ -1,38 +1,33 @@
 // Longest Substring with K Distinct Characters (medium)
 
-function findLength(array, k) {
-  let longest = 0;
-  let map = {};
+function findLongest(str, k) {
+  let max = 0;
   let start = 0;
+  let characters = {};
 
-  for (let end = 0; end < array.length; end++) {
-    if (map[array[end]]) {
-      map[array[end]]++;
+  for (let end = 0; end < str.length; end++) {
+    if (!characters[str[end]]) {
+      characters[str[end]] = 1;
     } else {
-      map[array[end]] = 1;
+      characters[str[end]]++;
     }
 
-    while (Object.keys(map).length > k) {
-      if (map[array[start]] === 1) {
-        delete map[array[start]];
-      } else {
-        map[array[start]]--;
+    while (Object.keys(characters).length > k) {
+      characters[str[start]]--;
+      if (characters[str[start]] === 0) {
+        delete characters[str[start]];
       }
       start++;
-      console.log(map);
+    }
 
-      if (end - start + 1 > longest) {
-        longest = end - start + 1;
-      }
+    if (max < end - start + 1) {
+      max = end - start + 1;
     }
   }
 
-  return longest;
+  return max;
 }
 
-let str = 'araaci';
-let k = 2;
-
-console.log(findLength(str, k));
-console.log(findLength('araaci', 1));
-console.log(findLength('cbbebi', 3));
+console.log(findLongest('araaci', 2)); // "araa"
+console.log(findLongest('araaci', 1)); // "aa"
+console.log(findLongest('cbbebi', 3)); // "cbbeb" & "bbebi"

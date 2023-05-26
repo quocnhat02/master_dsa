@@ -1,31 +1,33 @@
 // No-repeat Substring (hard)
 
-function findLength(array) {
-  let longest = 0;
+function findLongest(str) {
+  let max = 0;
   let start = 0;
-  let map = {};
+  let characters = {};
 
-  for (let end = 0; end < array.length; end++) {
-    if (!map[array[end]]) {
-      map[array[end]] = 1;
+  for (let end = 0; end < str.length; end++) {
+    if (!characters[str[end]]) {
+      characters[str[end]] = 1;
     } else {
-      map[array[end]]++;
+      characters[str[end]]++;
     }
 
-    while (map[array[end]] > 1) {
-      map[array[start]]--;
-      console.log('s', map[array[start]]);
+    while (characters[str[end]] > 1) {
+      characters[str[start]]--;
+      if (characters[str[start]] === 0) {
+        delete characters[str[start]];
+      }
       start++;
     }
 
-    if (longest < end - start + 1) {
-      longest = end - start + 1;
+    if (max < end - start + 1) {
+      max = end - start + 1;
     }
   }
 
-  return longest;
+  return max;
 }
 
-console.log(findLength('aabccbb')); // 3
-console.log(findLength('abbbb')); // 2
-console.log(findLength('abccdecfghe')); // 6
+console.log(findLongest('aabccbb')); // "abc"
+console.log(findLongest('abbbb')); // "ab"
+console.log(findLongest('abccde')); //  "abc" & "cde"

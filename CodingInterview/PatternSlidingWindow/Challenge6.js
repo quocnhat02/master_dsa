@@ -1,38 +1,33 @@
 // Longest Substring with Same Letters after Replacement (hard)
 
-function findLength(str, k) {
-  let longest = 0;
-  let map = {};
+function findLongest(str, k) {
+  let max = 0;
   let start = 0;
+  let characters = {};
 
   for (let end = 0; end < str.length; end++) {
-    if (!map[str[end]]) {
-      map[str[end]] = 1;
+    if (!characters[str[end]]) {
+      characters[str[end]] = 1;
     } else {
-      map[str[end]]++;
+      characters[str[end]]++;
     }
 
-    if (Object.keys(map).length > 1) {
-      if (Object.keys(map).length > 2) {
-        let temp = map[str[start]];
-        delete map[str[start]];
-        start += temp;
+    while (Object.keys(characters).length > 2) {
+      characters[str[start]]--;
+      if (characters[str[start]] === 0) {
+        delete characters[str[start]];
       }
-
-      while (map[str[end]] > k && str[end] !== str[start]) {
-        delete map[str[start]];
-        start++;
-      }
+      start++;
     }
 
-    if (longest < end - start + 1) {
-      longest = end - start + 1;
+    if (max < end - start + 1) {
+      max = end - start + 1;
     }
   }
 
-  return longest;
+  return max;
 }
 
-console.log(findLength('aabccbb', 2)); // 5
-console.log(findLength('abbcb', 1)); // 4
-console.log(findLength('abccde', 1)); // 3
+console.log(findLongest('aabccbb', 2)); // "bbbbb"
+console.log(findLongest('abbcb', 1)); // "bbbb"
+console.log(findLongest('abccde', 1)); //  "ccc"

@@ -1,27 +1,28 @@
 // Fruits into Baskets (medium)
 
-function fruits_into_baskets(array) {
+function findMaximum(array) {
   let max = 0;
   let start = 0;
-  let map = {};
+  let bag = {};
 
   for (let end = 0; end < array.length; end++) {
-    if (map[array[end]]) {
-      map[array[end]]++;
+    if (!bag[array[end]]) {
+      bag[array[end]] = 1;
     } else {
-      map[array[end]] = 1;
+      bag[array[end]]++;
     }
 
-    while (Object.keys(map).length > 2) {
-      if (map[array[start]] === 1) {
-        delete map[array[start]];
-      } else {
-        map[array[start]]--;
+    while (Object.keys(bag).length > 2) {
+      bag[array[start]]--;
+
+      if (bag[array[start]] === 0) {
+        delete bag[array[start]];
       }
+
       start++;
     }
 
-    if (end - start + 1 > max) {
+    if (max < end - start + 1) {
       max = end - start + 1;
     }
   }
@@ -29,5 +30,5 @@ function fruits_into_baskets(array) {
   return max;
 }
 
-console.log(fruits_into_baskets(['A', 'B', 'C', 'A', 'C']));
-console.log(fruits_into_baskets(['A', 'B', 'C', 'B', 'B', 'C']));
+console.log(findMaximum(['A', 'B', 'C', 'A', 'C'])); // ['C', 'A', 'C']
+console.log(findMaximum(['A', 'B', 'C', 'B', 'B', 'C'])); // ['B', 'C', 'B', 'B', 'C']
