@@ -26,5 +26,20 @@ function printInvertedStartPattern(n) {
   }
 }
 
-printStarPattern(4);
-printInvertedStartPattern(4);
+function printHalfPyramidPattern(n) {
+  let line = '';
+
+  for (let i = 0; i < n; i++) {
+    line = '';
+
+    for (let j = 0; j < i + 1; j++) {
+      line += `${j + 1}`;
+    }
+
+    console.log(line);
+  }
+}
+
+// printStarPattern(4);
+// printInvertedStartPattern(4);
+printHalfPyramidPattern(4);
