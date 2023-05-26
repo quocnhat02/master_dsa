@@ -146,6 +146,32 @@ function printZeroOneTrianglePattern(n) {
   }
 }
 
+function printButterflyPattern(n) {
+  let star = ' * ';
+  let line = '';
+
+  for (let i = 0; i < n; i++) {
+    line = '';
+
+    for (let j = 0; j < n; j++) {
+      if (i > n / 2) {
+        if (j <= n - 1 - i || j >= i) {
+          line += star;
+        } else {
+          line += '   ';
+        }
+      } else {
+        if (j <= i || j >= n - 1 - i) {
+          line += star;
+        } else {
+          line += '   ';
+        }
+      }
+    }
+    console.log(line);
+  }
+}
+
 // printStarPattern(4);
 // printInvertedStartPattern(4);
 // printHalfPyramidPattern(4);
@@ -154,4 +180,5 @@ function printZeroOneTrianglePattern(n) {
 // printInvertedAndRotatedHalfPyramidPattern(4);
 // printInvertedHalfPyramidWithNumbersPattern(5);
 // printFloydTrianglePattern(5);
-printZeroOneTrianglePattern(5);
+// printZeroOneTrianglePattern(5);
+printButterflyPattern(8);
