@@ -5,7 +5,7 @@ function findPairWithTargetSum(array, target) {
   let end = array.length - 1;
   let sum = 0;
 
-  while (end !== start) {
+  while (end > start) {
     sum = array[start] + array[end];
 
     if (sum === target) {
