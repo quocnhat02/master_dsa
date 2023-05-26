@@ -75,8 +75,26 @@ function printRectanglePattern(r, c) {
   }
 }
 
+function printInvertedAndRotatedHalfPyramidPattern(n) {
+  let star = ' * ';
+  let line = '';
+
+  for (let i = 0; i < n; i++) {
+    line = '';
+    for (let j = 0; j < n; j++) {
+      if (j >= n - 1 - i) {
+        line += star;
+      } else {
+        line += '   ';
+      }
+    }
+    console.log(line);
+  }
+}
+
 // printStarPattern(4);
 // printInvertedStartPattern(4);
 // printHalfPyramidPattern(4);
 // printCharacterPattern(4);
-printRectanglePattern(4, 6);
+// printRectanglePattern(4, 6);
+printInvertedAndRotatedHalfPyramidPattern(4);
