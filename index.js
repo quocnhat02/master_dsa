@@ -1,15 +1,30 @@
 function printStarPattern(n) {
   let star = '*';
-  let result = '';
+  let line = '';
 
-  for (let i = 0; i < n + 1; i++) {
-    result = '';
-    for (let j = 0; j < i; j++) {
-      result += star;
+  for (let i = 0; i < n; i++) {
+    line = '';
+    for (let j = 0; j < i + 1; j++) {
+      line += star;
     }
 
-    console.log(result);
+    console.log(line);
+  }
+}
+
+function printInvertedStartPattern(n) {
+  let star = '*';
+  let line = '';
+
+  for (let i = 0; i < n; i++) {
+    line = '';
+    for (let j = 0; j < n - i; j++) {
+      line += star;
+    }
+
+    console.log(line);
   }
 }
 
 printStarPattern(4);
+printInvertedStartPattern(4);
