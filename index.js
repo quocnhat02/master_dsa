@@ -105,7 +105,7 @@ function printInvertedHalfPyramidWithNumbersPattern(n) {
   }
 }
 
-function floydTrianglePattern(n) {
+function printFloydTrianglePattern(n) {
   let line = '';
   let start = '1';
 
@@ -123,6 +123,29 @@ function floydTrianglePattern(n) {
   }
 }
 
+function printZeroOneTrianglePattern(n) {
+  let isOne;
+  let line = '';
+
+  for (let i = 0; i < n; i++) {
+    line = '';
+    if (i % 2 === 0) {
+      isOne = true;
+    } else {
+      isOne = false;
+    }
+    for (let j = 0; j < i + 1; j++) {
+      if (isOne) {
+        line += ' 1 ';
+      } else {
+        line += ' 0 ';
+      }
+      isOne = !isOne;
+    }
+    console.log(line);
+  }
+}
+
 // printStarPattern(4);
 // printInvertedStartPattern(4);
 // printHalfPyramidPattern(4);
@@ -130,4 +153,5 @@ function floydTrianglePattern(n) {
 // printRectanglePattern(4, 6);
 // printInvertedAndRotatedHalfPyramidPattern(4);
 // printInvertedHalfPyramidWithNumbersPattern(5);
-floydTrianglePattern(5);
+// printFloydTrianglePattern(5);
+printZeroOneTrianglePattern(5);
