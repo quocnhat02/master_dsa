@@ -52,4 +52,21 @@ function reverseArray(array) {
   return reversedArray;
 }
 
+function reverseArray2(array) {
+  let first = 0,
+    last = array.length - 1,
+    temp;
+
+  while (first < last) {
+    temp = array[last];
+    array[last] = array[first];
+    array[first] = temp;
+    first++;
+    last--;
+  }
+
+  return array;
+}
+
 console.log(reverseArray([1, 2, 3, 4, 5]));
+console.log(reverseArray2([1, 2, 3, 4, 5]));
