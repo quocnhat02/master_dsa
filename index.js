@@ -21,4 +21,25 @@ function largestNumber(array) {
   return max;
 }
 
-console.log(largestNumber([1, 2, 5, 8, 7]));
+// console.log(largestNumber([1, 2, 5, 8, 7]));
+
+function binarySearch(array, target) {
+  let left = 0;
+  let right = array.length - 1;
+  let mid;
+
+  while (left <= right) {
+    mid = Math.floor((right + left) / 2);
+    if (array[mid] === target) {
+      return mid;
+    } else if (array[mid] > target) {
+      right = mid - 1;
+    } else {
+      left = mid + 1;
+    }
+  }
+
+  return -1;
+}
+
+console.log(binarySearch([2, 4, 6, 8, 10], 10));
