@@ -42,4 +42,14 @@ function binarySearch(array, target) {
   return -1;
 }
 
-console.log(binarySearch([2, 4, 6, 8, 10], 10));
+// console.log(binarySearch([2, 4, 6, 8, 10], 10));
+
+function reverseArray(array) {
+  let reversedArray = [];
+  for (let index = array.length - 1; index >= 0; index--) {
+    reversedArray.push(array[index]);
+  }
+  return reversedArray;
+}
+
+console.log(reverseArray([1, 2, 3, 4, 5]));
