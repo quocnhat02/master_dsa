@@ -68,5 +68,50 @@ function reverseArray2(array) {
   return array;
 }
 
-console.log(reverseArray([1, 2, 3, 4, 5]));
-console.log(reverseArray2([1, 2, 3, 4, 5]));
+// console.log(reverseArray([1, 2, 3, 4, 5]));
+// console.log(reverseArray2([1, 2, 3, 4, 5]));
+
+function kadaneAlgorithm2(array, start_index, finish_index) {
+  let max_so_far = 0;
+  let max_ending_here = 0;
+  let start_index_temp = -1;
+
+  for (let i = 0; i < array.length; i++) {
+    max_ending_here += array[i];
+    if (max_ending_here <= 0) {
+      max_ending_here = 0;
+      start_index_temp = -1;
+    } else {
+      if (start_index_temp === -1) {
+        start_index_temp = i;
+      }
+      if (max_so_far < max_ending_here) {
+        max_so_far = max_ending_here;
+        start_index = start_index_temp;
+        finish_index = i;
+      }
+    }
+  }
+  return max_so_far;
+}
+
+function kadaneAlgorithm(array) {
+  let cs = 0;
+  let ms = 0;
+
+  for (let i = 0; i < array.length; i++) {
+    cs += array[i];
+    if (cs <= 0) {
+      cs = 0;
+    } else {
+      if (ms < cs) {
+        ms = cs;
+      }
+    }
+  }
+
+  return ms;
+}
+
+console.log(kadaneAlgorithm([31, -41, 59, 26, -53, 58, 97, -93, -23, 84]));
+console.log(kadaneAlgorithm([-2, -3, 4, -1, -2, 1, 5, -3]));
