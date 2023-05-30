@@ -113,5 +113,5 @@ function kadaneAlgorithm(array) {
   return ms;
 }
 
-console.log(kadaneAlgorithm([31, -41, 59, 26, -53, 58, 97, -93, -23, 84]));
-console.log(kadaneAlgorithm([-2, -3, 4, -1, -2, 1, 5, -3]));
+// console.log(kadaneAlgorithm([31, -41, 59, 26, -53, 58, 97, -93, -23, 84]));
+// console.log(kadaneAlgorithm([-2, -3, 4, -1, -2, 1, 5, -3]));
