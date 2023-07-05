@@ -9,16 +9,13 @@ Explanation: Subarray with maximum sum is [5, 1, 3].
 function findMaxSumSubArray(array, k) {
   let start = 0;
   let sum = 0;
-  let count = 0;
   let max = 0;
 
   for (let end = 0; end < array.length; end++) {
     sum += array[end];
-    count++;
-    while (count > k) {
+    while (end - start + 1 > k) {
       sum -= array[start];
       start++;
-      count--;
     }
     if (max < sum) {
       max = sum;
