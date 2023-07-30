@@ -5,7 +5,7 @@
 // Sample Output #
 // arr = [24,12,8,6]
 
-function findProduct(arr) {
+function findProduct1(arr) {
   let result = [];
 
   for (let i = 0; i < arr.length; i++) {
@@ -33,6 +33,27 @@ function findProduct(arr) {
   return result;
 }
 
+// O(n)
+function findProduct2(arr) {
+  let result = [];
+  let temp = 1;
+
+  for (let i = 0; i < arr.length; i++) {
+    result[i] = temp;
+    temp *= arr[i];
+  }
+
+  temp = 1;
+
+  for (let i = arr.length - 1; i >= 0; i--) {
+    result[i] *= temp;
+    temp *= arr[i];
+  }
+
+  return result;
+}
+
 let arr = [1, 2, 3, 4];
 
-console.log(findProduct(arr));
+console.log(findProduct1(arr));
+console.log(findProduct2(arr));
