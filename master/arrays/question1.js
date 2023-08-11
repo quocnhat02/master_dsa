@@ -84,8 +84,27 @@ function findTwoSum3(array, target) {
   return null;
 }
 
+function findTwoSum4(array, target) {
+  const numMap = {};
+
+  for (let index = 0; index < array.length; index++) {
+    numMap[array[index]] = index;
+  }
+
+  for (let index = 0; index < array.length; index++) {
+    const numberToFound = target - array[index];
+
+    if (numMap[numberToFound]) {
+      return [index, numMap[numberToFound]];
+    }
+  }
+
+  return null;
+}
+
 const array = [1, 3, 7, 9, 2];
 
 // console.log(findTwoSum(array, 11));
 // console.log(findTwoSum2(array, 11));
-console.log(findTwoSum3(array, 11));
+// console.log(findTwoSum3(array, 11));
+console.log(findTwoSum4(array, 11));
