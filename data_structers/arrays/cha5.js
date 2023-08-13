@@ -14,21 +14,20 @@ function findMinimum2(arr) {
       if (min > arr[i]) {
         min = arr[i];
       }
-      i++;
-      j--;
     } else {
       if (min > arr[j]) {
         min = arr[j];
       }
-      i++;
-      j--;
     }
+
+    i++;
+    j--;
   }
 
   return min;
 }
 
-const arr = [5, 1, 8, 16, 7, 12, 10];
+const arr = [5, 6, 8, 1, 7, 12, 10];
 
 console.log(findMinimum1(arr));
 console.log(findMinimum2(arr));
