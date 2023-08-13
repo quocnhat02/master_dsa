@@ -12,9 +12,7 @@ function findSecondMaximum2(arr) {
     if (max < arr[i]) {
       secondMax = max;
       max = arr[i];
-    }
-
-    if (secondMax < arr[i] && arr[i] !== max) {
+    } else if (secondMax < arr[i] && arr[i] !== max) {
       secondMax = arr[i];
     }
   }
@@ -47,7 +45,7 @@ function findSecondMaximum3(arr) {
   return secondMax;
 }
 
-const arr = [9, 2, 3, 6];
+const arr = [9, 2, 3, 6, 7];
 
 // console.log(findSecondMaximum1(arr));
 console.log(findSecondMaximum2(arr));
