@@ -37,6 +37,36 @@ class LinkedList {
     }
   }
 
+  findNthNode(nth) {
+    let node = this.head;
+    let position = 1;
+    while (position < nth) {
+      node = node.next;
+      position++;
+    }
+    return node;
+  }
+
+  insertAtIndex(nth, data) {
+    const newNode = new Node(data);
+    if (this.isEmpty()) {
+      this.head = newNode;
+      this.tail = this.head;
+    } else {
+      let node = this.findNthNode(nth);
+
+      if (node.next == null) {
+        this.insertAtTail(data);
+      }
+
+      newNode.next = node.next;
+      node.next = newNode;
+      if (newNode.next == null) {
+        this.tail = node;
+      }
+    }
+  }
+
   print() {
     let pos = this.head;
     while (pos !== null) {
@@ -54,8 +84,10 @@ const linkList = new LinkedList();
 linkList.insertAtTail(1);
 linkList.insertAtTail(2);
 linkList.insertAtTail(3);
+linkList.insertAtTail(4);
+linkList.insertAtIndex(3, 5);
 
-// linkList.print();
+linkList.print();
 
 console.log('head', linkList.head);
 console.log('tail', linkList.tail);
