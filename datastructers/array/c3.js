@@ -37,7 +37,7 @@ function findSum2(arr, value) {
   const mapNum = new Map();
 
   for (let i = 0; i < arr.length; i++) {
-    if (!mapNum[arr[i]]) {
+    if (!mapNum.get(arr[i])) {
       mapNum.set(arr[i], i);
     }
 
