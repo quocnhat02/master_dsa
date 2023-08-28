@@ -48,9 +48,12 @@ class LinkedList {
 
 const linkList = new LinkedList();
 
-linkList.insertAtHead(1);
-linkList.insertAtHead(2);
-linkList.insertAtHead(3);
+// linkList.insertAtHead(1);
+// linkList.insertAtHead(2);
+// linkList.insertAtHead(3);
+linkList.insertAtTail(1);
+linkList.insertAtTail(2);
+linkList.insertAtTail(3);
 
 // linkList.print();
 
