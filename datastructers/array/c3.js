@@ -36,16 +36,43 @@ function findSum1(arr, value) {
 function findSum2(arr, value) {
   const mapNum = new Map();
 
-  for (let i = 0; i < arr.length; i++) {
+  //   for (let i = 0; i < arr.length; i++) {
+  //     if (!mapNum.get(arr[i])) {
+  //       mapNum.set(arr[i], i);
+  //     }
+
+  //     const found = value - arr[i];
+
+  //     if (mapNum.get(found)) {
+  //       return [arr[i], found];
+  //     }
+  //   }
+
+  let i = 0,
+    j = arr.length - 1;
+
+  while (i <= j) {
     if (!mapNum.get(arr[i])) {
       mapNum.set(arr[i], i);
     }
-
-    const found = value - arr[i];
-
-    if (mapNum.get(found)) {
-      return [arr[i], found];
+    if (!mapNum.get(arr[j])) {
+      mapNum.set(arr[j], j);
     }
+
+    const foundStart = value - arr[i];
+
+    if (mapNum.get(foundStart)) {
+      return [arr[i], foundStart];
+    }
+
+    const foundEnd = value - arr[j];
+
+    if (mapNum.get(foundEnd)) {
+      return [arr[j], foundEnd];
+    }
+
+    i++;
+    j--;
   }
 
   return -1;
