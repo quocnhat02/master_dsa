@@ -9,4 +9,8 @@ class LinkedList {
   constructor() {
     this.head = null;
   }
+
+  isEmpty() {
+    this.head === null ? true : false;
+  }
 }
