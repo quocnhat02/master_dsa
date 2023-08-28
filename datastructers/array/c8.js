@@ -1,7 +1,7 @@
 // Challenge 8: Right Rotate an Array by n
 
 function rightRotate(arr, n) {
-  return arr.slice(n - 1).concat(arr.slice(0, n - 1));
+  return arr.splice(arr.length - n).concat(arr.splice(0, arr.length));
 }
 
 const arr = [1, 2, 3, 4, 5];
