@@ -8,19 +8,32 @@ class Node {
 class LinkedList {
   constructor() {
     this.head = null;
+    this.tail = null;
   }
 
   isEmpty() {
-    this.head === null ? true : false;
+    return this.head == null ? true : false;
   }
 
   insertAtHead(data) {
+    const newNode = new Node(data);
     if (this.isEmpty()) {
-      this.head = new Node(data);
+      this.head = newNode;
+      this.tail = this.head;
     } else {
-      const newNode = new Node(data);
       newNode.next = this.head;
       this.head = newNode;
+    }
+  }
+
+  insertAtTail(data) {
+    const newNode = new Node(data);
+    if (this.isEmpty()) {
+      this.head = newNode;
+      this.tail = this.head;
+    } else {
+      this.tail.next = newNode;
+      this.tail = newNode;
     }
   }
 
@@ -33,10 +46,13 @@ class LinkedList {
   }
 }
 
-const linklist = new LinkedList();
+const linkList = new LinkedList();
 
-linklist.insertAtHead(1);
-linklist.insertAtHead(2);
-linklist.insertAtHead(3);
+linkList.insertAtHead(1);
+linkList.insertAtHead(2);
+linkList.insertAtHead(3);
 
-linklist.print();
+// linkList.print();
+
+console.log('head', linkList.head);
+console.log('tail', linkList.tail);
