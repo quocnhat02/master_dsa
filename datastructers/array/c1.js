@@ -1,29 +1,19 @@
 // Challenge 1: Remove Even Integers From an Array
 
-function removeEven1(arr) {
-  return arr.filter((num) => num % 2 !== 0);
+function removeIntegers1(array) {
+  return array.filter((num) => num % 2 !== 0);
 }
 
-function removeEven2(arr) {
-  let oddsNum = [];
-  for (let num of arr) {
-    if (num % 2 !== 0) {
-      oddsNum.push(num);
+function removeIntegers2(array) {
+  return array.reduce((result, currentNumber) => {
+    if (currentNumber % 2 !== 0) {
+      result.push(currentNumber);
     }
-  }
-
-  return oddsNum;
+    return result;
+  }, []);
 }
 
-function removeEven3(arr) {
-  return arr.reduce(
-    (result, num) => (num % 2 !== 0 ? [...result, num] : result),
-    []
-  );
-}
+const array = [1, 2, 4, 5, 10, 6, 3];
 
-const arr = [1, 2, 4, 5, 10, 6, 3];
-
-console.log(removeEven1(arr));
-console.log(removeEven2(arr));
-console.log(removeEven3(arr));
+console.log(removeIntegers1(array));
+console.log(removeIntegers2(array));
