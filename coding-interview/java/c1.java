@@ -1,4 +1,6 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.BitSet;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -63,11 +65,37 @@ public class c1 {
         return result;
     }
 
+    // c4
+    // -10 -3 1 7 9 15
+    // 1 9 49 81 100 225
+    public static int[] squareSortedArray(int[] numbers) {
+        int n = numbers.length;
+        int[] result = new int[n];
+        int i = 0, j = n - 1;
+        int index = n - 1;
+
+        while (i <= j) {
+            int square;
+            if (Math.abs(numbers[i]) < Math.abs(numbers[j])) {
+                square = numbers[j];
+                j--;
+            } else {
+                square = numbers[i];
+                i++;
+            }
+            result[index] = square * square;
+            index--;
+        }
+
+        return result;
+    }
+
     public static void main(String[] args) {
-        int[] numbers = new int[] { 2, 5, 7, 15, 13, 8 };
+        int[] numbers = new int[] { -10, -3, 1, 7, 9, 15 };
 
         // System.out.println("Test 1 : " + Arrays.toString(twoSum(numbers, 22)));
         // System.out.println("Test 2 : " + findDuplicate(numbers, 32000));
-        System.out.println("Test 3 : " + findAllPairs(numbers, 20));
+        // System.out.println("Test 3 : " + findAllPairs(numbers, 20));
+        System.out.println("Test 4 : " + Arrays.toString(squareSortedArray(numbers)));
     }
 }
