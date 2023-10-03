@@ -73,4 +73,4 @@ function squaresOfSortedArray(array, lengthOfArray = array.length) {
   return result;
 }
 
-console.log(squaresOfSortedArray([-10, -3, 1, 7, 9, 15]));
+// console.log(squaresOfSortedArray([-10, -3, 1, 7, 9, 15]));
