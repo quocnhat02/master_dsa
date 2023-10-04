@@ -5,17 +5,14 @@ function findFirstUnique(arr) {
     return null;
   }
 
-  const map = new Map();
+  const countMap = new Map();
 
   for (const item of arr) {
-    if (!map.has(item)) {
-      map.set(item, 0);
-    }
-    map.set(item, map.get(item) + 1);
+    countMap.set(item, (countMap.get(item) || 0) + 1);
   }
 
   for (const item of arr) {
-    if (map.get(item) === 1) {
+    if (countMap.get(item) === 1) {
       return item;
     }
   }
