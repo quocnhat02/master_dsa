@@ -23,15 +23,14 @@ function findSum2(numbers, value) {
     return false;
   }
 
-  const map = new Map();
+  const set = new Set();
 
   for (const number of numbers) {
     const found = value - number;
-    if (map.has(found)) {
+    if (set.has(found)) {
       return [found, number];
-    } else {
-      map.set(number, true);
     }
+    set.add(number);
   }
 
   return false;
