@@ -4,6 +4,7 @@ function mergeArrays1(arr1, arr2) {
   return [...arr1, ...arr2].sort((a, b) => a - b);
 }
 
+// O(n)
 function mergeArrays2(arr1, arr2) {
   if (!arr1 || !arr2 || arr1.length === 0 || arr2.length === 0) {
     return [...arr1, ...arr2];
