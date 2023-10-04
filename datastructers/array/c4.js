@@ -5,16 +5,17 @@ function findProduct(array) {
     return null;
   }
 
-  const products = [];
+  const n = array.length;
+  const products = new Array(n);
   let prev = 1;
 
-  for (let i = 0; i < array.length; i++) {
-    products[i] = 1 * prev;
+  for (let i = 0; i < n; i++) {
+    products[i] = prev;
     prev *= array[i];
   }
 
   prev = 1;
-  for (let i = array.length - 1; i >= 0; i--) {
+  for (let i = n - 1; i >= 0; i--) {
     products[i] *= prev;
     prev *= array[i];
   }
