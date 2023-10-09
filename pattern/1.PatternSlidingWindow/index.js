@@ -5,13 +5,14 @@ function findAverageOfSizeK(arr, k) {
 
   const length = arr.length;
   const averages = [];
-  let windowSum = 0;
   let windowStart = 0;
+  let windowSum = 0;
 
   for (let windowEnd = 0; windowEnd < length; windowEnd++) {
     windowSum += arr[windowEnd];
+
     if (windowEnd >= k - 1) {
-      averages[windowStart] = windowSum / k;
+      averages.push(windowSum / k);
       windowSum -= arr[windowStart];
       windowStart++;
     }
