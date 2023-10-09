@@ -22,22 +22,22 @@ function findMinWithSum(arr, s) {
   let windowStart = 0;
   let windowSum = 0;
 
-  for (let windowEnd = 0; windowEnd < length; windowEnd++) {
-    windowSum += arr[windowEnd];
+  const minLength = arr.reduce((acc, cur, windowEnd) => {
+    windowSum += cur;
 
     if (windowSum >= s) {
-      while (windowSum >= s && windowStart <= windowEnd) {
+      while (windowSum >= s) {
         const lengthOfSubArray = windowEnd - windowStart + 1;
-        if (lengthOfSubArray < min) {
-          min = lengthOfSubArray;
-        }
+        min = Math.min(acc, lengthOfSubArray);
         windowSum -= arr[windowStart];
         windowStart++;
       }
     }
-  }
 
-  return min === length + 1 ? 0 : min;
+    return min;
+  }, min);
+
+  return minLength === length + 1 ? 0 : min;
 }
 
 console.log(findMinWithSum([2, 1, 5, 2, 3, 2], 7));
