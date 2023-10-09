@@ -16,22 +16,25 @@ function findLongestSubStr(str, k) {
   }
 
   const length = str.length;
-  const mapChar = new Map();
+  const charCount = new Map();
   let windowStart = 0;
   let max = 0;
 
   for (let windowEnd = 0; windowEnd < length; windowEnd++) {
-    mapChar.set(str[windowEnd], (mapChar.get(str[windowEnd]) || 0) + 1);
+    const rightChar = str[windowEnd];
+    charCount.set(rightChar, (charCount.get(rightChar) || 0) + 1);
 
-    while (mapChar.size > k) {
-      mapChar.get(str[windowStart]) === 0
-        ? mapChar.set(str[windowStart], mapChar.get(str[windowStart]) - 1)
-        : mapChar.delete(str[windowStart]);
+    while (charCount.size > k) {
+      const leftChar = str[windowStart];
+      charCount.set(leftChar, charCount.get(leftChar) - 1);
+      if (charCount.get(leftChar) === 0) {
+        charCount.delete(leftChar);
+      }
 
       windowStart++;
     }
 
-    max = mapChar.size <= k ? Math.max(max, windowEnd - windowStart + 1) : max;
+    max = Math.max(max, windowEnd - windowStart + 1);
   }
 
   return max;
