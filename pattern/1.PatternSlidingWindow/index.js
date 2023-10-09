@@ -1,17 +1,20 @@
-function calcAverageOfSizeK(arr, k) {
+function findAverageOfSizeK(arr, k) {
   if (!arr || k <= 0 || arr.length < k || !Array.isArray(arr)) {
     return null;
   }
 
   const length = arr.length;
   const averages = [];
+  let windowSum = 0;
+  let windowStart = 0;
 
-  for (let i = 0; i <= length - k; i++) {
-    let sum = 0;
-    for (let j = 0; j < i + k; j++) {
-      sum += arr[j];
+  for (let windowEnd = 0; windowEnd < length; windowEnd++) {
+    windowSum += arr[windowEnd];
+    if (windowEnd >= k - 1) {
+      averages[windowStart] = windowSum / k;
+      windowSum -= arr[windowStart];
+      windowStart++;
     }
-    averages[i] = sum / k;
   }
 
   return averages;
@@ -24,4 +27,4 @@ function calcAverageOfSizeK(arr, k) {
  * sum = 14
  */
 
-console.log(calcAverageOfSizeK([1, 3, 2, 6, -1, 4, 1, 8, 2], 5));
+console.log(findAverageOfSizeK([1, 3, 2, 6, -1, 4, 1, 8, 2], 5));
