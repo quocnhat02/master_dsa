@@ -14,9 +14,11 @@ function partition(arr) {
   arr[f] = arr[arr.length - 1];
   arr[arr.length - 1] = temp;
 
-  return arr;
+  return f;
 }
 
 const arr = [2, 5, 1, 6, 7, 8, 4];
 
-console.log(partition(arr));
+partition(arr);
+
+console.log(arr);
