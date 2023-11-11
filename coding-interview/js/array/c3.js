@@ -1,4 +1,4 @@
-// maximum subarray
+// Maximum subarray
 function findMaxSubArray(numbers) {
   let max = 0;
   let sum = 0;
