@@ -189,22 +189,53 @@ class LinkList {
   }
 }
 
-const link_list = new LinkList();
+function union(list1, list2) {
+  const setNode = new Set();
+  let element1 = list1.head;
+
+  while (element1 !== null) {
+    setNode.add(element1.data);
+    element1 = element1.nextElement;
+  }
+
+  let element2 = list2.head;
+  while (element2 !== null) {
+    if (setNode.has(element2.data)) {
+      element2 = element2.nextElement;
+    } else {
+      setNode.add(element2.data);
+      list1.insertTail(element2.data);
+      element2 = element2.nextElement;
+    }
+  }
+
+  return list1;
+}
+
+function intersection(list1, list2) {
+  const result = new LinkList();
+
+  return result;
+}
+
+// const link_list = new LinkList();
+const link_list1 = new LinkList();
+const link_list2 = new LinkList();
 
 // link_list.insertHead(1);
 // link_list.insertHead(2);
 // link_list.insertHead(3);
-link_list.insertTail(1);
-link_list.insertTail(2);
-link_list.insertTail(3);
-link_list.insertTail(4);
-link_list.insertTail(4);
+// link_list.insertTail(1);
+// link_list.insertTail(2);
+// link_list.insertTail(3);
+// link_list.insertTail(4);
+// link_list.insertTail(4);
 // link_list.insertIndex(3, 5);
 // link_list.deleteHead();
 // link_list.deleteTail();
 // link_list.deleteNode(10);
 
-console.log(link_list.display());
+// console.log(link_list.display());
 // console.log(JSON.stringify(link_list.reverse()));
 // console.log(link_list.head);
 // console.log(link_list.tail);
@@ -214,3 +245,15 @@ console.log(link_list.display());
 // console.log(link_list.findMid().data);
 // console.log(link_list.length);
 // console.log(JSON.stringify(link_list.removeDuplicates()));
+
+link_list1.insertTail(10);
+link_list1.insertTail(20);
+link_list1.insertTail(80);
+link_list1.insertTail(60);
+link_list2.insertTail(15);
+link_list2.insertTail(20);
+link_list2.insertTail(30);
+link_list2.insertTail(60);
+link_list2.insertTail(45);
+
+console.log(JSON.stringify(union(link_list1, link_list2)));
