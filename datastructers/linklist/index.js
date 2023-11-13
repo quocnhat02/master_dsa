@@ -64,6 +64,13 @@ class LinkList {
     return element;
   }
 
+  findNthFromEnd(n) {
+    if (n > this.length || n <= 0) {
+      return -1;
+    }
+    return this.findIndex(this.length - n + 1);
+  }
+
   findBeforeNode(data) {
     let element = this.head;
     let count = 0;
@@ -267,11 +274,12 @@ link_list1.insertTail(10);
 link_list1.insertTail(20);
 link_list1.insertTail(80);
 link_list1.insertTail(60);
-link_list2.insertTail(15);
-link_list2.insertTail(20);
-link_list2.insertTail(30);
-link_list2.insertTail(60);
-link_list2.insertTail(45);
+// link_list2.insertTail(15);
+// link_list2.insertTail(20);
+// link_list2.insertTail(30);
+// link_list2.insertTail(60);
+// link_list2.insertTail(45);
 
 // console.log(JSON.stringify(union(link_list1, link_list2)));
-console.log(JSON.stringify(intersection(link_list1, link_list2)));
+// console.log(JSON.stringify(intersection(link_list1, link_list2)));
+console.log(JSON.stringify(link_list1.findNthFromEnd(1)));
