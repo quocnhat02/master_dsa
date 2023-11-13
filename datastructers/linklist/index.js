@@ -162,6 +162,13 @@ class LinkList {
 
     return true;
   }
+
+  findMid() {
+    if (this.length % 2 !== 0) {
+      return this.findIndex(Math.ceil(this.length / 2));
+    }
+    return this.findIndex(this.length / 2);
+  }
 }
 
 const link_list = new LinkList();
@@ -185,4 +192,6 @@ console.log(link_list.display());
 // console.log(link_list.tail);
 // console.log(link_list.findIndex(3));
 // console.log(link_list.findBeforeNode(2));
-console.log(link_list.detectLoop());
+// console.log(link_list.detectLoop());
+console.log(link_list.findMid().data);
+// console.log(link_list.length);
