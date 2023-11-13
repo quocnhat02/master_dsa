@@ -64,6 +64,23 @@ class LinkList {
     return element;
   }
 
+  findBeforeNode(data) {
+    let element = this.head;
+    let count = 0;
+    let hasData = false;
+
+    while (count < this.length - 1) {
+      if (element.nextElement.data === data) {
+        hasData = true;
+        return hasData ? element : null;
+      }
+      element = element.nextElement;
+      count++;
+    }
+
+    return null;
+  }
+
   insertIndex(index, data) {
     const newNode = new Node(data);
     if (this.isEmpty()) {
@@ -74,9 +91,46 @@ class LinkList {
     } else if (index > this.length) {
       this.insertTail(data);
     } else {
-      const findNode = this.findIndex(index);
-      newNode.nextElement = findNode.nextElement;
-      findNode.nextElement = newNode;
+      const foundNode = this.findIndex(index);
+      newNode.nextElement = foundNode.nextElement;
+      foundNode.nextElement = newNode;
+    }
+  }
+
+  deleteHead() {
+    if (this.isEmpty()) {
+      return;
+    }
+    const head = this.head;
+    this.head = head.nextElement;
+    this.length--;
+  }
+
+  deleteTail() {
+    if (this.isEmpty()) {
+      return;
+    }
+    const foundNodeBeforeTail = this.findBeforeNode(this.tail.data);
+    foundNodeBeforeTail.nextElement = null;
+    this.tail = foundNodeBeforeTail;
+    this.length--;
+  }
+
+  deleteNode(data) {
+    if (this.isEmpty()) {
+      return;
+    }
+    if (data === this.head.data) {
+      this.deleteHead();
+    }
+    if (data === this.tail.data) {
+      this.deleteTail();
+    }
+    const foundNodeBeforeData = this.findBeforeNode(data);
+    if (foundNodeBeforeData !== null) {
+      foundNodeBeforeData.nextElement =
+        foundNodeBeforeData.nextElement.nextElement;
+      this.length--;
     }
   }
 }
@@ -90,9 +144,13 @@ link_list.insertTail(1);
 link_list.insertTail(2);
 link_list.insertTail(3);
 link_list.insertTail(4);
-link_list.insertIndex(3, 5);
+// link_list.insertIndex(3, 5);
+// link_list.deleteHead();
+// link_list.deleteTail();
+// link_list.deleteNode(10);
 
 console.log(link_list.display());
 // console.log(link_list.head);
 // console.log(link_list.tail);
 // console.log(link_list.findIndex(3));
+// console.log(link_list.findBeforeNode(2));
