@@ -169,6 +169,24 @@ class LinkList {
     }
     return this.findIndex(this.length / 2);
   }
+
+  removeDuplicates() {
+    const setNode = new Set();
+    const newLinkList = new LinkList();
+    let element = this.head;
+
+    while (element !== null) {
+      if (setNode.has(element.data)) {
+        element = element.nextElement;
+      } else {
+        setNode.add(element.data);
+        newLinkList.insertTail(element.data);
+        element = element.nextElement;
+      }
+    }
+
+    return newLinkList;
+  }
 }
 
 const link_list = new LinkList();
@@ -193,5 +211,6 @@ console.log(link_list.display());
 // console.log(link_list.findIndex(3));
 // console.log(link_list.findBeforeNode(2));
 // console.log(link_list.detectLoop());
-console.log(link_list.findMid().data);
+// console.log(link_list.findMid().data);
 // console.log(link_list.length);
+// console.log(JSON.stringify(link_list.removeDuplicates()));
