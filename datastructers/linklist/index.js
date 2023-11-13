@@ -133,6 +133,17 @@ class LinkList {
       this.length--;
     }
   }
+
+  reverse() {
+    const reverseLinkList = new LinkList();
+    let element = this.head;
+    while (element !== null) {
+      reverseLinkList.insertHead(element.data);
+      element = element.nextElement;
+    }
+
+    return reverseLinkList;
+  }
 }
 
 const link_list = new LinkList();
@@ -150,6 +161,7 @@ link_list.insertTail(4);
 // link_list.deleteNode(10);
 
 console.log(link_list.display());
+console.log(JSON.stringify(link_list.reverse()));
 // console.log(link_list.head);
 // console.log(link_list.tail);
 // console.log(link_list.findIndex(3));
