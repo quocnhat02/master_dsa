@@ -144,6 +144,24 @@ class LinkList {
 
     return reverseLinkList;
   }
+
+  detectLoop() {
+    if (this.length <= 1) {
+      return true;
+    }
+
+    let setNode = new Set();
+    let element = this.head;
+    while (element !== null) {
+      if (setNode.has(element.data)) {
+        return false;
+      }
+      setNode.add(element.data);
+      element = element.nextElement;
+    }
+
+    return true;
+  }
 }
 
 const link_list = new LinkList();
@@ -155,14 +173,16 @@ link_list.insertTail(1);
 link_list.insertTail(2);
 link_list.insertTail(3);
 link_list.insertTail(4);
+link_list.insertTail(4);
 // link_list.insertIndex(3, 5);
 // link_list.deleteHead();
 // link_list.deleteTail();
 // link_list.deleteNode(10);
 
 console.log(link_list.display());
-console.log(JSON.stringify(link_list.reverse()));
+// console.log(JSON.stringify(link_list.reverse()));
 // console.log(link_list.head);
 // console.log(link_list.tail);
 // console.log(link_list.findIndex(3));
 // console.log(link_list.findBeforeNode(2));
+console.log(link_list.detectLoop());
