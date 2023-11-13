@@ -214,6 +214,23 @@ function union(list1, list2) {
 
 function intersection(list1, list2) {
   const result = new LinkList();
+  const setNode = new Set();
+  let element1 = list1.head;
+
+  while (element1 !== null) {
+    setNode.add(element1.data);
+    element1 = element1.nextElement;
+  }
+
+  let element2 = list2.head;
+  while (element2 !== null) {
+    if (setNode.has(element2.data)) {
+      result.insertTail(element2.data);
+    } else {
+      setNode.add(element2.data);
+    }
+    element2 = element2.nextElement;
+  }
 
   return result;
 }
@@ -256,4 +273,5 @@ link_list2.insertTail(30);
 link_list2.insertTail(60);
 link_list2.insertTail(45);
 
-console.log(JSON.stringify(union(link_list1, link_list2)));
+// console.log(JSON.stringify(union(link_list1, link_list2)));
+console.log(JSON.stringify(intersection(link_list1, link_list2)));
