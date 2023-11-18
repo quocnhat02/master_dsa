@@ -94,9 +94,9 @@ class LinkList {
       this.head = newNode;
       this.tail = newNode;
     } else if (index <= 0) {
-      this.insertHead(data);
+      return this.insertHead(data);
     } else if (index > this.length) {
-      this.insertTail(data);
+      return this.insertTail(data);
     } else {
       const foundNode = this.findIndex(index);
       newNode.nextElement = foundNode.nextElement;
@@ -128,10 +128,10 @@ class LinkList {
       return;
     }
     if (data === this.head.data) {
-      this.deleteHead();
+      return this.deleteHead();
     }
     if (data === this.tail.data) {
-      this.deleteTail();
+      return this.deleteTail();
     }
     const foundNodeBeforeData = this.findBeforeNode(data);
     if (foundNodeBeforeData !== null) {
@@ -243,8 +243,8 @@ function intersection(list1, list2) {
 }
 
 // const link_list = new LinkList();
-const link_list1 = new LinkList();
-const link_list2 = new LinkList();
+// const link_list1 = new LinkList();
+// const link_list2 = new LinkList();
 
 // link_list.insertHead(1);
 // link_list.insertHead(2);
@@ -270,10 +270,10 @@ const link_list2 = new LinkList();
 // console.log(link_list.length);
 // console.log(JSON.stringify(link_list.removeDuplicates()));
 
-link_list1.insertTail(10);
-link_list1.insertTail(20);
-link_list1.insertTail(80);
-link_list1.insertTail(60);
+// link_list1.insertTail(10);
+// link_list1.insertTail(20);
+// link_list1.insertTail(80);
+// link_list1.insertTail(60);
 // link_list2.insertTail(15);
 // link_list2.insertTail(20);
 // link_list2.insertTail(30);
@@ -282,4 +282,6 @@ link_list1.insertTail(60);
 
 // console.log(JSON.stringify(union(link_list1, link_list2)));
 // console.log(JSON.stringify(intersection(link_list1, link_list2)));
-console.log(JSON.stringify(link_list1.findNthFromEnd(1)));
+// console.log(JSON.stringify(link_list1.findNthFromEnd(1)));
+
+module.exports = LinkList;
