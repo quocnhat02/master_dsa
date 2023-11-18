@@ -117,7 +117,7 @@ class LinkList {
     if (this.isEmpty()) {
       return;
     }
-    const foundNodeBeforeTail = this.findBeforeNode(this.tail.data);
+    const foundNodeBeforeTail = this.findIndex(this.length - 1);
     foundNodeBeforeTail.nextElement = null;
     this.tail = foundNodeBeforeTail;
     this.length--;
