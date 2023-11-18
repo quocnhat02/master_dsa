@@ -10,12 +10,7 @@ function findBin(n) {
   result.push(bin.toString());
 
   for (let i = 1; i < n; i++) {
-    if (bin % 10 === 0 && bin > 1) {
-      bin += 1;
-    } else {
-      bin *= 10;
-    }
-
+    bin = bin % 10 === 0 && bin > 1 ? bin + 1 : bin * 10;
     result.push(bin.toString());
   }
 
