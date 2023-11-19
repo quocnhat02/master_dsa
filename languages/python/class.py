@@ -9,8 +9,14 @@ class Robot:
     def __gt__(self, __value: object):
         return self.x > __value.x and self.y > __value.y
 
+    def __ge__(self, __value: object):
+        return self.x >= __value.x and self.y >= __value.y
+
     def __lt__(self, __value: object):
         return self.x < __value.x and self.y < __value.y
+
+    def __le__(self, __value: object):
+        return self.x <= __value.x and self.y <= __value.y
 
     def __str__(self):
         return f"I am a magic method ({self.x}:{self.y})"
@@ -22,7 +28,7 @@ robot1= Robot(2,4)
 robot2 = Robot(2,4)
 
 # print(robot1 == robot2)
-print(robot1 < robot2)
-print(robot1 > robot2)
+print(robot1 <= robot2)
+print(robot1 >= robot2)
 
 # print(isinstance(robot_obj,Robot))
