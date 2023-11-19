@@ -1,4 +1,4 @@
-usr = 'Light'
-age = 22
+def fun1(*args, **kwargs):
+    print(kwargs)
 
-print("hi {0} your age is {1}".format(usr,age))
+fun1(1,2,3,4,var1=11,var2=12)
