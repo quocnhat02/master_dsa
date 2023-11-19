@@ -1,6 +1,4 @@
-str1 = '''
-    hello world
-    welcome to the website of Light
-'''
+usr = 'Light'
+age = 22
 
-print(str1)
+print("hi {0} your age is {1}".format(usr,age))
