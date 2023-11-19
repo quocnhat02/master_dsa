@@ -1,6 +1,6 @@
-var1 = 10
-var2 = 30.5
+str1 = '''
+    hello world
+    welcome to the website of Light
+'''
 
-sum = var1 + var2
-
-print(sum)
+print(str1)
