@@ -3,9 +3,14 @@ class Robot:
         self.x = x
         self.y = y
 
-    # @classmethod
-    # def specific(cls):
-    #     return cls(1.1,4.6)
+    def __eq__(self, __value: object):
+        return self.x == __value.x and self.y == __value.y
+
+    def __gt__(self, __value: object):
+        return self.x > __value.x and self.y > __value.y
+
+    def __lt__(self, __value: object):
+        return self.x < __value.x and self.y < __value.y
 
     def __str__(self):
         return f"I am a magic method ({self.x}:{self.y})"
@@ -13,8 +18,11 @@ class Robot:
     def walk(self):
         print(f"The robot is walking on {self.x}:{self.y}")
 
-robot = Robot(1,2)
+robot1= Robot(2,4)
+robot2 = Robot(2,4)
 
-print(str(robot))
+# print(robot1 == robot2)
+print(robot1 < robot2)
+print(robot1 > robot2)
 
 # print(isinstance(robot_obj,Robot))
