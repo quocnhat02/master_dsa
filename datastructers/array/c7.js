@@ -1,12 +1,14 @@
 // Challenge 7: Find Second Maximum Value in an Array
 
 function findSecondMax(arr) {
-  let max = 0;
-  let secondMax = 0;
+  let max = -Infinity;
+  let secondMax = -Infinity;
 
   for (const num of arr) {
-    max = Math.max(max, num);
-    if (num > secondMax && num !== max) {
+    if (num > max) {
+      secondMax = max;
+      max = num;
+    } else if (num > secondMax && num !== max) {
       secondMax = num;
     }
   }
