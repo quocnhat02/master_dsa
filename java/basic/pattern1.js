@@ -34,8 +34,32 @@ function printPattern4(n) {
   }
 }
 
+function printPattern5(n) {
+  for (let i = 0; i < n; i++) {
+    let str = '';
+    for (let j = 0; j <= i; j++) {
+      str += j + 1;
+    }
+    console.log(str);
+  }
+}
+
+function printPattern6(n) {
+  let char = 'A';
+  for (let i = 0; i < n; i++) {
+    let str = '';
+    for (let j = 0; j <= i; j++) {
+      str += char;
+      char = String.fromCharCode(char.charCodeAt(0) + 1);
+    }
+    console.log(str);
+  }
+}
+
 // printPattern1(4);
 // printPattern2(4);
 // reverseNumber(10899);
 // printPattern3(4);
-printPattern4(4);
+// printPattern4(4);
+// printPattern5(4);
+printPattern6(4);
