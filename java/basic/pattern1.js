@@ -22,6 +22,13 @@ function reverseNumber(n) {
   console.log(reverse);
 }
 
+function printPattern3(n) {
+  for (let i = 0; i < n; i++) {
+    console.log('*'.repeat(i + 1));
+  }
+}
+
 // printPattern1(4);
 // printPattern2(4);
-reverseNumber(10899);
+// reverseNumber(10899);
+printPattern3(4);
