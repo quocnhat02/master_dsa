@@ -7,9 +7,9 @@ function findMaxSum(arr, k) {
 
   for (let end = 0; end < arr.length; end++) {
     sum += arr[end];
-    if (end - start + 1 > k) {
-      sum -= arr[start++];
+    if (end >= k - 1) {
       max = Math.max(max, sum);
+      sum -= arr[start++];
     }
   }
 
