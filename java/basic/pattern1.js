@@ -28,7 +28,14 @@ function printPattern3(n) {
   }
 }
 
+function printPattern4(n) {
+  for (let i = 0; i < n; i++) {
+    console.log('*'.repeat(n - i));
+  }
+}
+
 // printPattern1(4);
 // printPattern2(4);
 // reverseNumber(10899);
-printPattern3(4);
+// printPattern3(4);
+printPattern4(4);
