@@ -56,10 +56,32 @@ function printPattern6(n) {
   }
 }
 
+function findDeFromBi(n) {
+  let bi = 0;
+  let de = n;
+
+  for (let i = 0; i < `${n}`.length; i++) {
+    bi = bi + Math.pow(2, i) * (de % 10);
+    de = Number.parseInt(de / 10);
+  }
+
+  console.log(bi);
+}
+
+function findBiFromDe(n) {
+  let bi = n;
+  let de = 0;
+
+  for (let i = 0; i < `${n}`.length; i++) {}
+
+  console.log(bi);
+}
+
 // printPattern1(4);
 // printPattern2(4);
 // reverseNumber(10899);
 // printPattern3(4);
 // printPattern4(4);
 // printPattern5(4);
-printPattern6(4);
+// printPattern6(4);
+findDeFromBi(101);
