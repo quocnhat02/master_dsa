@@ -1,2 +1,0 @@
-# Fruits into Baskets (medium)
-
