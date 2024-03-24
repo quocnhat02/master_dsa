@@ -4,7 +4,7 @@
  * the second element becomes the second-to-last, and so on.
  */
 
-function reverseArray(array) {
+function reverseInPlace(array) {
   let left = 0,
     right = array.length - 1;
 
@@ -20,7 +20,7 @@ function reverseArray(array) {
   return array;
 }
 
-function reverseArrayWithExtra(array) {
+function reverseWithExtraMemory(array) {
   const length = array.length;
   const reversed = [];
 
@@ -32,5 +32,5 @@ function reverseArrayWithExtra(array) {
   return reversed;
 }
 
-console.log(reverseArray([1, 4, 2, 7, 5]));
-console.log(reverseArrayWithExtra([1, 4, 2, 7, 5]));
+console.log(reverseInPlace([1, 4, 2, 7, 5]));
+console.log(reverseWithExtraMemory([1, 4, 2, 7, 5]));
