@@ -65,6 +65,11 @@ class LinkedList {
   }
 
   searchNode(value) {
+    const checkIsEmpty = this.isEmpty();
+    if (checkIsEmpty) {
+      return false;
+    }
+
     let currentNode = this.head;
     while (currentNode) {
       if (currentNode.data === value) {
@@ -75,6 +80,17 @@ class LinkedList {
 
     return false;
   }
+
+  deleteAtHead() {
+    const checkIsEmpty = this.isEmpty();
+    if (checkIsEmpty) {
+      return;
+    }
+
+    let currentNode = this.head;
+    this.head = currentNode.next;
+    currentNode.next = null;
+  }
 }
 
 const linked_list = new LinkedList();
@@ -83,5 +99,6 @@ linked_list.insertAtTail(1);
 linked_list.insertAtTail(2);
 linked_list.insertAtTail(3);
 linked_list.insertAtHead(4);
+linked_list.deleteAtHead();
 console.log(linked_list.display());
-console.log(linked_list.searchNode(4));
+console.log(linked_list.searchNode(3));
