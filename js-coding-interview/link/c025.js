@@ -63,14 +63,25 @@ class LinkedList {
       this.head = newNode;
     }
   }
+
+  searchNode(value) {
+    let currentNode = this.head;
+    while (currentNode) {
+      if (currentNode.data === value) {
+        return true;
+      }
+      currentNode = currentNode.next;
+    }
+
+    return false;
+  }
 }
 
 const linked_list = new LinkedList();
-console.log(linked_list.isEmpty());
 
 linked_list.insertAtTail(1);
 linked_list.insertAtTail(2);
 linked_list.insertAtTail(3);
 linked_list.insertAtHead(4);
 console.log(linked_list.display());
-console.log(linked_list.calcLength());
+console.log(linked_list.searchNode(4));
