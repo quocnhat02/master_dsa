@@ -17,5 +17,14 @@ function binaryToDecimal(val) {
   return decimal;
 }
 
+function gcd(num1, num2) {
+  if (num1 === num2) {
+    return num1;
+  } else if (num1 > num2) return gcd(num1 - num2, num2);
+  else if (num1 < num2) return gcd(num1, num2 - num1);
+}
+
 console.log(decimalToBinary(10));
 console.log(binaryToDecimal(1010));
+
+console.log(gcd(6, 9));
