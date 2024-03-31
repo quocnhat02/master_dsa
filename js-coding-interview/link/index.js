@@ -5,7 +5,7 @@ class Node {
   }
 }
 
-class LinkedList {
+module.exports = class LinkedList {
   constructor() {
     this.head = null;
   }
@@ -67,6 +67,8 @@ class LinkedList {
       newNode.next = headNode;
       this.head = newNode;
     }
+
+    return this;
   }
 
   searchNode(value) {
@@ -265,7 +267,7 @@ class LinkedList {
 
     return null;
   }
-}
+};
 
 // const linked_list = new LinkedList();
 // const linked_list_another = new LinkedList();
@@ -296,5 +298,3 @@ class LinkedList {
 //     this.head = null;
 //   }
 // }
-
-module.exports = LinkedList;
