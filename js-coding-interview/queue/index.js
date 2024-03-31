@@ -28,6 +28,28 @@ class Queue {
   display() {
     return this.items.display();
   }
+
+  findBin(n) {
+    if (n <= 0) {
+      return null;
+    }
+
+    let result = [],
+      s1,
+      s2;
+    this.enqueue('1');
+
+    for (let idx = 0; idx < n; idx++) {
+      result.push(this.dequeue());
+      s1 = result[idx] + '0';
+      s2 = result[idx] + '1';
+
+      myQueue.enqueue(s1);
+      myQueue.enqueue(s2);
+    }
+
+    return result;
+  }
 }
 
 const myQueue = new Queue();
@@ -37,9 +59,11 @@ const myQueue = new Queue();
 // myQueue.enqueue(2);
 // myQueue.enqueue(3);
 
-console.log(myQueue.dequeue());
+// console.log(myQueue.dequeue());
 
 // console.log(myQueue.isEmpty());
 // console.log(myQueue.getFront());
 // console.log(myQueue.size());
-console.log(myQueue.display());
+// console.log(myQueue.display());
+
+console.log(myQueue.findBin(7));
