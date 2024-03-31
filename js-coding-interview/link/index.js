@@ -136,14 +136,47 @@ class LinkedList {
       currentNode = currentNode.next;
     }
   }
+
+  removeDuplicates() {
+    const checkIsEmpty = this.isEmpty();
+    if (checkIsEmpty) {
+      return;
+    }
+
+    let currentNode = this.head;
+    const countValue = new Map();
+
+    while (currentNode) {
+      countValue.set(
+        currentNode.data,
+        (countValue.get(currentNode.data) || 0) + 1
+      );
+      currentNode = currentNode.next;
+    }
+
+    let prevNode = this.head;
+    currentNode = this.head;
+
+    while (currentNode) {
+      if (countValue.get(currentNode.data) >= 1) {
+        prevNode = currentNode;
+        countValue.set(currentNode.data, 0);
+      } else {
+        prevNode.next = currentNode.next;
+      }
+      currentNode = currentNode.next;
+    }
+  }
 }
 
 const linked_list = new LinkedList();
 
-linked_list.insertAtTail(1);
-linked_list.insertAtTail(2);
-linked_list.insertAtTail(3);
-linked_list.insertAtHead(4);
-linked_list.deleteAtTail();
+linked_list.insertAtTail(7);
+linked_list.insertAtTail(14);
+linked_list.insertAtTail(21);
+linked_list.insertAtTail(14);
+linked_list.insertAtTail(22);
+linked_list.insertAtTail(7);
+linked_list.removeDuplicates();
+
 console.log(linked_list.display());
-console.log(linked_list.calcLength());
