@@ -261,8 +261,8 @@ class LinkedList {
   }
 }
 
-const linked_list = new LinkedList();
-const linked_list_another = new LinkedList();
+// const linked_list = new LinkedList();
+// const linked_list_another = new LinkedList();
 
 // linked_list_another.insertAtTail(14);
 // linked_list_another.insertAtTail(3);
@@ -271,16 +271,18 @@ const linked_list_another = new LinkedList();
 // linked_list_another.insertAtTail(7);
 // linked_list_another.insertAtTail(10);
 
-linked_list.insertAtTail(22);
-linked_list.insertAtTail(18);
-linked_list.insertAtTail(60);
-linked_list.insertAtTail(78);
-linked_list.insertAtTail(47);
-linked_list.insertAtTail(39);
-linked_list.insertAtTail(99);
+// linked_list.insertAtTail(22);
+// linked_list.insertAtTail(18);
+// linked_list.insertAtTail(60);
+// linked_list.insertAtTail(78);
+// linked_list.insertAtTail(47);
+// linked_list.insertAtTail(39);
+// linked_list.insertAtTail(99);
 
 // console.log(linked_list.union(linked_list_another).display());
 
 // console.log(linked_list.intersection(linked_list_another).display());
 
-console.log(linked_list.findNthNodeFromEnd(3));
+// console.log(linked_list.findNthNodeFromEnd(3));
+
+export { Node, LinkedList };
