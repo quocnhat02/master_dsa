@@ -1,4 +1,43 @@
-const LinkedList = require('../link');
+class Queue {
+  constructor(mySize) {
+    this.items = [];
+    this.size = mySize;
+    this.front = 0;
+    this.back = -1;
+  }
+
+  isFull() {
+    return this.items.length >= this.size;
+  }
+
+  isEmpty() {
+    return this.items.length === 0;
+  }
+
+  getFront() {
+    if (this.items.length !== 0) {
+      return this.items[0];
+    } else {
+      console.log('No elements in the queue');
+    }
+  }
+
+  enqueue(element) {
+    if (this.items.length >= this.size) {
+      console.log('Queue is full');
+    } else {
+      this.items.push(element);
+    }
+  }
+
+  dequeue() {
+    if (this.items.length === 0) {
+      console.log('No elements');
+    } else {
+      return this.items.shift();
+    }
+  }
+}
 
 class Node {
   constructor(data) {
@@ -7,40 +46,45 @@ class Node {
   }
 }
 
-class Graph {
-  constructor(vertices) {
-    this.vertices = vertices;
-    this.list = [];
-    for (let idx = 0; idx < vertices; idx++) {
-      let element = new LinkedList();
-      this.list.push(element);
-    }
+class LinkedList {
+  constructor() {
+    this.head = new Node(-1);
+    this.length = 0;
   }
 
-  addEdge(source, destination) {
-    if (source < this.vertices && destination < this.vertices) {
-      this.list[source].insertAtHead(destination);
-    }
+  isEmpty() {
+    return this.length == 0;
   }
 
-  printGraph() {
-    for (let i = 0; i < this.list.length; i++) {
-      process.stdout.write('|' + String(i) + '| => ');
-      let temp = this.list[i].head;
-      while (temp != null) {
-        process.stdout.write('[' + String(temp.data) + '] -> ');
-        temp = temp.nextElement;
-      }
-      console.log('null ');
+  getHead() {
+    return this.head;
+  }
+
+  insertAtHead(dt) {
+    let tempNode = new Node(dt);
+    tempNode.next = this.head.next;
+    this.head.next = tempNode;
+    this.length++;
+    return this;
+  }
+
+  insertAtTail(value) {
+    let node = new Node(value);
+
+    let currentNode = this.getHead();
+
+    if (currentNode.next === null) {
+      currentNode.next = node;
+      this.length++;
+      return this;
     }
+
+    while (currentNode.next !== null) {
+      currentNode = currentNode.next;
+    }
+
+    currentNode.next = node;
+    this.length++;
+    return this;
   }
 }
-
-let g = new Graph(4);
-
-g.addEdge(0, 1);
-g.addEdge(0, 2);
-g.addEdge(1, 3);
-g.addEdge(2, 3);
-
-g.printGraph();

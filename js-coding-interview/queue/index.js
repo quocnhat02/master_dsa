@@ -1,96 +1,56 @@
-const LinkedList = require('../link');
-const Stack = require('../stack');
+const { Queue, LinkedList } = require('../graph/example');
 
-class Queue {
-  constructor() {
-    this.items = new LinkedList();
-  }
-
-  isEmpty() {
-    return this.items.isEmpty();
-  }
-
-  getFront() {
-    return this.items.head ? this.items.head.data : null;
-  }
-
-  size() {
-    return this.items.calcLength();
-  }
-
-  enqueue(value) {
-    this.items.insertAtTail(value);
-  }
-
-  dequeue() {
-    return this.items.deleteAtHead();
-  }
-
-  display() {
-    return this.items.display();
-  }
-
-  findBin(n) {
-    if (n <= 0) {
-      return null;
+class Graph {
+  constructor(vertices) {
+    this.vertices = vertices;
+    this.list = [];
+    for (let idx = 0; idx < vertices; idx++) {
+      const element = new LinkedList();
+      this.list.push(element);
     }
-
-    let result = [],
-      s1,
-      s2;
-    this.enqueue('1');
-
-    for (let idx = 0; idx < n; idx++) {
-      result.push(this.dequeue());
-      s1 = result[idx] + '0';
-      s2 = result[idx] + '1';
-
-      myQueue.enqueue(s1);
-      myQueue.enqueue(s2);
-    }
-
-    return result;
   }
 
-  reverse(k) {
-    if (!this.isEmpty()) {
-      let myStack = new Stack();
-      let count = 0;
-      while (count < k) {
-        myStack.push(this.dequeue());
-        count++;
-      }
-      while (myStack.isEmpty() == false) {
-        this.enqueue(myStack.pop());
-      }
-      for (var i = 0; i < this.size() - k; i++) {
-        this.enqueue(this.dequeue());
-      }
-      console.log(this.display());
+  addEdge(source, destination) {
+    if (source < this.vertices && destination < this.vertices) {
+      this.list[source].insertAtHead(destination);
     }
   }
 }
 
-const myQueue = new Queue();
+function bfs(g) {
+  if (g.vertices < 1) {
+    return null;
+  }
 
-// myQueue.enqueue(1);
-// myQueue.enqueue(2);
-// myQueue.enqueue(3);
-// myQueue.enqueue(4);
-// myQueue.enqueue(5);
-// myQueue.enqueue(6);
-// myQueue.enqueue(7);
-// myQueue.enqueue(8);
-// myQueue.enqueue(9);
-// myQueue.enqueue(10);
+  let obj = { result: '' };
 
-// console.log(myQueue.dequeue());
+  let visited = Array(g.vertices).fill(false);
 
-// console.log(myQueue.isEmpty());
-// console.log(myQueue.getFront());
-// console.log(myQueue.size());
-// console.log(myQueue.display());
+  for (let i = 0; i < g.vertices; i++) {
+    if (!visited[i]) {
+      bfs_helper(g, i, visited, obj);
+    }
+  }
 
-// console.log(myQueue.findBin(7));
+  return obj.result;
+}
 
-// myQueue.reverse(5);
+function bfs_helper(g, source, visited, obj) {
+  let queue = new Queue(g.vertices);
+  queue.enqueue(source);
+  visited[source] = true;
+
+  while (queue.isEmpty() === false) {
+    let currentNode = queue.dequeue();
+    obj.result += String(currentNode);
+
+    let temp = g.list[currentNode].getHead();
+    while (temp !== null) {
+      if (visited[temp.data] == false) {
+        queue.enqueue(temp.data);
+        visited[temp.data] = true;
+      }
+      temp = temp.nextElement;
+    }
+  }
+}
