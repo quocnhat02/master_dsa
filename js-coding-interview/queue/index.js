@@ -12,8 +12,14 @@ class Queue {
   getFront() {
     return this.items.head ? this.items.head.data : null;
   }
+
+  size() {
+    return this.items.calcLength();
+  }
 }
 
 const myQueue = new Queue();
 
+console.log(myQueue.isEmpty());
 console.log(myQueue.getFront());
+console.log(myQueue.size());
