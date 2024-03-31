@@ -92,6 +92,27 @@ class LinkedList {
     currentNode.next = null;
   }
 
+  deleteAtTail() {
+    const checkIsEmpty = this.isEmpty();
+    if (checkIsEmpty) {
+      return;
+    }
+
+    let currentNode = this.head;
+    if (!currentNode.next) {
+      this.deleteAtHead();
+      return;
+    }
+
+    let prevNode = currentNode;
+    while (currentNode.next) {
+      prevNode = currentNode;
+      currentNode = currentNode.next;
+    }
+
+    prevNode.next = null;
+  }
+
   deleteNode(value) {
     const checkIsEmpty = this.isEmpty();
     if (checkIsEmpty) {
@@ -123,6 +144,6 @@ linked_list.insertAtTail(1);
 linked_list.insertAtTail(2);
 linked_list.insertAtTail(3);
 linked_list.insertAtHead(4);
-linked_list.deleteNode(4);
+linked_list.deleteAtTail();
 console.log(linked_list.display());
-console.log(linked_list.searchNode(4));
+console.log(linked_list.calcLength());
