@@ -4,7 +4,8 @@ class Graph {
   constructor(vertices) {
     this.vertices = vertices;
     this.list = [];
-    for (let idx = 0; idx < vertices; idx++) {
+
+    for (let i = 0; i < vertices; i++) {
       const element = new LinkedList();
       this.list.push(element);
     }
@@ -24,7 +25,7 @@ function bfs(g) {
 
   let obj = { result: '' };
 
-  let visited = Array(g.vertices).fill(false);
+  let visited = [];
 
   for (let i = 0; i < g.vertices; i++) {
     if (!visited[i]) {
@@ -40,17 +41,17 @@ function bfs_helper(g, source, visited, obj) {
   queue.enqueue(source);
   visited[source] = true;
 
-  while (queue.isEmpty() === false) {
+  while (queue.isEmpty() == false) {
     let currentNode = queue.dequeue();
     obj.result += String(currentNode);
 
-    let temp = g.list[currentNode].getHead();
-    while (temp !== null) {
-      if (visited[temp.data] == false) {
-        queue.enqueue(temp.data);
-        visited[temp.data] = true;
+    let tempNode = g.list[currentNode].getHead();
+    while (tempNode !== null) {
+      if (visited[tempNode.data] === false) {
+        queue.enqueue(tempNode.data);
+        visited[tempNode.data] = true;
       }
-      temp = temp.nextElement;
+      tempNode = tempNode.next;
     }
   }
 }

@@ -1,3 +1,5 @@
+const Stack = require('../stack');
+
 class Queue {
   constructor(mySize) {
     this.items = [];
@@ -67,24 +69,94 @@ class LinkedList {
     this.length++;
     return this;
   }
+}
 
-  insertAtTail(value) {
-    let node = new Node(value);
-
-    let currentNode = this.getHead();
-
-    if (currentNode.next === null) {
-      currentNode.next = node;
-      this.length++;
-      return this;
+class Graph {
+  constructor(vertices) {
+    this.vertices = vertices;
+    this.list = [];
+    for (let i = 0; i < vertices; i++) {
+      const element = new LinkedList();
+      this.list.push(element);
     }
+  }
 
-    while (currentNode.next !== null) {
-      currentNode = currentNode.next;
+  addEdge(source, destination) {
+    if (source < this.vertices && destination < this.vertices) {
+      this.list[source].insertAtHead(destination);
     }
+  }
+}
 
-    currentNode.next = node;
-    this.length++;
-    return this;
+function bfs(g) {
+  if (!g.vertices) {
+    return null;
+  }
+
+  let obj = { result: '' };
+
+  let visited = new Array(g.vertices).fill(false);
+
+  for (let i = 0; i < g.vertices; i++) {
+    bfs_helper(g, i, visited, obj);
+  }
+
+  return obj.result;
+}
+
+function bfs_helper(g, source, visited, obj) {
+  let queue = new Queue(g.vertices);
+  queue.enqueue(source);
+  visited[source] = true;
+
+  while (queue.isEmpty() == false) {
+    let currentNode = queue.dequeue();
+    obj.result += String(currentNode);
+
+    let tempNode = g.list[currentNode].getHead();
+
+    while (tempNode !== null) {
+      if (!visited[tempNode.data]) {
+        queue.enqueue(tempNode.data);
+        visited[tempNode.data] = true;
+      }
+      tempNode = tempNode.next;
+    }
+  }
+}
+
+function dfs(g) {
+  if (g.vertices < 1) {
+    return null;
+  }
+
+  let obj = { result: '' };
+
+  let visited = new Array(g.vertices).fill(false);
+
+  for (let i = 0; i < g.vertices; i++) {
+    dfs_helper(g, i, visited, obj);
+  }
+
+  return obj.result;
+}
+
+function dfs_helper(g, source, visited, obj) {
+  let stack = new Stack(g.vertices);
+  stack.push(source);
+  visited[source] = true;
+
+  while (stack.isEmpty() == false) {
+    let currentNode = stack.pop();
+    obj.result += String(currentNode);
+
+    let tempNode = g.list[currentNode].getHead();
+    while (tempNode !== null) {
+      if (!visited[tempNode.data]) {
+        stack.push(tempNode.data);
+        visited[tempNode.data] = true;
+      }
+      tempNode = tempNode.next;
+    }
   }
 }
