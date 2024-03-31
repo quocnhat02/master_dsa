@@ -12,6 +12,11 @@ class LinkedList {
 
   display() {
     let currentNode = this.head;
+
+    if (!currentNode) {
+      return null;
+    }
+
     let result = '';
 
     while (currentNode.next) {
@@ -84,12 +89,13 @@ class LinkedList {
   deleteAtHead() {
     const checkIsEmpty = this.isEmpty();
     if (checkIsEmpty) {
-      return;
+      return null;
     }
 
     let currentNode = this.head;
     this.head = currentNode.next;
     currentNode.next = null;
+    return currentNode.data;
   }
 
   deleteAtTail() {
