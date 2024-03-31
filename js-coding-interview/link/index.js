@@ -167,16 +167,52 @@ class LinkedList {
       currentNode = currentNode.next;
     }
   }
+
+  union(linked_list_another) {
+    const linkedList = new LinkedList();
+    const checkIsEmptyLink1 = this.isEmpty();
+    const checkIsEmptyLink2 = linked_list.isEmpty();
+    if (checkIsEmptyLink1 || checkIsEmptyLink2) {
+      linkedList.head = this.head || linked_list_another.head;
+    }
+
+    const existValue = new Set();
+    let currentNode1 = this.head;
+    let currentNode2 = linked_list_another.head;
+
+    while (currentNode1 || currentNode2) {
+      if (currentNode1) {
+        existValue.add(currentNode1.data);
+        currentNode1 = currentNode1.next;
+      } else {
+        existValue.add(currentNode2.data);
+        currentNode2 = currentNode2.next;
+      }
+    }
+
+    for (const key of existValue) {
+      linkedList.insertAtTail(key);
+    }
+
+    return linkedList;
+  }
 }
 
 const linked_list = new LinkedList();
+const linked_list_another = new LinkedList();
+
+linked_list_another.insertAtTail(14);
+linked_list_another.insertAtTail(3);
+linked_list_another.insertAtTail(4);
+linked_list_another.insertAtTail(5);
+linked_list_another.insertAtTail(7);
+linked_list_another.insertAtTail(10);
 
 linked_list.insertAtTail(7);
 linked_list.insertAtTail(14);
 linked_list.insertAtTail(21);
-linked_list.insertAtTail(14);
 linked_list.insertAtTail(22);
-linked_list.insertAtTail(7);
-linked_list.removeDuplicates();
 
-console.log(linked_list.display());
+console.log(linked_list.union(linked_list_another).display());
+
+// console.log(linked_list.display());
