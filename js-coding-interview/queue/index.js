@@ -1,4 +1,5 @@
 const LinkedList = require('../link');
+const Stack = require('../stack');
 
 class Queue {
   constructor() {
@@ -50,14 +51,38 @@ class Queue {
 
     return result;
   }
+
+  reverse(k) {
+    if (!this.isEmpty()) {
+      let myStack = new Stack();
+      let count = 0;
+      while (count < k) {
+        myStack.push(this.dequeue());
+        count++;
+      }
+      while (myStack.isEmpty() == false) {
+        this.enqueue(myStack.pop());
+      }
+      for (var i = 0; i < this.size() - k; i++) {
+        this.enqueue(this.dequeue());
+      }
+      console.log(this.display());
+    }
+  }
 }
 
 const myQueue = new Queue();
 
-// myQueue.enqueue(0);
-// myQueue.enqueue(1);
-// myQueue.enqueue(2);
-// myQueue.enqueue(3);
+myQueue.enqueue(1);
+myQueue.enqueue(2);
+myQueue.enqueue(3);
+myQueue.enqueue(4);
+myQueue.enqueue(5);
+myQueue.enqueue(6);
+myQueue.enqueue(7);
+myQueue.enqueue(8);
+myQueue.enqueue(9);
+myQueue.enqueue(10);
 
 // console.log(myQueue.dequeue());
 
@@ -66,4 +91,6 @@ const myQueue = new Queue();
 // console.log(myQueue.size());
 // console.log(myQueue.display());
 
-console.log(myQueue.findBin(7));
+// console.log(myQueue.findBin(7));
+
+myQueue.reverse(5);
