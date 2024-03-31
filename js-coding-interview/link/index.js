@@ -285,4 +285,10 @@ class LinkedList {
 
 // console.log(linked_list.findNthNodeFromEnd(3));
 
-export { Node, LinkedList };
+// class LinkedList {
+//   constructor() {
+//     this.head = null;
+//   }
+// }
+
+module.exports = LinkedList;
