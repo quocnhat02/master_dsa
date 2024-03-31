@@ -174,6 +174,7 @@ class LinkedList {
     const checkIsEmptyLink2 = linked_list.isEmpty();
     if (checkIsEmptyLink1 || checkIsEmptyLink2) {
       linkedList.head = this.head || linked_list_another.head;
+      return linkedList;
     }
 
     const existValue = new Set();
@@ -196,6 +197,39 @@ class LinkedList {
 
     return linkedList;
   }
+
+  intersection(linked_list_another) {
+    const linkedList = new LinkedList();
+    const checkIsEmptyLink1 = this.isEmpty();
+    const checkIsEmptyLink2 = linked_list.isEmpty();
+    if (checkIsEmptyLink1 || checkIsEmptyLink2) {
+      linkedList.head = this.head || linked_list_another.head;
+      return linkedList;
+    }
+
+    const existValue1 = new Set();
+    const existValue2 = new Set();
+    let currentNode1 = this.head;
+    let currentNode2 = linked_list_another.head;
+
+    while (currentNode1) {
+      existValue1.add(currentNode1.data);
+      currentNode1 = currentNode1.next;
+    }
+
+    while (currentNode2) {
+      existValue2.add(currentNode2.data);
+      currentNode2 = currentNode2.next;
+    }
+
+    for (const key of existValue1) {
+      if (existValue2.has(key)) {
+        linkedList.insertAtTail(key);
+      }
+    }
+
+    return linkedList;
+  }
 }
 
 const linked_list = new LinkedList();
@@ -213,6 +247,6 @@ linked_list.insertAtTail(14);
 linked_list.insertAtTail(21);
 linked_list.insertAtTail(22);
 
-console.log(linked_list.union(linked_list_another).display());
+// console.log(linked_list.union(linked_list_another).display());
 
-// console.log(linked_list.display());
+console.log(linked_list.intersection(linked_list_another).display());
