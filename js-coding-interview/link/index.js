@@ -230,23 +230,57 @@ class LinkedList {
 
     return linkedList;
   }
+
+  findNthNodeFromEnd(n) {
+    const checkIsEmpty = this.isEmpty();
+    if (checkIsEmpty) {
+      return null;
+    }
+
+    if (this.calcLength() < n) {
+      return null;
+    }
+
+    let currentNode = this.head;
+    let prevNode = this.head;
+
+    while (currentNode.next) {
+      prevNode = currentNode;
+      for (let idx = 0; idx < n; idx++) {
+        if (idx === n - 1 && !currentNode.next) {
+          return prevNode;
+        } else {
+          currentNode = currentNode.next;
+        }
+      }
+
+      currentNode = prevNode.next;
+    }
+
+    return null;
+  }
 }
 
 const linked_list = new LinkedList();
 const linked_list_another = new LinkedList();
 
-linked_list_another.insertAtTail(14);
-linked_list_another.insertAtTail(3);
-linked_list_another.insertAtTail(4);
-linked_list_another.insertAtTail(5);
-linked_list_another.insertAtTail(7);
-linked_list_another.insertAtTail(10);
+// linked_list_another.insertAtTail(14);
+// linked_list_another.insertAtTail(3);
+// linked_list_another.insertAtTail(4);
+// linked_list_another.insertAtTail(5);
+// linked_list_another.insertAtTail(7);
+// linked_list_another.insertAtTail(10);
 
-linked_list.insertAtTail(7);
-linked_list.insertAtTail(14);
-linked_list.insertAtTail(21);
 linked_list.insertAtTail(22);
+linked_list.insertAtTail(18);
+linked_list.insertAtTail(60);
+linked_list.insertAtTail(78);
+linked_list.insertAtTail(47);
+linked_list.insertAtTail(39);
+linked_list.insertAtTail(99);
 
 // console.log(linked_list.union(linked_list_another).display());
 
-console.log(linked_list.intersection(linked_list_another).display());
+// console.log(linked_list.intersection(linked_list_another).display());
+
+console.log(linked_list.findNthNodeFromEnd(3));
