@@ -73,16 +73,16 @@ class Queue {
 
 const myQueue = new Queue();
 
-myQueue.enqueue(1);
-myQueue.enqueue(2);
-myQueue.enqueue(3);
-myQueue.enqueue(4);
-myQueue.enqueue(5);
-myQueue.enqueue(6);
-myQueue.enqueue(7);
-myQueue.enqueue(8);
-myQueue.enqueue(9);
-myQueue.enqueue(10);
+// myQueue.enqueue(1);
+// myQueue.enqueue(2);
+// myQueue.enqueue(3);
+// myQueue.enqueue(4);
+// myQueue.enqueue(5);
+// myQueue.enqueue(6);
+// myQueue.enqueue(7);
+// myQueue.enqueue(8);
+// myQueue.enqueue(9);
+// myQueue.enqueue(10);
 
 // console.log(myQueue.dequeue());
 
@@ -93,4 +93,4 @@ myQueue.enqueue(10);
 
 // console.log(myQueue.findBin(7));
 
-myQueue.reverse(5);
+// myQueue.reverse(5);
