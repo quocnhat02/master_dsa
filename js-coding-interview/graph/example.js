@@ -332,6 +332,48 @@ function dfsTraversal(g) {
   return obj.result;
 }
 
+function detectCycleRec(g, i, visited, recNodes) {
+  if (visited[i] == false) {
+    visited[i] = true;
+    recNodes[i] = true;
+  }
+
+  let adjacent;
+  let adjacentNode = g.list[i].getHead();
+  while (adjacentNode !== null) {
+    adjacent = adjacentNode.data;
+    if (!visited[adjacent] && detectCycleRec(g, adjacent, visited, recNodes)) {
+      return true;
+    } else if (recNodes[adjacent]) {
+      return true;
+    }
+
+    adjacentNode = adjacentNode.nextElement;
+  }
+
+  recNodes[i] = false;
+  return false;
+}
+
+function detectCycle(g) {
+  let num_of_vertices = g.vertices;
+  let visited = [];
+  let recNodes = [];
+
+  for (let i = 0; i < num_of_vertices; i++) {
+    visited[i] = false;
+    recNodes[i] = false;
+  }
+
+  for (let i = 0; i < num_of_vertices; i++) {
+    if (detectCycleRec(g, i, visited, recNodes)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 let g1 = new Graph(6);
 g1.addEdge(1, 2);
 g1.addEdge(1, 3);
