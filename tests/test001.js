@@ -5,9 +5,13 @@ Tìm kiếm:
     Tìm kiếm số lần xuất hiện của một phần tử trong mảng.
 */
 
+const findMax = (arr) =>
+  arr.reduce((acc, cur) => (acc > cur ? acc : cur), arr[0]);
+
 const findMin = (arr) =>
   arr.reduce((acc, cur) => (acc < cur ? acc : cur), arr[0]);
 
+console.log(findMax([7, 4, 7, 9, 6, 8, 4, 2]));
 console.log(findMin([7, 4, 7, 9, 6, 8, 4, 2]));
 
 const findValue = (arr, target) => {
