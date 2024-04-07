@@ -9,10 +9,25 @@ const sortAsc = (arr) => {
   return arr.sort((a, b) => a - b);
 };
 
-console.log(sortAsc([5, 3, 8, 9, 0, 2, 4]));
+// console.log(sortAsc([5, 3, 8, 9, 0, 2, 4]));
 
 const sortDes = (arr) => {
   return arr.sort((a, b) => b - a);
 };
 
-console.log(sortDes([5, 3, 8, 9, 0, 2, 4]));
+// console.log(sortDes([5, 3, 8, 9, 0, 2, 4]));
+
+const bubbleSort = (arr) => {
+  const len = arr.length;
+  for (let i = 0; i < len; i++) {
+    for (let j = 0; j < len; j++) {
+      if (arr[j] > arr[j + 1]) {
+        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+      }
+    }
+  }
+
+  return arr;
+};
+
+console.log(bubbleSort([4, 6, 8, 2, 4, 5, 6, 9]));
