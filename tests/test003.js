@@ -21,10 +21,16 @@ function rotateLeft(arr, n) {
   return arr.slice(-n).concat(arr.slice(0, arr.length - n));
 }
 
-console.log(rotateLeft([1, 2, 3, 4, 5], 3));
+// console.log(rotateLeft([1, 2, 3, 4, 5], 3));
 
 function rotateRight(arr, n) {
   return arr.slice(n).concat(arr.slice(0, n));
 }
 
-console.log(rotateRight([1, 2, 3, 4, 5], 3));
+// console.log(rotateRight([1, 2, 3, 4, 5], 3));
+
+function reverseArr(arr) {
+  return arr.reverse();
+}
+
+console.log(reverseArr([1, 2, 3, 4, 5]));
