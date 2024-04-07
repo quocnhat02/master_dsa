@@ -18,3 +18,9 @@ const findValue = (arr, target) => {
 };
 
 console.log(findValue([6, 4, 8, 9, 0, 3, 2], 3));
+
+const countValue = (arr, target) => {
+  return arr.reduce((acc, cur) => acc + (cur === target ? 1 : 0), 0);
+};
+
+console.log(countValue([4, 5, 6, 7, 1, 3, 4, 5, 4], 4));
