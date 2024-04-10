@@ -1,3 +1,10 @@
+/**
+ * find index of two numbers has sum equal
+ * @param {Array} nums
+ * @param {number} target
+ * @returns {Array}
+ */
+
 function twoSum(nums, target) {
   const len = nums.length;
   const myObject = {};
