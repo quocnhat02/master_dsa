@@ -59,5 +59,11 @@ function findProducts(arr) {
   return products;
 }
 
-console.log(findProducts([1, 2, 3, 4]));
-console.log(findProducts([4, 2, 1, 5, 0]));
+// console.log(findProducts([1, 2, 3, 4]));
+// console.log(findProducts([4, 2, 1, 5, 0]));
+
+function findMin(arr) {
+  return arr.reduce((pre, cur) => Math.min(pre, cur), arr[0]);
+}
+
+console.log(findMin([9, 2, 3, 6]));
