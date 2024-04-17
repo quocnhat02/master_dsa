@@ -40,4 +40,24 @@ function findTwoSum(arr, target) {
   return [];
 }
 
-console.log(findTwoSum([1, 21, 3, 14, 5, 60, 7, 6], 81));
+// console.log(findTwoSum([1, 21, 3, 14, 5, 60, 7, 6], 81));
+
+function findProducts(arr) {
+  const len = arr.length;
+  let prevLeft = 1,
+    prevRight = 1;
+  const products = new Array(len).fill(1);
+
+  for (let i = 0; i < len; i++) {
+    products[i] *= prevLeft;
+    prevLeft *= arr[i];
+
+    products[len - 1 - i] *= prevRight;
+    prevRight *= arr[len - 1 - i];
+  }
+
+  return products;
+}
+
+console.log(findProducts([1, 2, 3, 4]));
+console.log(findProducts([4, 2, 1, 5, 0]));
