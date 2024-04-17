@@ -23,4 +23,21 @@ function mergeSorted(arr1, arr2) {
   return merged;
 }
 
-console.log(mergeSorted([1, 3, 5, 7, 9], [2, 4, 6, 8, 10]));
+// console.log(mergeSorted([1, 3, 5, 7, 9], [2, 4, 6, 8, 10]));
+
+function findTwoSum(arr, target) {
+  const saveNum = new Set();
+  const length = arr.length;
+
+  for (let i = 0; i < length; i++) {
+    const value = target - arr[i];
+    if (saveNum.has(value)) {
+      return [value, arr[i]];
+    }
+    saveNum.add(arr[i]);
+  }
+
+  return [];
+}
+
+console.log(findTwoSum([1, 21, 3, 14, 5, 60, 7, 6], 81));
