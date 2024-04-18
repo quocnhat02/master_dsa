@@ -83,4 +83,21 @@ function findFirstUnique(arr) {
   return null;
 }
 
-console.log(findFirstUnique([9, 2, 3, 2, 6, 6]));
+// console.log(findFirstUnique([9, 2, 3, 2, 6, 6]));
+
+function findSecondMax(arr) {
+  if (arr.length < 2) return -1;
+  let result = arr.reduce(
+    (pre, cur) => {
+      pre[1] = Math.max(cur, pre[1]);
+      pre[0] = cur > pre[0] && cur !== pre[1] ? cur : pre[0];
+      return pre;
+    },
+    [Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY] // [second_max, maximum]
+  );
+  return result[0] !== result[1] && result[0] !== Number.NEGATIVE_INFINITY
+    ? result[0]
+    : -1;
+}
+
+console.log(findSecondMax([9, 2, 3, 4, 6]));
