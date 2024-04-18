@@ -66,4 +66,21 @@ function findMin(arr) {
   return arr.reduce((pre, cur) => Math.min(pre, cur), arr[0]);
 }
 
-console.log(findMin([9, 2, 3, 6]));
+// console.log(findMin([9, 2, 3, 6]));
+
+function findFirstUnique(arr) {
+  const countMap = new Map();
+  for (const number of arr) {
+    countMap.set(number, (countMap.get(number) || 0) + 1);
+  }
+
+  for (const [key, value] of countMap) {
+    if (value === 1) {
+      return key;
+    }
+  }
+
+  return null;
+}
+
+console.log(findFirstUnique([9, 2, 3, 2, 6, 6]));
