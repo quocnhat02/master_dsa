@@ -100,4 +100,10 @@ function findSecondMax(arr) {
     : -1;
 }
 
-console.log(findSecondMax([9, 2, 3, 4, 6]));
+// console.log(findSecondMax([9, 2, 3, 4, 6]));
+
+function rotateRight(arr, n) {
+  return arr.slice(arr.length - n).concat(arr.slice(0, arr.length - n));
+}
+
+console.log(rotateRight([1, 2, 3, 4, 5], 3));
