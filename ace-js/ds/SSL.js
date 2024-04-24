@@ -233,6 +233,28 @@ function intersection(list1, list2) {
   return list2;
 }
 
+function findNthNodeEnd(list, n) {
+  const checkEmpty = list.isEmpty();
+  const length = list.length();
+
+  if (checkEmpty || length < n) {
+    return null;
+  }
+
+  let count = 0;
+  let currentNode = list.head;
+
+  while (currentNode !== null) {
+    if (count === length - n) {
+      return currentNode.data;
+    }
+    count++;
+    currentNode = currentNode.next;
+  }
+
+  return null;
+}
+
 const linkedList = new LinkedList();
 
 linkedList.insertAtTail(1);
@@ -252,4 +274,6 @@ linkedList2.insertAtTail(9);
 // console.log(linkedList.display());
 
 // console.log(union(linkedList, linkedList2).display());
-console.log(intersection(linkedList, linkedList2).display());
+// console.log(intersection(linkedList, linkedList2).display());
+
+console.log(findNthNodeEnd(linkedList2, 2));
