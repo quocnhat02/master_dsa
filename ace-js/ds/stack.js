@@ -15,6 +15,10 @@ class Stack {
     return !this.data.length ? true : false;
   }
 
+  size() {
+    return this.data.length;
+  }
+
   getTop() {
     return this.data[this.data.length - 1];
   }
