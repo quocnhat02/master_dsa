@@ -47,7 +47,20 @@ class LinkedList {
     return newNode;
   }
 
-  insertAtHead(data) {}
+  insertAtHead(data) {
+    const newNode = new Node(data);
+    const checkEmpty = this.isEmpty();
+
+    if (checkEmpty) {
+      this.head = newNode;
+    } else {
+      const headNode = this.head;
+      newNode.next = headNode;
+      this.head = newNode;
+    }
+
+    return newNode;
+  }
 
   delete(data) {}
 
@@ -61,5 +74,7 @@ const linkedList = new LinkedList();
 linkedList.insertAtTail(1);
 linkedList.insertAtTail(2);
 linkedList.insertAtTail(3);
+linkedList.insertAtHead(4);
+linkedList.insertAtHead(5);
 
 console.log(linkedList.display());
