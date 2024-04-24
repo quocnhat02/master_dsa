@@ -144,14 +144,14 @@ class LinkedList {
       return;
     }
 
-    const nodeMap = new Set();
+    const nodeSet = new Set();
 
     let currentNode = this.head,
       prevNode = currentNode;
 
     while (currentNode !== null) {
-      if (!nodeMap.has(currentNode.data)) {
-        nodeMap.add(currentNode.data);
+      if (!nodeSet.has(currentNode.data)) {
+        nodeSet.add(currentNode.data);
         prevNode = currentNode;
         currentNode = currentNode.next;
       } else {
@@ -162,15 +162,59 @@ class LinkedList {
   }
 }
 
+function union(list1, list2) {
+  const checkEmpty1 = list1.isEmpty();
+  const checkEmpty2 = list2.isEmpty();
+
+  if (checkEmpty1) {
+    return list2;
+  }
+
+  if (checkEmpty2) {
+    return list1;
+  }
+
+  const nodeSet = new Set();
+
+  let currentNode1 = list1.head;
+
+  while (currentNode1.next !== null) {
+    nodeSet.add(currentNode1.data);
+    currentNode1 = currentNode1.next;
+  }
+  nodeSet.add(currentNode1.data);
+
+  let currentNode2 = list2.head;
+
+  while (currentNode2 !== null) {
+    if (!nodeSet.has(currentNode2.data)) {
+      currentNode1.next = currentNode2;
+      currentNode1 = currentNode2;
+    }
+    currentNode2 = currentNode2.next;
+  }
+
+  currentNode1.next = null;
+
+  return list1.display();
+}
+
 const linkedList = new LinkedList();
 
 linkedList.insertAtTail(1);
 linkedList.insertAtTail(2);
 linkedList.insertAtTail(3);
-linkedList.insertAtHead(4);
-linkedList.insertAtHead(5);
 linkedList.insertAtTail(4);
-linkedList.insertAtHead(2);
+linkedList.insertAtTail(5);
 
-linkedList.removeDuplicates();
-console.log(linkedList.display());
+const linkedList2 = new LinkedList();
+
+linkedList2.insertAtTail(6);
+linkedList2.insertAtTail(7);
+linkedList2.insertAtTail(4);
+linkedList2.insertAtTail(5);
+linkedList2.insertAtTail(9);
+
+// console.log(linkedList.display());
+
+console.log(union(linkedList, linkedList2));
