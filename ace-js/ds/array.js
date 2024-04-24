@@ -106,4 +106,34 @@ function rotateRight(arr, n) {
   return arr.slice(arr.length - n).concat(arr.slice(0, arr.length - n));
 }
 
-console.log(rotateRight([1, 2, 3, 4, 5], 3));
+// 1 2 3 4 5
+// 5 4 3 2 1
+// 3 4 5 1 2
+
+// console.log(rotateRight([1, 2, 3, 4, 5], 3));
+
+function arrangeNegToPos(arr) {
+  let start = 0,
+    end = arr.length - 1,
+    left = 0;
+
+  while (start < end) {
+    if (arr[start] < 0) {
+      start++;
+    }
+
+    if (arr[end] >= 0) {
+      end--;
+    }
+
+    if (arr[end] < 0 || arr[start] >= 0) {
+      [arr[start], arr[end]] = [arr[end], arr[start]];
+      start++;
+      end--;
+    }
+  }
+
+  return arr;
+}
+
+console.log(arrangeNegToPos([10, -1, 20, 4, 5, -9, -6]));
