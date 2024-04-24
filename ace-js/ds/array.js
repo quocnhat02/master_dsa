@@ -136,4 +136,15 @@ function arrangeNegToPos(arr) {
   return arr;
 }
 
-console.log(arrangeNegToPos([10, -1, 20, 4, 5, -9, -6]));
+// console.log(arrangeNegToPos([10, -1, 20, 4, 5, -9, -6]));
+
+function maxMin(arr) {
+  let left = 0,
+    right = arr.length - 1;
+
+  return arr.map((_, i) => {
+    return i % 2 === 0 ? arr[right--] : arr[left++];
+  }, []);
+}
+
+console.log(maxMin([1, 2, 3, 4, 5]));
