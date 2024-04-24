@@ -20,6 +20,9 @@ class Stack {
   }
 
   getTop() {
-    return this.data[this.data.length - 1];
+    return this.data[this.data.length - 1] ?? null;
   }
 }
+
+const stack = new Stack();
+console.log(stack.getTop());
