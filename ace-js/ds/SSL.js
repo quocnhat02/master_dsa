@@ -196,7 +196,41 @@ function union(list1, list2) {
 
   currentNode1.next = null;
 
-  return list1.display();
+  return list1;
+}
+
+function intersection(list1, list2) {
+  const checkEmpty1 = list1.isEmpty();
+  const checkEmpty2 = list2.isEmpty();
+
+  if (checkEmpty1) {
+    return list2;
+  }
+
+  if (checkEmpty2) {
+    return list1;
+  }
+
+  const nodeSet = new Set();
+
+  let currentNode1 = list1.head;
+
+  while (currentNode1.next !== null) {
+    nodeSet.add(currentNode1.data);
+    currentNode1 = currentNode1.next;
+  }
+  nodeSet.add(currentNode1.data);
+
+  let currentNode2 = list2.head;
+
+  while (currentNode2 !== null) {
+    if (!nodeSet.has(currentNode2.data)) {
+      list2.delete(currentNode2.data);
+    }
+    currentNode2 = currentNode2.next;
+  }
+
+  return list2;
 }
 
 const linkedList = new LinkedList();
@@ -217,4 +251,5 @@ linkedList2.insertAtTail(9);
 
 // console.log(linkedList.display());
 
-console.log(union(linkedList, linkedList2));
+// console.log(union(linkedList, linkedList2).display());
+console.log(intersection(linkedList, linkedList2).display());
