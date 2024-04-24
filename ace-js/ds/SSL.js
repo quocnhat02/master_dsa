@@ -118,6 +118,24 @@ class LinkedList {
 
     return null;
   }
+
+  length() {
+    const checkEmpty = this.isEmpty();
+    let length = 0;
+
+    if (checkEmpty) {
+      return length;
+    }
+
+    let currentNode = this.head;
+
+    while (currentNode !== null) {
+      length++;
+      currentNode = currentNode.next;
+    }
+
+    return length;
+  }
 }
 
 const linkedList = new LinkedList();
@@ -133,3 +151,4 @@ linkedList.delete(5);
 
 console.log(linkedList.display());
 console.log(linkedList.search(2));
+console.log(linkedList.length());
