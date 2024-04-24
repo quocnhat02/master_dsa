@@ -24,11 +24,31 @@ class Queue {
   }
 }
 
-const queue = new Queue();
+function findBin(n) {
+  const result = [];
+  const queue = new Queue();
+  let s1, s2;
 
-queue.enqueue(1);
-queue.enqueue(2);
-queue.enqueue(3);
-queue.dequeue();
+  queue.enqueue('1');
 
-console.log(queue);
+  for (let i = 0; i < n; i++) {
+    result.push(queue.dequeue());
+
+    s1 = result[i] + '0';
+    s2 = result[i] + '1';
+
+    queue.enqueue(s1);
+    queue.enqueue(s2);
+  }
+
+  return result;
+}
+
+// const queue = new Queue();
+
+// queue.enqueue(1);
+// queue.enqueue(2);
+// queue.enqueue(3);
+// queue.dequeue();
+
+console.log(findBin(5));
