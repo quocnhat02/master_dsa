@@ -147,4 +147,23 @@ function maxMin(arr) {
   }, []);
 }
 
-console.log(maxMin([1, 2, 3, 4, 5]));
+// console.log(maxMin([1, 2, 3, 4, 5]));
+
+function maxSumSub(arr) {
+  let sum = 0,
+    max = arr[0];
+
+  for (const num of arr) {
+    sum += num;
+
+    if (sum < 0) {
+      sum = 0;
+    }
+
+    max = Math.max(max, sum);
+  }
+
+  return max;
+}
+
+console.log(maxSumSub([-4, 2, -5, 1, 2, 3, 6, -5, 1]));
