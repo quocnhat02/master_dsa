@@ -1,20 +1,16 @@
-function mergeSorted(arr1, arr2) {
-  const merged = [],
-    length = arr1.length + arr2.length;
-  let idx1 = 0,
-    idx2 = 0;
+function findTwoSum(arr, value) {
+  const map = new Map();
 
-  while (idx1 + idx2 < length) {
-    if (arr1[idx1] > arr2[idx2] || !arr1[idx1]) {
-      merged.push(arr2[idx2]);
-      idx2++;
+  for (let i = 0; i < arr.length; i++) {
+    const elementSub = value - arr[i];
+    if (map.has(elementSub)) {
+      return [elementSub, arr[i]];
     } else {
-      merged.push(arr1[idx1]);
-      idx1++;
+      map.set(arr[i], i);
     }
   }
 
-  return merged;
+  return null;
 }
 
-console.log(mergeSorted([1, 3, 4, 5, 9], [2, 6, 7, 8]));
+console.log(findTwoSum([1, 21, 3, 3, 14, 5, 60, 7, 6], 6));
