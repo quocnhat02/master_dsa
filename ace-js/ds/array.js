@@ -1,20 +1,20 @@
-function removeEven(arr) {
-  // return arr.filter((num) => num % 2 !== 0);
-  let end = 0;
+function mergeSorted(arr1, arr2) {
+  const merged = [],
+    length = arr1.length + arr2.length;
+  let idx1 = 0,
+    idx2 = 0;
 
-  for (let i = 0; i < arr.length; i++) {
-    const element = arr[i];
-    if (element % 2 !== 0) {
-      if (end !== i) {
-        arr[end] = element;
-      }
-      end++;
+  while (idx1 + idx2 < length) {
+    if (arr1[idx1] > arr2[idx2] || !arr1[idx1]) {
+      merged.push(arr2[idx2]);
+      idx2++;
+    } else {
+      merged.push(arr1[idx1]);
+      idx1++;
     }
   }
 
-  arr.length = end;
-
-  return arr;
+  return merged;
 }
 
-console.log(removeEven([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 15, 14, 17]));
+console.log(mergeSorted([1, 3, 4, 5, 9], [2, 6, 7, 8]));
