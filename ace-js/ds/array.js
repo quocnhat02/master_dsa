@@ -1,15 +1,16 @@
 function findFirstUnique(arr) {
-  const map = new Map();
-  let idx_unique = 0;
+  const countMap = new Map();
 
+  // First pass: count occurrences of each element
   for (const element of arr) {
-    map.set(element, (map.get(element) || 0) + 1);
-    while (map.get(arr[idx_unique]) > 1) {
-      idx_unique++;
-    }
+    countMap.set(element, (countMap.get(element) || 0) + 1);
   }
 
-  return arr[idx_unique] || null;
-}
+  // Second pass: find the first unique element
+  for (const element of arr) {
+    if (countMap.get(element) === 1) {
+      return element;
+    }
+  }
 
 console.log(findFirstUnique([9, 2, 3, 9, 2, 6, 6]));
