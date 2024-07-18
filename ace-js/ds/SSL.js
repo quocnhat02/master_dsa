@@ -155,14 +155,34 @@ class LinkedList {
       return flag;
     }
   }
+
+  removeDuplicates() {
+    const map = new Set();
+    let currentNode = this.head;
+    let prevNode = this.head;
+
+    while (currentNode !== null) {
+      if (map.has(currentNode.data)) {
+        prevNode.next = currentNode.next;
+      } else {
+        map.add(currentNode.data);
+        prevNode = currentNode;
+      }
+      currentNode = currentNode.next;
+    }
+  }
 }
 
 const newLinkedList = new LinkedList();
-newLinkedList.insertAtTail(1);
-// newLinkedList.insertAtTail(2);
-// newLinkedList.insertAtTail(3);
-// newLinkedList.insertAtTail(4);
-// newLinkedList.insertAtTail(5);
+newLinkedList.insertAtTail(7);
+newLinkedList.insertAtTail(14);
+newLinkedList.insertAtTail(21);
+newLinkedList.insertAtTail(14);
+newLinkedList.insertAtTail(14);
+newLinkedList.insertAtTail(22);
+newLinkedList.insertAtTail(7);
 
+console.log(newLinkedList.display());
+newLinkedList.removeDuplicates();
 console.log(newLinkedList.display());
 console.log(newLinkedList.length());
