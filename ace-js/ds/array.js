@@ -1,16 +1,17 @@
-function findFirstUnique(arr) {
-  const countMap = new Map();
-
-  // First pass: count occurrences of each element
-  for (const element of arr) {
-    countMap.set(element, (countMap.get(element) || 0) + 1);
+function findSecondMax(array) {
+  if (array.length < 2) {
+    return null;
   }
 
-  // Second pass: find the first unique element
-  for (const element of arr) {
-    if (countMap.get(element) === 1) {
-      return element;
-    }
+  let max = 0,
+    second_max = 0;
+
+  for (let element of array) {
+    max = Math.max(max, element);
+    second_max = Math.max(second_max, element !== max ? element : second_max);
   }
 
-console.log(findFirstUnique([9, 2, 3, 9, 2, 6, 6]));
+  return second_max;
+}
+
+console.log(findSecondMax([9, 2, 3, 6]));
