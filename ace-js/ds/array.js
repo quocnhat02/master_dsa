@@ -1,14 +1,15 @@
-function rearrange(arr) {
-  let idx_swap = 0;
+function rearrangeMaxMin(arr) {
+  const result = [],
+    length = arr.length;
 
-  for (let idx = 1; idx < arr.length; idx++) {
-    if (arr[idx] < 0) {
-      [arr[idx], arr[idx_swap]] = [arr[idx_swap], arr[idx]];
-      idx_swap++;
+  for (let idx = 0; idx < Math.ceil(length / 2); idx++) {
+    result.push(arr[length - 1 - idx]);
+    if (idx < Math.floor(length / 2)) {
+      result.push(arr[idx]);
     }
   }
 
-  return arr;
+  return result;
 }
 
-console.log(rearrange([10, -1, 20, 0, 4, 5, -9, -6]));
+console.log(rearrangeMaxMin([1, 2, 3, 4, 5, 6]));
