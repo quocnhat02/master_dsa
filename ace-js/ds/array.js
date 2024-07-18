@@ -1,21 +1,11 @@
-function findProducts(arr) {
-  const products = new Array(arr.length).fill(1);
-  let prev = 1 * arr[0],
-    tmp1 = 1,
-    after = 1 * arr[arr.length - 1],
-    tmp2 = 1;
+function findMinimum(arr) {
+  let min_value = arr[0];
 
   for (let i = 1; i < arr.length; i++) {
-    tmp1 *= prev;
-    products[i] *= tmp1;
-    prev = arr[i];
-
-    tmp2 *= after;
-    products[arr.length - 1 - i] *= tmp2;
-    after = arr[arr.length - 1 - i];
+    min_value = Math.min(min_value, arr[i]);
   }
 
-  return products;
+  return min_value;
 }
 
-console.log(findProducts([1, 2, 3, 4]));
+console.log(findMinimum([1, 2, 3, 4]));
