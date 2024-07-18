@@ -18,12 +18,12 @@ class LinkedList {
     if (head == this.tail) {
       result = head ? head.data : null;
     } else {
-      while (head.next !== null) {
-        result += head.data + '->';
+      while (head !== null) {
+        result += head.data + ' -> ';
         head = head.next;
       }
-      result += head.data;
     }
+    result += null;
 
     return result;
   }
