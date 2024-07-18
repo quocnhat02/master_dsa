@@ -36,12 +36,21 @@ class LinkedList {
     }
   }
 
-  insertAtHead(data) {}
+  insertAtHead(data) {
+    const newNode = new Node(data);
+    if (this.head === null) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      newNode.next = this.head;
+      this.head = newNode;
+    }
+  }
 }
 
 const newLinkedList = new LinkedList();
-newLinkedList.insertAtTail(1);
-newLinkedList.insertAtTail(2);
-newLinkedList.insertAtTail(3);
+newLinkedList.insertAtHead(1);
+newLinkedList.insertAtHead(2);
+newLinkedList.insertAtHead(3);
 
 console.log(newLinkedList.display());
