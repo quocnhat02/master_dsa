@@ -70,6 +70,24 @@ class LinkedList {
     }
   }
 
+  insertAtNthNode(data, n) {
+    let currentNode = this.head;
+    let idx = 1;
+
+    while (currentNode !== null) {
+      if (idx === n) {
+        const newNode = new Node(data);
+        newNode.next = currentNode.next;
+        if (currentNode.next === null) {
+          this.tail = newNode;
+        }
+        currentNode.next = newNode;
+      }
+      idx++;
+      currentNode = currentNode.next;
+    }
+  }
+
   deleteAtHead() {
     let flag = true;
     if (this.head == this.tail) {
@@ -109,11 +127,11 @@ class LinkedList {
 }
 
 const newLinkedList = new LinkedList();
-// newLinkedList.insertAtTail(1);
-// newLinkedList.insertAtTail(2);
-// newLinkedList.insertAtTail(3);
-// newLinkedList.insertAtTail(4);
-// newLinkedList.insertAtTail(5);
+newLinkedList.insertAtTail(1);
+newLinkedList.insertAtTail(2);
+newLinkedList.insertAtTail(3);
+newLinkedList.insertAtTail(4);
+newLinkedList.insertAtTail(5);
+newLinkedList.insertAtNthNode(9, 3);
 
 console.log(newLinkedList.display());
-console.log(newLinkedList.isEmpty());
