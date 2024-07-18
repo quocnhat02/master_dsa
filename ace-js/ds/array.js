@@ -1,11 +1,15 @@
-function findMinimum(arr) {
-  let min_value = arr[0];
+function findFirstUnique(arr) {
+  const map = new Map();
+  let idx_unique = 0;
 
-  for (let i = 1; i < arr.length; i++) {
-    min_value = Math.min(min_value, arr[i]);
+  for (const element of arr) {
+    map.set(element, (map.get(element) || 0) + 1);
+    while (map.get(arr[idx_unique]) > 1) {
+      idx_unique++;
+    }
   }
 
-  return min_value;
+  return arr[idx_unique] || null;
 }
 
-console.log(findMinimum([1, 2, 3, 4]));
+console.log(findFirstUnique([9, 2, 3, 9, 2, 6, 6]));
