@@ -12,4 +12,26 @@ function rearrangeMaxMin(arr) {
   return result;
 }
 
-console.log(rearrangeMaxMin([1, 2, 3, 4, 5, 6]));
+function rearrangeMaxMinOp(arr) {
+  let maxIdx = arr.length - 1,
+    minIdx = 0,
+    maxElem = arr[maxIdx] + 1;
+
+  for (let idx = 0; idx < arr.length; idx++) {
+    if (idx % 2 === 0) {
+      arr[idx] += Math.floor((arr[maxIdx] % maxElem) * maxElem);
+      maxIdx--;
+    } else {
+      arr[idx] += Math.floor((arr[minIdx] % maxElem) * maxElem);
+      minIdx++;
+    }
+  }
+
+  for (let idx = 0; idx < arr.length; idx++) {
+    arr[idx] = Math.floor(arr[idx] / maxElem);
+  }
+
+  return arr;
+}
+
+console.log(rearrangeMaxMinOp([1, 2, 3, 4, 5, 6]));
