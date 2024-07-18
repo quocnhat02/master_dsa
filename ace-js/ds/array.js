@@ -1,37 +1,18 @@
-function rearrangeMaxMin(arr) {
-  const result = [],
-    length = arr.length;
-
-  for (let idx = 0; idx < Math.ceil(length / 2); idx++) {
-    result.push(arr[length - 1 - idx]);
-    if (idx < Math.floor(length / 2)) {
-      result.push(arr[idx]);
-    }
-  }
-
-  return result;
-}
-
-function rearrangeMaxMinOp(arr) {
-  let maxIdx = arr.length - 1,
-    minIdx = 0,
-    maxElem = arr[maxIdx] + 1;
+function findMaxSumSub(arr) {
+  let max_sum = arr[0],
+    sum = arr[0];
 
   for (let idx = 0; idx < arr.length; idx++) {
-    if (idx % 2 === 0) {
-      arr[idx] += Math.floor((arr[maxIdx] % maxElem) * maxElem);
-      maxIdx--;
+    if (sum < 0) {
+      sum = arr[idx];
     } else {
-      arr[idx] += Math.floor((arr[minIdx] % maxElem) * maxElem);
-      minIdx++;
+      sum += arr[idx];
     }
+
+    max_sum = Math.max(max_sum, sum);
   }
 
-  for (let idx = 0; idx < arr.length; idx++) {
-    arr[idx] = Math.floor(arr[idx] / maxElem);
-  }
-
-  return arr;
+  return max_sum;
 }
 
-console.log(rearrangeMaxMinOp([1, 2, 3, 4, 5, 6]));
+console.log(findMaxSumSub([-4, 2, -5, 1, 2, 3, 6, -5, 1]));
