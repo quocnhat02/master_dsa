@@ -89,23 +89,40 @@ class LinkedList {
   }
 
   deleteAtHead() {
-    let flag = true;
     if (this.head == this.tail) {
       this.head = null;
       this.tail = null;
     } else {
-      flag = true;
       this.head = this.head.next;
     }
-    return flag;
+    return true;
+  }
+
+  deleteAtTail() {
+    if (this.head == this.tail) {
+      this.head = null;
+      this.tail = null;
+    } else {
+      let currentNode = this.head;
+      let prevNode = this.head;
+      while (currentNode.next !== null) {
+        prevNode = currentNode;
+        currentNode = currentNode.next;
+      }
+      prevNode.next = null;
+      this.tail = prevNode;
+    }
+    return true;
   }
 
   delete(data) {
     let flag = false;
     if (!this.head) {
       flag = false;
-    } else if (this.head.data == data) {
+    } else if (this.head.data === data) {
       return this.deleteAtHead();
+    } else if (this.tail.data === data) {
+      return this.deleteAtTail();
     } else {
       let currentNode = this.head;
       let prevNode = this.head;
@@ -132,6 +149,6 @@ newLinkedList.insertAtTail(2);
 newLinkedList.insertAtTail(3);
 newLinkedList.insertAtTail(4);
 newLinkedList.insertAtTail(5);
-newLinkedList.insertAtNthNode(9, 3);
+newLinkedList.deleteAtTail();
 
 console.log(newLinkedList.display());
