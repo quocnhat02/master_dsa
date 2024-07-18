@@ -16,7 +16,7 @@ class LinkedList {
     let result = '';
 
     if (head == this.tail) {
-      result = head ? head.data : null;
+      result += head ? head.data + ' -> ' : '';
     } else {
       while (head !== null) {
         result += head.data + ' -> ';
@@ -30,6 +30,20 @@ class LinkedList {
 
   isEmpty() {
     return !this.head ? true : false;
+  }
+
+  length() {
+    if (this.isEmpty()) {
+      return 0;
+    } else {
+      let length = 0;
+      let currentNode = this.head;
+      while (currentNode !== null) {
+        length++;
+        currentNode = currentNode.next;
+      }
+      return length;
+    }
   }
 
   search(data) {
@@ -145,10 +159,10 @@ class LinkedList {
 
 const newLinkedList = new LinkedList();
 newLinkedList.insertAtTail(1);
-newLinkedList.insertAtTail(2);
-newLinkedList.insertAtTail(3);
-newLinkedList.insertAtTail(4);
-newLinkedList.insertAtTail(5);
-newLinkedList.deleteAtTail();
+// newLinkedList.insertAtTail(2);
+// newLinkedList.insertAtTail(3);
+// newLinkedList.insertAtTail(4);
+// newLinkedList.insertAtTail(5);
 
 console.log(newLinkedList.display());
+console.log(newLinkedList.length());
