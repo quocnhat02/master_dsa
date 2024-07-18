@@ -1,7 +1,7 @@
 function rearrange(arr) {
   let idx_swap = 0;
 
-  for (let idx = 0; idx < arr.length; idx++) {
+  for (let idx = 1; idx < arr.length; idx++) {
     if (arr[idx] < 0) {
       [arr[idx], arr[idx_swap]] = [arr[idx_swap], arr[idx]];
       idx_swap++;
