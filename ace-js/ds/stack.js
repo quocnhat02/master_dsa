@@ -4,7 +4,7 @@ class Stack {
   }
 
   push(element) {
-    return this.data.push(element);
+    this.data.push(element);
   }
 
   pop() {
@@ -12,18 +12,18 @@ class Stack {
   }
 
   isEmpty() {
-    return !this.data.length ? true : false;
-  }
-
-  size() {
-    return this.data.length;
+    return !this.data.length;
   }
 
   getTop() {
-    return this.data[this.data.length - 1] ?? null;
+    return this.data[this.data.length - 1];
   }
 }
 
-const stack = new Stack();
-stack.push(1);
-console.log(stack.getTop());
+const newStack = new Stack();
+newStack.push(1);
+newStack.push(2);
+newStack.push(3);
+newStack.push(4);
+
+console.log(newStack.getTop());
