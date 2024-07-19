@@ -1,54 +1,46 @@
+const { LinkedList } = require('./SSL');
+
 class Queue {
   constructor() {
-    this.data = [];
+    this.items = new LinkedList();
   }
 
   enqueue(element) {
-    return this.data.push(element);
+    this.items.insertAtTail(element);
   }
 
   dequeue() {
-    return this.data.shift();
+    return this.items.deleteAtHead();
   }
 
   getFront() {
-    return this.data[0] ?? null;
+    return this.items.head ? this.items.head.data : null;
   }
 
   isEmpty() {
-    return !this.data.length ? true : false;
+    return this.items.isEmpty();
   }
 
   size() {
-    return this.data.length;
+    return this.items.length();
+  }
+
+  display() {
+    return this.items.display();
   }
 }
 
-function findBin(n) {
-  const result = [];
-  const queue = new Queue();
-  let s1, s2;
+const newQueue = new Queue();
 
-  queue.enqueue('1');
+newQueue.enqueue(1);
+newQueue.enqueue(2);
+newQueue.enqueue(3);
+newQueue.enqueue(4);
+newQueue.enqueue(5);
 
-  for (let i = 0; i < n; i++) {
-    result.push(queue.dequeue());
+// console.log(newQueue.dequeue());
+// console.log(newQueue.dequeue());
+// console.log(newQueue.getFront());
 
-    s1 = result[i] + '0';
-    s2 = result[i] + '1';
-
-    queue.enqueue(s1);
-    queue.enqueue(s2);
-  }
-
-  return result;
-}
-
-// const queue = new Queue();
-
-// queue.enqueue(1);
-// queue.enqueue(2);
-// queue.enqueue(3);
-// queue.dequeue();
-
-console.log(findBin(5));
+console.log(newQueue.display());
+console.log(newQueue.size());

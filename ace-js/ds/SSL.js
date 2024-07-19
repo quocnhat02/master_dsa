@@ -103,13 +103,16 @@ class LinkedList {
   }
 
   deleteAtHead() {
+    let node = null;
     if (this.head == this.tail) {
+      node = this.head;
       this.head = null;
       this.tail = null;
     } else {
+      node = this.head;
       this.head = this.head.next;
     }
-    return true;
+    return node !== null ? node.data : null;
   }
 
   deleteAtTail() {
@@ -217,16 +220,21 @@ function intersection(list1, list2) {
   return intersection;
 }
 
-const newLinkedList = new LinkedList();
-newLinkedList.insertAtTail(7);
-newLinkedList.insertAtTail(14);
-newLinkedList.insertAtTail(21);
-newLinkedList.insertAtTail(14);
-newLinkedList.insertAtTail(14);
-newLinkedList.insertAtTail(22);
-newLinkedList.insertAtTail(7);
+// const newLinkedList = new LinkedList();
+// newLinkedList.insertAtTail(7);
+// newLinkedList.insertAtTail(14);
+// newLinkedList.insertAtTail(21);
+// newLinkedList.insertAtTail(14);
+// newLinkedList.insertAtTail(14);
+// newLinkedList.insertAtTail(22);
+// newLinkedList.insertAtTail(7);
 
-console.log(newLinkedList.display());
-newLinkedList.removeDuplicates();
-console.log(newLinkedList.display());
-console.log(newLinkedList.length());
+// console.log(newLinkedList.display());
+// newLinkedList.removeDuplicates();
+// console.log(newLinkedList.display());
+// console.log(newLinkedList.length());
+
+module.exports = {
+  Node,
+  LinkedList,
+};
