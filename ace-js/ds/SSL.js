@@ -173,6 +173,50 @@ class LinkedList {
   }
 }
 
+function union(list1, list2) {
+  const set = new Set();
+  const union = new LinkedList();
+
+  let currentNode1 = list1.head;
+
+  while (currentNode1 !== null) {
+    set.add(currentNode1.data);
+    currentNode1 = currentNode1.next;
+  }
+
+  let currentNode2 = list2.head;
+  while (currentNode2 !== null) {
+    if (!set.has(currentNode2.data)) {
+      union.insertAtTail(currentNode2.data);
+    }
+    currentNode1 = currentNode1.next;
+  }
+
+  return union;
+}
+
+function intersection(list1, list2) {
+  const set = new Set();
+  const intersection = new LinkedList();
+
+  let currentNode1 = list1.head;
+
+  while (currentNode1 !== null) {
+    set.add(currentNode1.data);
+    currentNode1 = currentNode1.next;
+  }
+
+  let currentNode2 = list2.head;
+  while (currentNode2 !== null) {
+    if (set.has(currentNode2.data)) {
+      intersection.insertAtTail(currentNode2.data);
+    }
+    currentNode1 = currentNode1.next;
+  }
+
+  return intersection;
+}
+
 const newLinkedList = new LinkedList();
 newLinkedList.insertAtTail(7);
 newLinkedList.insertAtTail(14);
