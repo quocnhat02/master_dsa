@@ -12,11 +12,15 @@ class Stack {
   }
 
   isEmpty() {
-    return !this.data.length;
+    return !this.size();
   }
 
   getTop() {
-    return this.data[this.data.length - 1];
+    return this.data[this.size() - 1];
+  }
+
+  size() {
+    return this.data.length;
   }
 }
 
