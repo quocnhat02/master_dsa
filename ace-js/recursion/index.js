@@ -1,7 +1,16 @@
-function gcd(value1, value2) {
-  if (value1 === value2) return value1;
-  else if (value1 > value2) return gcd(value1 - value2, value2);
-  else return gcd(value1, value2 - value1);
+function printPascal(value) {
+  if (value == 0) return [1];
+  else {
+    var line = [1];
+    previousLine = printPascal(value - 1);
+
+    for (let i = 0; i < previousLine.length - 1; i++) {
+      line.push(previousLine[i] + previousLine[i + 1]);
+    }
+
+    line.push(1);
+  }
+  return line;
 }
 
-console.log(gcd(42, 56));
+console.log(printPascal(5));
