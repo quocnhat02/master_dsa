@@ -1,16 +1,12 @@
-function printPascal(value) {
-  if (value == 0) return [1];
-  else {
-    var line = [1];
-    previousLine = printPascal(value - 1);
-
-    for (let i = 0; i < previousLine.length - 1; i++) {
-      line.push(previousLine[i] + previousLine[i + 1]);
-    }
-
-    line.push(1);
+function decimalToBinary(testVariable) {
+  if (testVariable <= 1) {
+    return String(testVariable);
+  } else {
+    return (
+      decimalToBinary(Math.floor(testVariable / 2)) +
+      decimalToBinary(testVariable % 2)
+    );
   }
-  return line;
 }
 
-console.log(printPascal(5));
+console.log(decimalToBinary(11));
