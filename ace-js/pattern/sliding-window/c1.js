@@ -1,27 +1,21 @@
-// find max sum sequence
+function findSumSequenceWithK(arr, k) {
+  let maxSub = arr[0];
+  let currentSum = 0;
+  let start = 0;
+  let startWindow = 0;
 
-function findMaxSumSequence(numbers, size) {
-  const length = numbers.length;
+  for (let end = 0; end < arr.length; end++) {
+    currentSum += arr[end];
 
-  if (length < size) {
-    return null;
-  } else {
-    let idx = 0,
-      start = 0,
-      sum = 0,
-      max = numbers[idx];
-
-    while (idx < length) {
-      sum += numbers[idx];
-      if (idx >= size) {
-        sum -= numbers[start];
-        start++;
-      }
-      max = Math.max(max, sum);
-      idx++;
+    if (end - start >= k - 1) {
+      maxSub = Math.max(currentSum, maxSub);
+      startWindow = start;
+      currentSum -= arr[start];
+      start++;
     }
-    return max;
   }
+
+  return [maxSub, startWindow, startWindow + k - 1];
 }
 
-console.log(findMaxSumSequence([-4, 2, -5, 3, 6], 3));
+console.log(findSumSequenceWithK([1, 2, 3, 4, 5, 6, 7, 8, 9], 3));
