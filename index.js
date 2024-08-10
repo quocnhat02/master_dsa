@@ -1,20 +1,27 @@
-function findMaxSubAccumulateSequence(arr, k) {
-  const length = arr.length;
-  let max = arr[0];
+function countNumberOfChar(str, key, k) {
+  const countChar = new Map();
+  const length = str.length;
   let startWindow = 0;
-  let currentAccumulate = 1;
+  let count = 0;
 
   for (let endWindow = 0; endWindow < length; endWindow++) {
-    currentAccumulate *= arr[endWindow];
+    countChar.set(str[endWindow], (countChar.get(str[endWindow]) | 0) + 1);
 
     if (endWindow - startWindow >= k - 1) {
-      max = Math.max(max, currentAccumulate);
-      currentAccumulate /= arr[startWindow];
+      if (countChar.has(key)) {
+        count++;
+      }
+
+      countChar.set(str[startWindow], countChar.get(str[startWindow]) - 1);
       startWindow++;
+
+      if (countChar.get(key) === 0) {
+        countChar.delete(key);
+      }
     }
   }
 
-  return max;
+  return count;
 }
 
-console.log(findMaxSubAccumulateSequence([1, 2, 3, 4, 5], 3));
+console.log(countNumberOfChar('ababc', 'b', 3));
