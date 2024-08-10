@@ -1,20 +1,25 @@
-function findSumSubSequence(arr, k) {
-  const length = arr.length;
-  let currentSum = 0;
-  let startWindow = 0;
-  let maxSum = arr[0];
+function findFirstCharWithMoreOnce(str) {
+  let charSet = new Set();
 
-  for (let endWindow = 0; endWindow < length; endWindow++) {
-    currentSum += arr[endWindow];
+  for (let idx = 0; idx < str.length; idx++) {
+    if (charSet.has(str[idx])) {
+      return str[idx];
+    }
+    charSet.add(str[idx]);
+  }
 
-    if (endWindow - startWindow >= k - 1) {
-      maxSum = Math.max(maxSum, currentSum);
-      currentSum -= arr[startWindow];
-      startWindow++;
+  return '';
+}
+
+function findFirstCharWithMoreOnce2(str) {
+  for (let idx = 0; idx < str.length - 1; idx++) {
+    if (str[idx].indexOf(str.substring(idx + 1))) {
+      return str[idx];
     }
   }
 
-  return maxSum;
+  return '';
 }
 
-console.log(findSumSubSequence([1, 2, 3, 4, 5], 3));
+console.log(findFirstCharWithMoreOnce('abcab'));
+console.log(findFirstCharWithMoreOnce2('abcab'));
