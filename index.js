@@ -1,27 +1,20 @@
-function findLongestSubStringSequence(str) {
-  const charCount = new Map();
-
+function findMaxSubAccumulateSequence(arr, k) {
+  const length = arr.length;
+  let max = arr[0];
   let startWindow = 0;
-  let longest = 0;
+  let currentAccumulate = 1;
 
-  for (let endWindow = 0; endWindow < str.length; endWindow++) {
-    charCount.set(str[endWindow], (charCount.get(str[endWindow]) | 0) + 1);
+  for (let endWindow = 0; endWindow < length; endWindow++) {
+    currentAccumulate *= arr[endWindow];
 
-    while (charCount.get(str[endWindow]) > 1 && endWindow > startWindow) {
-      let element = charCount.get(str[endWindow]);
-      charCount.set(str[endWindow], element - 1);
-
-      if (element === 0) {
-        charCount.delete(str[endWindow]);
-      }
-
+    if (endWindow - startWindow >= k - 1) {
+      max = Math.max(max, currentAccumulate);
+      currentAccumulate /= arr[startWindow];
       startWindow++;
     }
-
-    longest = Math.max(longest, endWindow - startWindow + 1);
   }
 
-  return longest;
+  return max;
 }
 
-console.log(findLongestSubStringSequence('abcabcbb'));
+console.log(findMaxSubAccumulateSequence([1, 2, 3, 4, 5], 3));
