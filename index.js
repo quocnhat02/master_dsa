@@ -1,27 +1,21 @@
-function countNumberOfChar(str, key, k) {
-  const countChar = new Map();
-  const length = str.length;
-  let startWindow = 0;
-  let count = 0;
+function smallest_sub_array_of_size_k(arr, s) {
+  let smallest = arr.length,
+    startWindow = 0,
+    currentSum = 0;
 
-  for (let endWindow = 0; endWindow < length; endWindow++) {
-    countChar.set(str[endWindow], (countChar.get(str[endWindow]) | 0) + 1);
+  for (let endWindow = 0; endWindow < arr.length; endWindow++) {
+    currentSum += arr[endWindow];
 
-    if (endWindow - startWindow >= k - 1) {
-      if (countChar.has(key)) {
-        count++;
-      }
-
-      countChar.set(str[startWindow], countChar.get(str[startWindow]) - 1);
+    while (currentSum >= s && endWindow >= startWindow) {
+      smallest = Math.min(smallest, endWindow - startWindow + 1);
+      currentSum -= arr[startWindow];
       startWindow++;
-
-      if (countChar.get(key) === 0) {
-        countChar.delete(key);
-      }
     }
   }
 
-  return count;
+  return smallest;
 }
 
-console.log(countNumberOfChar('ababc', 'b', 3));
+console.log(smallest_sub_array_of_size_k([2, 1, 5, 2, 3, 2], 7));
+console.log(smallest_sub_array_of_size_k([2, 1, 5, 2, 8], 8));
+console.log(smallest_sub_array_of_size_k([3, 4, 1, 1, 6], 8));
