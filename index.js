@@ -1,29 +1,28 @@
-function find_longest_sub_string_with_no_more_k_chars(str, k) {
-  const countChar = new Map();
+function find_max_fruits_into_basket(arr) {
+  const countFruits = new Map();
   let start = 0,
-    longest = 0;
+    max = 0;
 
-  for (let end = 0; end < str.length; end++) {
-    const elmEnd = str.charAt(end);
-    countChar.set(elmEnd, (countChar.get(elmEnd) | 0) + 1);
+  for (let end = 0; end < arr.length; end++) {
+    const elmEnd = arr[end];
+    countFruits.set(elmEnd, (countFruits.get(elmEnd) | 0) + 1);
 
-    while (countChar.size > k && end - start) {
-      const elmStart = str.charAt(start);
-      countChar.set(elmStart, countChar.get(elmStart) - 1);
+    while (countFruits.size > 2 && end > start) {
+      const elmStart = arr[start];
+      countFruits.set(elmStart, countFruits.get(elmStart) - 1);
 
-      if (!countChar.get(elmStart)) {
-        countChar.delete(elmStart);
+      if (!countFruits.get(elmStart)) {
+        countFruits.delete(elmStart);
       }
 
       start++;
     }
 
-    longest = Math.max(longest, end - start + 1);
+    max = Math.max(max, end - start + 1);
   }
 
-  return longest;
+  return max;
 }
 
-console.log(find_longest_sub_string_with_no_more_k_chars('araaci', 2));
-console.log(find_longest_sub_string_with_no_more_k_chars('araaci', 1));
-console.log(find_longest_sub_string_with_no_more_k_chars('cbbebi', 3));
+console.log(find_max_fruits_into_basket(['A', 'B', 'C', 'A', 'C']));
+console.log(find_max_fruits_into_basket(['A', 'B', 'C', 'B', 'B', 'C']));
