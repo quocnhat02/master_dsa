@@ -1,21 +1,17 @@
-function findTwoSum(arr, target) {
-  const length = arr.length;
-  if (length < 2) {
-    return 'No';
-  }
-  const numSet = new Set();
+function findBestToBuyAndSell(arr) {
+  let start_buy = 0,
+    best = 0;
 
-  numSet.add(arr[0]);
-
-  for (let idx = 1; idx < length; idx++) {
-    if (numSet.has(target - arr[idx])) {
-      return 'Yes';
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] < arr[start_buy]) {
+      start_buy = i;
     }
-    numSet.add(arr[idx]);
+
+    best = Math.max(best, arr[i] - arr[start_buy]);
   }
 
-  return 'No';
+  return best;
 }
 
-console.log(findTwoSum([1, -2, 1, 0, 5], 0));
-console.log(findTwoSum([0, -1, 2, -3, 1], -2));
+console.log(findBestToBuyAndSell([7, 1, 5, 3, 6, 4]));
+console.log(findBestToBuyAndSell([7, 6, 4, 3, 1]));
