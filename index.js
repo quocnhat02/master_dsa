@@ -1,17 +1,19 @@
-function findBestToBuyAndSell(arr) {
-  let start_buy = 0,
-    best = 0;
+function findDuplicates(arr) {
+  let numCount = new Map();
+  let result = [];
 
-  for (let i = 1; i < arr.length; i++) {
-    if (arr[i] < arr[start_buy]) {
-      start_buy = i;
-    }
-
-    best = Math.max(best, arr[i] - arr[start_buy]);
+  for (let i = 0; i < arr.length; i++) {
+    numCount.set(arr[i], (numCount.get(arr[i]) | 0) + 1);
   }
 
-  return best;
+  for (const [key, value] of numCount) {
+    if (value > 1) {
+      result.push(key);
+    }
+  }
+
+  return result;
 }
 
-console.log(findBestToBuyAndSell([7, 1, 5, 3, 6, 4]));
-console.log(findBestToBuyAndSell([7, 6, 4, 3, 1]));
+console.log(findDuplicates([1, 2, 3, 6, 3, 6, 1]));
+console.log(findDuplicates([1, 2, 3, 4, 3]));
