@@ -1,32 +1,23 @@
-function findSubarrayWithSum(arr, k) {
-  const len = arr.length;
+function shortestSubarrayWithSumAtLeastK(nums, k) {
+  const n = nums.length;
+  let start = 0;
+  let minLength = n + 1;
+  let sum = 0;
 
-  if (len === 0) {
-    return null;
-  }
+  for (let i = 0; i < n; i++) {
+    sum += nums[i];
+    while (sum >= k && start <= i) {
+      minLength = Math.min(minLength, i - start + 1);
 
-  arr = arr.sort((a, b) => a - b);
-
-  let startWindow = 0;
-  let endWindow = len - 1;
-
-  let windowSum = arr.reduce((prev, cur) => prev + cur, 0);
-
-  while (startWindow <= endWindow) {
-    if (windowSum === k) {
-      return arr.slice(startWindow, endWindow + 1);
-    } else if (windowSum - arr[endWindow] < k) {
-      windowSum -= arr[startWindow];
-      startWindow++;
-    } else {
-      windowSum -= arr[endWindow];
-      endWindow--;
+      sum -= nums[start];
+      start++;
     }
   }
 
-  return null;
+  return minLength === n + 1 ? -1 : minLength;
 }
 
-console.log(findSubarrayWithSum([1, 4, 20, 3, 10, 5], 33)); // Đầu ra: [20, 3, 10]
-console.log(findSubarrayWithSum([1, 2, 3, 4, 5], 9)); // Đầu ra: [2, 3, 4]
-console.log(findSubarrayWithSum([1, 2, 3, 4, 5], 20)); // Đầu ra: null
+// Ví dụ sử dụng:
+console.log(shortestSubarrayWithSumAtLeastK([1, 2, 3, 4, 5], 11)); // Đầu ra: 3
+console.log(shortestSubarrayWithSumAtLeastK([2, -1, 2], 3)); // Đầu ra: 3
+console.log(shortestSubarrayWithSumAtLeastK([1, 1, 1, 1], 4)); // Đầu ra: 4
