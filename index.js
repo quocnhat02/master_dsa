@@ -5,21 +5,22 @@ function findSubarrayWithSum(arr, k) {
     return null;
   }
 
+  arr = arr.sort((a, b) => a - b);
+
   let startWindow = 0;
-  let windowSum = 0;
+  let endWindow = len - 1;
 
-  for (let endWindow = 0; endWindow < len; endWindow++) {
-    const element = arr[endWindow];
-    windowSum += element;
+  let windowSum = arr.reduce((prev, cur) => prev + cur, 0);
 
-    while (windowSum > k && endWindow > startWindow) {
-      windowSum -= arr[startWindow];
-
-      startWindow++;
-    }
-
+  while (startWindow <= endWindow) {
     if (windowSum === k) {
       return arr.slice(startWindow, endWindow + 1);
+    } else if (windowSum - arr[endWindow] < k) {
+      windowSum -= arr[startWindow];
+      startWindow++;
+    } else {
+      windowSum -= arr[endWindow];
+      endWindow--;
     }
   }
 
