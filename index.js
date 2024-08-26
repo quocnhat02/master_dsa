@@ -1,19 +1,27 @@
-function findDuplicates(arr) {
-  let numCount = new Map();
-  let result = [];
+function findMaxSumSubarray(arr, k) {
+  const len = arr.length;
 
-  for (let i = 0; i < arr.length; i++) {
-    numCount.set(arr[i], (numCount.get(arr[i]) | 0) + 1);
+  if (len < k) {
+    return null;
   }
 
-  for (const [key, value] of numCount) {
-    if (value > 1) {
-      result.push(key);
-    }
+  let windowSum = 0;
+
+  for (let idx = 0; idx < k; idx++) {
+    windowSum += arr[idx];
   }
 
-  return result;
+  let maxSum = windowSum;
+
+  for (let idx = k; idx < len; idx++) {
+    windowSum += arr[idx] - arr[idx - k];
+    maxSum = Math.max(maxSum, windowSum);
+  }
+
+  return maxSum;
 }
 
-console.log(findDuplicates([1, 2, 3, 6, 3, 6, 1]));
-console.log(findDuplicates([1, 2, 3, 4, 3]));
+const arr = [1, 2, 3, 4, 5];
+const k = 3;
+const result = findMaxSumSubarray(arr, k);
+console.log(`Tổng lớn nhất của ${k} phần tử liên tiếp là: ${result}`);
