@@ -1,27 +1,35 @@
-function findMaxSumSubarray(arr, k) {
-  const len = arr.length;
+function findLengthOfLongestSubstring(s) {
+  const len = s.length;
 
-  if (len < k) {
-    return null;
+  if (len === 0) {
+    return 0;
   }
 
-  let windowSum = 0;
+  const countChar = new Map();
+  let result = 0;
+  let startWindow = 0;
 
-  for (let idx = 0; idx < k; idx++) {
-    windowSum += arr[idx];
+  for (let endWindow = 0; endWindow < len; endWindow++) {
+    const element = s.charAt(endWindow);
+    countChar.set(element, (countChar.get(element) | 0) + 1);
+
+    while (countChar.get(element) > 1) {
+      const leftWindow = s.charAt(startWindow);
+      countChar.set(leftWindow, countChar.get(leftWindow) - 1);
+
+      if (!countChar.get(leftWindow)) {
+        countChar.delete(leftWindow);
+      }
+
+      startWindow++;
+    }
+
+    result = Math.max(result, endWindow - startWindow + 1);
   }
 
-  let maxSum = windowSum;
-
-  for (let idx = k; idx < len; idx++) {
-    windowSum += arr[idx] - arr[idx - k];
-    maxSum = Math.max(maxSum, windowSum);
-  }
-
-  return maxSum;
+  return result;
 }
 
-const arr = [1, 2, 3, 4, 5];
-const k = 3;
-const result = findMaxSumSubarray(arr, k);
-console.log(`Tổng lớn nhất của ${k} phần tử liên tiếp là: ${result}`);
+console.log(findLengthOfLongestSubstring('abcabcbb')); // Đầu ra: 3
+console.log(findLengthOfLongestSubstring('bbbbb')); // Đầu ra: 1
+console.log(findLengthOfLongestSubstring('pwwkew')); // Đầu ra: 3
