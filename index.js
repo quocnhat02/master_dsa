@@ -1,26 +1,34 @@
-function findMaxSumSubarrayWithK(arr, k) {
-  const len = arr.length;
+function findLongestSubstringWithKDistinct(s, k) {
+  const len = s.length;
 
-  if (len < k) return null;
+  if (!len) return 0;
 
-  let sum = 0;
+  let start = 0,
+    longest = 0;
+  const charMap = new Map();
 
-  for (let idx = 0; idx < k; idx++) {
-    sum += arr[idx];
+  for (let end = 0; end < len; end++) {
+    const endElm = s[end];
+    charMap.set(endElm, (charMap.get(endElm) || 0) + 1);
+
+    while (charMap.size > k && end > start) {
+      const startElm = s[start];
+      charMap.set(startElm, charMap.get(startElm) - 1);
+
+      if (charMap.get(startElm) === 0) {
+        charMap.delete(startElm);
+      }
+
+      start++;
+    }
+
+    longest = Math.max(longest, end - start + 1);
   }
 
-  let maxSum = sum;
-
-  for (let end = k; end < len; end++) {
-    sum += arr[end] - arr[end - k];
-
-    maxSum = Math.max(maxSum, sum);
-  }
-
-  return maxSum;
+  return longest;
 }
 
 // Ví dụ sử dụng:
-console.log(findMaxSumSubarrayWithK([1, 4, 2, 10, 23, 3, 1, 0, 20], 4)); // Đầu ra: 39
-console.log(findMaxSumSubarrayWithK([100, 200, 300, 400], 2)); // Đầu ra: 700
-console.log(findMaxSumSubarrayWithK([1, 4, 2, 10, 23, 3, 1, 0, 20], 3)); // Đầu ra: 36
+console.log(findLongestSubstringWithKDistinct('aabacbebebe', 3)); // Đầu ra: 7
+console.log(findLongestSubstringWithKDistinct('aaaa', 1)); // Đầu ra: 4
+console.log(findLongestSubstringWithKDistinct('eceba', 2)); // Đầu ra: 3
