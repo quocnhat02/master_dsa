@@ -1,30 +1,36 @@
-function findMaxLength(arr) {
-  const len = arr.length;
+function findSubarrayWithKDistance(arr, k) {
+  return atMostK(arr, k) - atMostK(arr, k - 1);
+}
 
-  if (len <= 1) {
+function atMostK(arr, k) {
+  const len = arr.length;
+  if (!len) {
     return 0;
   }
 
+  let start = 0,
+    res = 0;
   const numMap = new Map();
-  numMap.set(0, -1);
 
-  let count = 0,
-    maxLen = 0;
+  for (let end = 0; end < len; end++) {
+    numMap.set(arr[end], (numMap.get(arr[end]) || 0) + 1);
 
-  for (let idx = 0; idx < len; idx++) {
-    count += arr[idx] === 0 ? -1 : 1;
-
-    if (numMap.has(count)) {
-      maxLen = Math.max(maxLen, idx - numMap.get(count));
-    } else {
-      numMap.set(count, idx);
+    while (numMap.size > k && start < end) {
+      numMap.set(arr[start], numMap.get(arr[start]) - 1);
+      if (numMap.get(arr[start]) === 0) numMap.delete(arr[start]);
+      start++;
     }
+
+    res += end - start + 1;
   }
 
-  return maxLen;
+  return res;
 }
 
+// PT(X) = 1 + 2 + ... + (X - 1) + X
+// PT(X-1) = 1 + 2 + ... + (X - 1)
+
 // Ví dụ sử dụng:
-console.log(findMaxLength([0, 1])); // Đầu ra: 2
-console.log(findMaxLength([0, 1, 0])); // Đầu ra: 2
-console.log(findMaxLength([0, 1, 0, 0, 1, 1, 0])); // Đầu ra: 6
+console.log(findSubarrayWithKDistance([1, 2, 1, 2, 3], 2)); // Đầu ra: 7
+console.log(findSubarrayWithKDistance([1, 2, 1, 3, 4], 3)); // Đầu ra: 3
+console.log(findSubarrayWithKDistance([1, 2, 3, 4], 3)); // Đầu ra: 2
