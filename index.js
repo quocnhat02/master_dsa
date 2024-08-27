@@ -1,33 +1,23 @@
-function threeSum(arr) {
-  arr = arr.sort((a, b) => a - b);
-  const result = [];
+function findLongestSubstringWithoutMoreOneOccur(s) {
+  const charSet = new Set();
 
-  for (let i = 0; i < arr.length - 2; i++) {
-    if (i > 0 && arr[i] === arr[i - 1]) continue;
+  let left = 0,
+    longest = 0;
 
-    let left = i + 1;
-    let right = arr.length - 1;
-
-    while (left < right) {
-      const sum = arr[i] + arr[left] + arr[right];
-
-      if (sum === 0) {
-        result.push([arr[i], arr[left], arr[right]]);
-        while (left < right && arr[left] === arr[left + 1]) left++;
-        while (left < right && arr[right] === arr[right - 1]) right--;
-        left++;
-        right--;
-      } else if (sum > 0) {
-        left++;
-      } else {
-        right--;
-      }
+  for (let right = 0; right < s.length; right++) {
+    while (charSet.has(s[right])) {
+      charSet.delete(s[left]);
+      left++;
     }
+
+    charSet.add(s[right]);
+    longest = Math.max(longest, right - left + 1);
   }
 
-  return result;
+  return longest;
 }
 
 // Ví dụ sử dụng
-console.log(threeSum([-1, 0, 1, 2, -1, -4]));
-// Output: [[-1,-1,2],[-1,0,1]]
+console.log(findLongestSubstringWithoutMoreOneOccur('abcabcbb')); // Output: 3
+console.log(findLongestSubstringWithoutMoreOneOccur('bbbbb')); // Output: 1
+console.log(findLongestSubstringWithoutMoreOneOccur('pwwkew')); // Output: 3
