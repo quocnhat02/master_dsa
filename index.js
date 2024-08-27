@@ -1,34 +1,27 @@
-function findLongestSubstringWithKDistinct(s, k) {
-  const len = s.length;
+function findShortestSubstringWithSumAtLeastK(arr, k) {
+  const len = arr.length;
 
   if (!len) return 0;
 
   let start = 0,
-    longest = 0;
-  const charMap = new Map();
+    sum = 0,
+    shortest = len + 1;
 
   for (let end = 0; end < len; end++) {
-    const endElm = s[end];
-    charMap.set(endElm, (charMap.get(endElm) || 0) + 1);
+    sum += arr[end];
 
-    while (charMap.size > k && end > start) {
-      const startElm = s[start];
-      charMap.set(startElm, charMap.get(startElm) - 1);
+    while (sum >= k && start <= end) {
+      shortest = Math.min(shortest, end - start + 1);
 
-      if (charMap.get(startElm) === 0) {
-        charMap.delete(startElm);
-      }
-
+      sum -= arr[start];
       start++;
     }
-
-    longest = Math.max(longest, end - start + 1);
   }
 
-  return longest;
+  return shortest === len + 1 ? -1 : shortest;
 }
 
 // Ví dụ sử dụng:
-console.log(findLongestSubstringWithKDistinct('aabacbebebe', 3)); // Đầu ra: 7
-console.log(findLongestSubstringWithKDistinct('aaaa', 1)); // Đầu ra: 4
-console.log(findLongestSubstringWithKDistinct('eceba', 2)); // Đầu ra: 3
+console.log(findShortestSubstringWithSumAtLeastK([1, 2, 3, 4, 5], 11)); // Đầu ra: 3
+console.log(findShortestSubstringWithSumAtLeastK([2, -1, 2], 3)); // Đầu ra: 3
+console.log(findShortestSubstringWithSumAtLeastK([1, 1, 1, 1], 4)); // Đầu ra: 4
