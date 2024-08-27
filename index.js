@@ -1,34 +1,29 @@
-function findLengthOfLongestSubstring(s) {
-  let len = s.length;
+function findSubarrayWithSum(arr, k) {
+  const len = arr.length;
 
-  if (!len) return 0;
+  if (!len) return null;
 
-  let maxLen = 0,
-    start = 0;
-  const charCount = new Map();
+  let start = 0;
+  let sum = 0;
 
   for (let end = 0; end < len; end++) {
-    const endElement = s.charAt(end);
-    charCount.set(endElement, (charCount.get(endElement) || 0) + 1);
+    sum += arr[end];
 
-    while (charCount.get(endElement) > 1 && end > start) {
-      const startElement = s.charAt(start);
-      charCount.set(startElement, charCount.get(startElement) - 1);
-
-      if (charCount.get(startElement) === 0) {
-        charCount.delete(startElement);
-      }
+    while (sum > k && end > start) {
+      sum -= arr[start];
 
       start++;
     }
 
-    maxLen = Math.max(maxLen, end - start + 1);
+    if (sum === k) {
+      return arr.slice(start, end + 1);
+    }
   }
 
-  return maxLen;
+  return null;
 }
 
 // Ví dụ sử dụng:
-console.log(findLengthOfLongestSubstring('abcabcbb')); // Đầu ra: 3
-console.log(findLengthOfLongestSubstring('bbbbb')); // Đầu ra: 1
-console.log(findLengthOfLongestSubstring('pwwkew')); // Đầu ra: 3
+console.log(findSubarrayWithSum([1, 4, 20, 3, 10, 5], 33)); // Đầu ra: [20, 3, 10]
+console.log(findSubarrayWithSum([1, 2, 3, 4, 5], 9)); // Đầu ra: [2, 3, 4]
+console.log(findSubarrayWithSum([1, 2, 3, 4, 5], 20)); // Đầu ra: null
