@@ -1,29 +1,27 @@
-function findSubarrayWithSum(arr, k) {
+function findNumSubarrayProductLessThanK(arr, k) {
   const len = arr.length;
 
-  if (!len) return null;
+  if (!len) return 0;
 
-  let start = 0;
-  let sum = 0;
+  let start = 0,
+    product = 1,
+    numSum = 0;
 
   for (let end = 0; end < len; end++) {
-    sum += arr[end];
+    product *= arr[end];
 
-    while (sum > k && end > start) {
-      sum -= arr[start];
-
+    while (product >= k && end >= start) {
+      product /= arr[start];
       start++;
     }
 
-    if (sum === k) {
-      return arr.slice(start, end + 1);
-    }
+    numSum += end - start + 1;
   }
 
-  return null;
+  return numSum;
 }
 
 // Ví dụ sử dụng:
-console.log(findSubarrayWithSum([1, 4, 20, 3, 10, 5], 33)); // Đầu ra: [20, 3, 10]
-console.log(findSubarrayWithSum([1, 2, 3, 4, 5], 9)); // Đầu ra: [2, 3, 4]
-console.log(findSubarrayWithSum([1, 2, 3, 4, 5], 20)); // Đầu ra: null
+console.log(findNumSubarrayProductLessThanK([10, 5, 2, 6], 100)); // Đầu ra: 8
+console.log(findNumSubarrayProductLessThanK([1, 2, 3], 0)); // Đầu ra: 0
+console.log(findNumSubarrayProductLessThanK([1, 1, 1], 1)); // Đầu ra: 0
