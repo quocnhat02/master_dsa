@@ -1,30 +1,17 @@
-function mergeSortedArrays(arr1, arr2) {
-  const merged = [];
+function removeElement(arr, k) {
+  let i = 0;
 
-  let start1 = 0,
-    start2 = 0;
-
-  while (start1 < arr1.length && start2 < arr2.length) {
-    if (!arr1[start1] || arr1[start1] > arr2[start2]) {
-      merged.push(arr2[start2]);
-      start2++;
-    } else {
-      merged.push(arr1[start1]);
-      start1++;
+  for (let j = 0; j < arr.length; j++) {
+    if (arr[j] !== k) {
+      arr[i] = arr[j];
+      i++;
     }
   }
 
-  if (start1 >= arr1.length) {
-    merged.push(...arr2.slice(start2));
-  } else {
-    merged.push(...arr1.slice(start1));
-  }
-
-  return merged;
+  return i;
 }
 
 // Ví dụ sử dụng
-let nums1 = [1, 1, 3, 0, 0, 0];
-let nums2 = [2, 5, 6];
-console.log(mergeSortedArrays(nums1, nums2));
-// Output: [1, 2, 2, 3, 5, 6]
+let nums = [3, 2, 2, 3];
+console.log(removeElement(nums, 3)); // Output: 2
+console.log(nums.slice(0, 2)); // Output: [2, 2]
