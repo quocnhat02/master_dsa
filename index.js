@@ -1,27 +1,30 @@
-function findShortestSubstringWithSumAtLeastK(arr, k) {
+function findMaxLength(arr) {
   const len = arr.length;
 
-  if (!len) return 0;
+  if (len <= 1) {
+    return 0;
+  }
 
-  let start = 0,
-    sum = 0,
-    shortest = len + 1;
+  const numMap = new Map();
+  numMap.set(0, -1);
 
-  for (let end = 0; end < len; end++) {
-    sum += arr[end];
+  let count = 0,
+    maxLen = 0;
 
-    while (sum >= k && start <= end) {
-      shortest = Math.min(shortest, end - start + 1);
+  for (let idx = 0; idx < len; idx++) {
+    count += arr[idx] === 0 ? -1 : 1;
 
-      sum -= arr[start];
-      start++;
+    if (numMap.has(count)) {
+      maxLen = Math.max(maxLen, idx - numMap.get(count));
+    } else {
+      numMap.set(count, idx);
     }
   }
 
-  return shortest === len + 1 ? -1 : shortest;
+  return maxLen;
 }
 
 // Ví dụ sử dụng:
-console.log(findShortestSubstringWithSumAtLeastK([1, 2, 3, 4, 5], 11)); // Đầu ra: 3
-console.log(findShortestSubstringWithSumAtLeastK([2, -1, 2], 3)); // Đầu ra: 3
-console.log(findShortestSubstringWithSumAtLeastK([1, 1, 1, 1], 4)); // Đầu ra: 4
+console.log(findMaxLength([0, 1])); // Đầu ra: 2
+console.log(findMaxLength([0, 1, 0])); // Đầu ra: 2
+console.log(findMaxLength([0, 1, 0, 0, 1, 1, 0])); // Đầu ra: 6
