@@ -1,18 +1,30 @@
-function isPalindrome(s) {
-  s = s.toLowerCase().replace(/[^a-z0-9]/g, '');
+function mergeSortedArrays(arr1, arr2) {
+  const merged = [];
 
-  let left = 0,
-    right = s.length - 1;
+  let start1 = 0,
+    start2 = 0;
 
-  while (left < right) {
-    if (s[left] !== s[right]) return false;
-    left++;
-    right--;
+  while (start1 < arr1.length && start2 < arr2.length) {
+    if (!arr1[start1] || arr1[start1] > arr2[start2]) {
+      merged.push(arr2[start2]);
+      start2++;
+    } else {
+      merged.push(arr1[start1]);
+      start1++;
+    }
   }
 
-  return true;
+  if (start1 >= arr1.length) {
+    merged.push(...arr2.slice(start2));
+  } else {
+    merged.push(...arr1.slice(start1));
+  }
+
+  return merged;
 }
 
 // Ví dụ sử dụng
-console.log(isPalindrome('A man, a plan, a canal: Panama')); // true
-console.log(isPalindrome('race a car')); // false
+let nums1 = [1, 1, 3, 0, 0, 0];
+let nums2 = [2, 5, 6];
+console.log(mergeSortedArrays(nums1, nums2));
+// Output: [1, 2, 2, 3, 5, 6]
