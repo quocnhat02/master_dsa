@@ -1,22 +1,33 @@
-function maxArea(height) {
-  let left = 0,
-    right = height.length - 1,
-    maxWater = 0;
+function threeSum(arr) {
+  arr = arr.sort((a, b) => a - b);
+  const result = [];
 
-  while (left < right) {
-    let water = Math.min(height[left], height[right]) * (right - left);
+  for (let i = 0; i < arr.length - 2; i++) {
+    if (i > 0 && arr[i] === arr[i - 1]) continue;
 
-    maxWater = Math.max(maxWater, water);
+    let left = i + 1;
+    let right = arr.length - 1;
 
-    if (height[left] < height[right]) {
-      left++;
-    } else {
-      right--;
+    while (left < right) {
+      const sum = arr[i] + arr[left] + arr[right];
+
+      if (sum === 0) {
+        result.push([arr[i], arr[left], arr[right]]);
+        while (left < right && arr[left] === arr[left + 1]) left++;
+        while (left < right && arr[right] === arr[right - 1]) right--;
+        left++;
+        right--;
+      } else if (sum > 0) {
+        left++;
+      } else {
+        right--;
+      }
     }
   }
 
-  return maxWater;
+  return result;
 }
 
 // Ví dụ sử dụng
-console.log(maxArea([1, 8, 6, 2, 5, 4, 8, 3, 7])); // Output: 49
+console.log(threeSum([-1, 0, 1, 2, -1, -4]));
+// Output: [[-1,-1,2],[-1,0,1]]
