@@ -1,25 +1,22 @@
-function mergeSortedArrays(arr1, arr2) {
-  const len = arr1.length + arr2.length;
-  const merged = [];
+function maxArea(height) {
+  let left = 0,
+    right = height.length - 1,
+    maxWater = 0;
 
-  let start1 = 0,
-    start2 = 0;
+  while (left < right) {
+    let water = Math.min(height[left], height[right]) * (right - left);
 
-  while (start1 + start2 < len) {
-    if (!arr2[start2] || arr1[start1] < arr2[start2]) {
-      merged.push(arr1[start1]);
-      start1++;
+    maxWater = Math.max(maxWater, water);
+
+    if (height[left] < height[right]) {
+      left++;
     } else {
-      merged.push(arr2[start2]);
-      start2++;
+      right--;
     }
   }
 
-  return merged;
+  return maxWater;
 }
 
 // Ví dụ sử dụng
-let nums2 = [1, 1, 3, 4, 7, 9];
-let nums1 = [2, 5, 6];
-console.log(mergeSortedArrays(nums1, nums2));
-// Output: [1, 2, 2, 3, 5, 6]
+console.log(maxArea([1, 8, 6, 2, 5, 4, 8, 3, 7])); // Output: 49
