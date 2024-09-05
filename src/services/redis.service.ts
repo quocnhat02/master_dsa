@@ -3,11 +3,14 @@ import config from '../config/config';
 import logger from '../utils/logger';
 
 class RedisService {
-  private static instance: RedisService;
+  private static instance: RedisService | null = null;
   private client: Redis;
 
   private constructor() {
-    this.client = new Redis(config.redis.url);
+    this.client = new Redis(config.redis.url, {
+      maxRetriesPerRequest: null,
+      enableReadyCheck: false,
+    });
 
     this.client.on('error', (error) => {
       logger.error('Redis error:', error);
@@ -46,6 +49,10 @@ class RedisService {
 
   public async flushAll(): Promise<'OK'> {
     return this.client.flushall();
+  }
+
+  public async quit(): Promise<'OK'> {
+    return this.client.quit();
   }
 }
 
