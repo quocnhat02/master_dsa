@@ -29,7 +29,7 @@ class RedisService {
     return this.client;
   }
 
-  public async set(key: string, value: string, expireTime?: number): Promise<'OK'> {
+  public async set(key: string, value: string, expireTime?: number): Promise<'OK' | null> {
     if (expireTime) {
       return this.client.set(key, value, 'EX', expireTime);
     }

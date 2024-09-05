@@ -3,12 +3,12 @@ import { getUserById } from '../services/userService';
 import { ForbiddenError } from '../utils/errors';
 
 export const checkUserBlocked = async (req: Request, res: Response, next: NextFunction) => {
-  const userId = req.user?.id; // Assuming you have user info in the request after authentication
+  const userId = req.user?._id;
   if (!userId) {
     return next(new ForbiddenError('User not authenticated'));
   }
 
-  const user = await getUserById(userId);
+  const user = await getUserById(userId.toString());
   if (!user) {
     return next(new ForbiddenError('User not found'));
   }
