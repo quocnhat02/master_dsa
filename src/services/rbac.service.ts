@@ -164,19 +164,19 @@ export const getListRoles = async ({
           slug: '$rol_slug',
           description: '$rol_description',
           resource: '$resource.src_name',
-          actions: '$rol_grants.actions',
+          action: '$rol_grants.actions',
           attributes: '$rol_grants.attributes',
         },
       },
       {
-        $unwind: '$actions',
+        $unwind: '$action',
       },
       {
         $project: {
           _id: 0,
           role: 1,
           resource: 1,
-          actions: '$actions',
+          action: '$action',
           attributes: 1,
         },
       },

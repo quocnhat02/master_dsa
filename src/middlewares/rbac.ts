@@ -23,7 +23,10 @@ export const checkAccess = (action: string, resource: string) => {
       }
 
       // Use the authenticated user's role instead of query parameter
-      const userRole = req.query.role as string;
+      const userRole = req.query?.role as string;
+      if (!userRole) {
+        return next(new ForbiddenError('User role not found'));
+      }
       logger.info(`User role: ${userRole}, Action: ${action}, Resource: ${resource}`);
 
       const permission = ac.can(userRole)[action](resource);
