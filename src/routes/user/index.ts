@@ -16,7 +16,8 @@ import {
   updateUserSchema,
   getUserByIdSchema,
 } from '../../validations/userValidation';
-import { authenticate, authorize } from '../../middlewares/auth';
+import { authenticate } from '../../middlewares/auth';
+import { checkAccess } from '../../middlewares/rbac';
 
 const router = Router();
 
@@ -27,23 +28,27 @@ router.post('/', validate(createUserSchema), asyncHandler(createUser));
 router.use(authenticate);
 
 // Routes accessible by all authenticated users
-router.get('/:id', validateParams(getUserByIdSchema), asyncHandler(getUserById));
+router.get(
+  '/:id',
+  validateParams(getUserByIdSchema),
+  checkAccess('readAny', 'profile'),
+  asyncHandler(getUserById),
+);
 
 // Routes for users with 'user' role and above
-router.get('/', authorize(['user', 'admin']), asyncHandler(getUsers));
+router.get('/', checkAccess('readAny', 'profile'), asyncHandler(getUsers));
 router.put(
   '/:id',
-  authorize(['user', 'admin']),
   validateParams(getUserByIdSchema),
   validate(updateUserSchema),
+  checkAccess('updateAny', 'profile'),
   asyncHandler(updateUser),
 );
 
 // Admin only routes
-router.use(authorize(['admin']));
-router.post('/:id/block', asyncHandler(blockUser));
-router.post('/:id/unblock', asyncHandler(unblockUser));
-router.post('/:id/deactivate', asyncHandler(deactivateUser));
-router.post('/:id/reactivate', asyncHandler(reactivateUser));
+router.post('/:id/block', checkAccess('updateAny', 'profile'), asyncHandler(blockUser));
+router.post('/:id/unblock', checkAccess('updateAny', 'profile'), asyncHandler(unblockUser));
+router.post('/:id/deactivate', checkAccess('updateAny', 'profile'), asyncHandler(deactivateUser));
+router.post('/:id/reactivate', checkAccess('updateAny', 'profile'), asyncHandler(reactivateUser));
 
 export default router;

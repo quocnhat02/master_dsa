@@ -29,7 +29,7 @@ const RoleSchema: Schema = new Schema(
       {
         resource: { type: Schema.Types.ObjectId, ref: 'Resource' },
         actions: [{ type: String, required: true }],
-        attributes: [{ type: String, required: true }],
+        attributes: { type: String, default: '*' },
       },
     ],
   },
