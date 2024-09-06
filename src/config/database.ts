@@ -23,7 +23,7 @@ class Database {
     try {
       mongoose.set('strictQuery', false);
       await mongoose.connect(MONGODB_URI);
-      logger.info('MongoDB connected');
+      logger.info(`MongoDB connected ${MONGODB_URI}`);
     } catch (error) {
       logger.error('MongoDB connection error:', error);
       process.exit(1);

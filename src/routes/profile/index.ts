@@ -2,7 +2,6 @@ import { Router } from 'express';
 import { getAllProfiles, getOwnProfile } from '../../controllers/profileController';
 import { asyncHandler } from '../../utils';
 import { checkAccess } from '../../middlewares/rbac';
-
 const router = Router();
 
 // admin

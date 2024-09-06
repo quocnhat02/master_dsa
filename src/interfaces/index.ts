@@ -12,3 +12,9 @@ export interface QueryResult<T> {
   totalPages: number;
   totalResults: number;
 }
+
+export interface IResource {
+  name: string;
+  slug: string;
+  description: string;
+}

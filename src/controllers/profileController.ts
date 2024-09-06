@@ -1,7 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import * as userService from '../services/userService';
 import { ResponseHandler } from '../utils';
-import { NotFoundError } from '../utils/errors';
 
 const profiles = [
   {
