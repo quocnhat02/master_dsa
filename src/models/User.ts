@@ -1,37 +1,54 @@
 import mongoose, { Document, Schema } from 'mongoose';
+import bcrypt from 'bcrypt';
+
+const DOCUMENT_NAME = 'User';
+const COLLECTION_NAME = 'users';
 
 export interface IUser extends Document {
-  name: string;
-  email: string;
-  password: string;
-  isBlocked: boolean;
-  blockedAt?: Date;
-  blockedReason?: string;
-  isActive: boolean;
-  deactivatedAt?: Date;
+  usr_id: number;
+  usr_slug: string;
+  usr_name: string;
+  usr_password: string;
+  usr_salt: string;
+  usr_email: string;
+  usr_phone: string;
+  usr_sex: string;
+  usr_avatar: string;
+  usr_date_of_birth: Date | null;
+  usr_role: mongoose.Types.ObjectId;
+  usr_status: 'pending' | 'active' | 'block';
+  comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
 const UserSchema: Schema = new Schema(
   {
-    name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    isBlocked: { type: Boolean, default: false },
-    blockedAt: { type: Date },
-    blockedReason: { type: String },
-    isActive: { type: Boolean, default: true },
-    deactivatedAt: { type: Date },
+    usr_id: { type: Number, required: true, unique: true },
+    usr_slug: { type: String, required: true },
+    usr_name: { type: String, default: '' },
+    usr_password: { type: String, default: '' },
+    usr_salt: { type: String, default: '' },
+    usr_email: { type: String, required: true },
+    usr_phone: { type: String, default: '' },
+    usr_sex: { type: String, default: '' },
+    usr_avatar: { type: String, default: '' },
+    usr_date_of_birth: { type: Date, default: null },
+    usr_role: { type: Schema.Types.ObjectId, ref: 'Role' },
+    usr_status: { type: String, default: 'pending', enum: ['pending', 'active', 'block'] },
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+    collection: COLLECTION_NAME,
+  },
 );
 
-// Adding an index on the email field
-UserSchema.index({ email: 1 });
+UserSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next();
+  this.password = await bcrypt.hash(this.password, 10);
+  next();
+});
 
-// Adding an index on the isBlocked field
-UserSchema.index({ isBlocked: 1 });
+UserSchema.methods.comparePassword = async function (candidatePassword: string): Promise<boolean> {
+  return bcrypt.compare(candidatePassword, this.password);
+};
 
-// Adding an index on the isActive field
-UserSchema.index({ isActive: 1 });
-
-export default mongoose.model<IUser>('User', UserSchema);
+export default mongoose.model<IUser>(DOCUMENT_NAME, UserSchema);
