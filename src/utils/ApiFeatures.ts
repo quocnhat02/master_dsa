@@ -28,9 +28,9 @@ class APIFeatures<T> {
   limitFields() {
     if (this.queryString.fields) {
       const fields = this.queryString.fields.split(',').join(' ');
-      this.query = this.query.select(fields);
+      this.query = this.query.select(fields) as Query<T[], T>;
     } else {
-      this.query = this.query.select('-__v');
+      this.query = this.query.select('-__v') as Query<T[], T>;
     }
     return this;
   }

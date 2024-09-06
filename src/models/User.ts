@@ -18,6 +18,8 @@ export interface IUser extends Document {
   usr_role: mongoose.Types.ObjectId;
   usr_status: 'pending' | 'active' | 'block';
   comparePassword(candidatePassword: string): Promise<boolean>;
+  blockedReason?: string;
+  blockedAt?: Date;
 }
 
 const UserSchema: Schema = new Schema(
@@ -25,7 +27,7 @@ const UserSchema: Schema = new Schema(
     usr_id: { type: Number, required: true, unique: true },
     usr_slug: { type: String, required: true },
     usr_name: { type: String, default: '' },
-    usr_password: { type: String, default: '' },
+    usr_password: { type: String, required: true },
     usr_salt: { type: String, default: '' },
     usr_email: { type: String, required: true },
     usr_phone: { type: String, default: '' },
@@ -34,6 +36,8 @@ const UserSchema: Schema = new Schema(
     usr_date_of_birth: { type: Date, default: null },
     usr_role: { type: Schema.Types.ObjectId, ref: 'Role' },
     usr_status: { type: String, default: 'pending', enum: ['pending', 'active', 'block'] },
+    blockedReason: { type: String },
+    blockedAt: { type: Date },
   },
   {
     timestamps: true,
@@ -42,13 +46,13 @@ const UserSchema: Schema = new Schema(
 );
 
 UserSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) return next();
-  this.password = await bcrypt.hash(this.password, 10);
+  if (!this.isModified('usr_password')) return next();
+  this.usr_password = await bcrypt.hash(this.usr_password as string, 10);
   next();
 });
 
 UserSchema.methods.comparePassword = async function (candidatePassword: string): Promise<boolean> {
-  return bcrypt.compare(candidatePassword, this.password);
+  return bcrypt.compare(candidatePassword, this.usr_password);
 };
 
 export default mongoose.model<IUser>(DOCUMENT_NAME, UserSchema);

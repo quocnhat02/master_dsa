@@ -5,11 +5,16 @@ import redisService from './redis.service';
 
 const USER_CACHE_EXPIRY = 3600; // 1 hour in seconds
 
+export const signup = async (userData: Partial<IUser>): Promise<IUser> => {
+  const user = new User(userData);
+  return user.save();
+};
+
 export const getAllUsers = async (
   filter: Record<string, any> = {},
   options: PaginationOptions,
 ): Promise<QueryResult<IUser>> => {
-  const finalFilter = { ...filter, isActive: true, isBlocked: false };
+  const finalFilter = { ...filter, usr_status: 'active' };
   const cacheKey = `users:${JSON.stringify(finalFilter)}:${JSON.stringify(options)}`;
   const cachedResult = await redisService.get(cacheKey);
 
@@ -48,10 +53,10 @@ export const getUserById = async (id: string): Promise<IUser | null> => {
   const cachedUser = await redisService.get(`user:${id}`);
   if (cachedUser) {
     const user = JSON.parse(cachedUser);
-    return user.isActive && !user.isBlocked ? user : null;
+    return user.usr_status === 'active' ? user : null;
   }
 
-  const user = await User.findOne({ _id: id, isActive: true, isBlocked: false });
+  const user = await User.findOne({ _id: id, usr_status: 'active' });
 
   if (user) {
     await redisService.set(`user:${id}`, JSON.stringify(user), USER_CACHE_EXPIRY);
@@ -74,14 +79,7 @@ export const updateUser = async (id: string, updateData: Partial<IUser>): Promis
 };
 
 export const deactivateUser = async (userId: string): Promise<IUser | null> => {
-  const user = await User.findByIdAndUpdate(
-    userId,
-    {
-      isActive: false,
-      deactivatedAt: new Date(),
-    },
-    { new: true },
-  );
+  const user = await User.findByIdAndUpdate(userId, { usr_status: 'block' }, { new: true });
 
   if (user) {
     await redisService.del(`user:${userId}`);
@@ -91,14 +89,7 @@ export const deactivateUser = async (userId: string): Promise<IUser | null> => {
 };
 
 export const reactivateUser = async (userId: string): Promise<IUser | null> => {
-  const user = await User.findByIdAndUpdate(
-    userId,
-    {
-      isActive: true,
-      $unset: { deactivatedAt: 1 },
-    },
-    { new: true },
-  );
+  const user = await User.findByIdAndUpdate(userId, { usr_status: 'active' }, { new: true });
 
   if (user) {
     await redisService.set(`user:${userId}`, JSON.stringify(user), USER_CACHE_EXPIRY);
@@ -111,9 +102,9 @@ export const blockUser = async (userId: string, reason: string): Promise<IUser |
   const user = await User.findByIdAndUpdate(
     userId,
     {
-      isBlocked: true,
-      blockedAt: new Date(),
+      usr_status: 'block',
       blockedReason: reason,
+      blockedAt: new Date(),
     },
     { new: true },
   );
@@ -129,15 +120,17 @@ export const unblockUser = async (userId: string): Promise<IUser | null> => {
   const user = await User.findByIdAndUpdate(
     userId,
     {
-      isBlocked: false,
-      $unset: { blockedAt: 1, blockedReason: 1 },
+      usr_status: 'active',
+      $unset: { blockedReason: 1, blockedAt: 1 },
     },
     { new: true },
   );
 
   if (user) {
-    await redisService.del(`user:${userId}`);
+    await redisService.set(`user:${userId}`, JSON.stringify(user), USER_CACHE_EXPIRY);
   }
 
   return user;
 };
+
+// Remove blockUser and unblockUser functions as they're no longer needed

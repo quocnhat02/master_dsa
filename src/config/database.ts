@@ -21,6 +21,7 @@ class Database {
     }
 
     try {
+      mongoose.set('strictQuery', false);
       await mongoose.connect(MONGODB_URI);
       logger.info('MongoDB connected');
     } catch (error) {
