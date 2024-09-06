@@ -8,7 +8,15 @@ const startServer = async () => {
     await connectDB();
 
     app.listen(config.port, () => {
-      logger.info(`Server running on port ${config.port}`);
+      logger.info(`Server running on port ${config.port}`, {
+        data: {
+          host: 'http://localhost',
+          port: config.port,
+        },
+        context: '/src/server.ts',
+        requestId: '1234567890',
+        timestamp: new Date().toISOString(),
+      });
     });
   } catch (error) {
     logger.error('Failed to start server:', error);

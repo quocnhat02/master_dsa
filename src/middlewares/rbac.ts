@@ -18,7 +18,6 @@ export const checkAccess = (action: string, resource: string) => {
       // Fetch and set roles only if not already set
       if (Object.keys(ac.getGrants()).length === 0) {
         const roles = await getListRoles({});
-        logger.info(`Fetched roles: ${JSON.stringify(roles)}`);
         ac.setGrants(roles);
       }
 
