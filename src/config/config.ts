@@ -7,6 +7,7 @@ const envVarsSchema = Joi.object()
   .keys({
     NODE_ENV: Joi.string().valid('production', 'development', 'test').required(),
     PORT: Joi.number().default(3000),
+    HOST: Joi.string().default('http://127.0.0.1'),
     MONGODB_URI: Joi.string().required().description('MongoDB connection string'),
     REDIS_URL: Joi.string().required().description('Redis connection string'),
     JWT_SECRET: Joi.string().required().description('JWT secret key'),
@@ -29,12 +30,13 @@ if (error) {
 
 const config = {
   env: envVars.NODE_ENV,
+  host: envVars.HOST,
   port: envVars.PORT,
   mongoose: {
     url: envVars.MONGODB_URI,
   },
   redis: {
-    url: envVars.REDIS_URL || 'redis://localhost:6379',
+    url: envVars.REDIS_URL || 'redis://127.0.0.1:6379',
   },
   jwt: {
     secret: envVars.JWT_SECRET,

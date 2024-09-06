@@ -1,6 +1,7 @@
 import winston from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
 import { NODE_ENV } from '../config/constants';
+import { v4 as uuidv4 } from 'uuid';
 
 class Logger {
   private static instance: Logger;
@@ -9,8 +10,8 @@ class Logger {
   private constructor() {
     const format = winston.format.printf(
       ({ level, message, context, requestId, timestamp, data }) =>
-        `${timestamp}: ${level}: ${context}: ${requestId}: ${message}: ${
-          data ? JSON.stringify(data, null, 2) : ''
+        `${timestamp}::${level}::${context}::${requestId ? requestId : uuidv4()}::${message}::${
+          data ? JSON.stringify(data) : ''
         }`,
     );
 
@@ -21,8 +22,8 @@ class Logger {
         new winston.transports.Console({
           format: winston.format.simple(),
         }),
-        this.createRotateFileTransport('info'),
-        this.createRotateFileTransport('error'),
+        this.createRotateFileTransport('info', format),
+        this.createRotateFileTransport('error', format),
       ],
     });
   }
@@ -34,15 +35,24 @@ class Logger {
     return Logger.instance;
   }
 
-  private createRotateFileTransport(level: string): DailyRotateFile {
+  private createRotateFileTransport(
+    level: string,
+    formatPrint: winston.Logform.Format,
+  ): DailyRotateFile {
     return new DailyRotateFile({
       dirname: 'src/logs',
       filename: `application-%DATE%.${level}.log`,
-      datePattern: 'YYYY-MM-DD',
+      datePattern: 'YYYY-MM-DD-HH',
       zippedArchive: true,
       maxSize: '1kb',
       maxFiles: '14d',
       level,
+      format: winston.format.combine(
+        winston.format.timestamp({
+          format: 'YYYY-MM-DD HH:mm:ss',
+        }),
+        formatPrint,
+      ),
     });
   }
 
