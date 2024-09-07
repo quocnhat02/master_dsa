@@ -9,10 +9,21 @@ class Logger {
 
   private constructor() {
     const format = winston.format.printf(
-      ({ level, message, context, requestId, timestamp, data }) =>
-        `${timestamp}::${level}::${context}::${requestId ? requestId : uuidv4()}::${message}::${
-          data ? JSON.stringify(data) : ''
-        }`,
+      ({ level, message, context, requestId, timestamp, data }) => {
+        const logParts = [
+          timestamp,
+          level.toUpperCase(),
+          context || '-',
+          requestId || uuidv4(),
+          message,
+        ];
+
+        if (data) {
+          logParts.push(JSON.stringify(data));
+        }
+
+        return logParts.join(' | ');
+      },
     );
 
     this.logger = winston.createLogger({

@@ -1,8 +1,6 @@
 import { IResource } from '../interfaces';
-import { User } from '../models';
 import Resource from '../models/Resource';
 import Role from '../models/Role';
-
 /**
  * Create a new resource
  * @param {string} name - The name of the resource
@@ -181,6 +179,7 @@ export const getListRoles = async ({
         },
       },
     ]);
+
     return roles;
   } catch (error) {
     return [];

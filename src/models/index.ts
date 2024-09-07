@@ -1,2 +1,3 @@
 export { default as User } from './User';
-// Export other models here as they are added
+export { default as Role } from './Role';
+export { default as Resource } from './Resource';

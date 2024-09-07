@@ -25,7 +25,7 @@ class Database {
       await mongoose.connect(MONGODB_URI);
       logger.info(`MongoDB connected ${MONGODB_URI}`);
     } catch (error) {
-      logger.error('MongoDB connection error:', error);
+      logger.error(`MongoDB connection error: ${error.message}`);
       process.exit(1);
     }
   }

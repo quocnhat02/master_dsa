@@ -13,11 +13,11 @@ class RedisService {
     });
 
     this.client.on('error', (error) => {
-      logger.error('Redis error:', error);
+      logger.error(`Redis error: ${error.message}`);
     });
 
     this.client.on('connect', () => {
-      logger.info('Connected to Redis');
+      logger.info(`Connected to Redis ${config.redis.url}`);
     });
   }
 

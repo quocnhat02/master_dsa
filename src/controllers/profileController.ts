@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { ResponseHandler } from '../utils';
+import { logger } from '../utils';
 
 const profiles = [
   {
@@ -40,6 +41,11 @@ const profile = {
 
 export const getAllProfiles = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    logger.info('Get All Profiles Successfully', {
+      context: req.path,
+      requestId: req.requestId,
+      data: req.query,
+    });
     ResponseHandler.success(res, profiles, 'View Any Profiles successfully');
   } catch (error) {
     next(error);

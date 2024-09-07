@@ -1,20 +1,27 @@
 import { Request, Response, NextFunction } from 'express';
 import { AppError } from '../utils/errors';
-import logger from '../utils/logger';
+import { logger } from '../utils';
 import { NODE_ENV } from '../config/constants';
 import { MongoError } from 'mongodb';
 
-const errorHandler = (
-  err: Error | MongoError,
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+declare global {
+  namespace Express {
+    interface Request {
+      requestId?: string;
+    }
+  }
+}
+
+const errorHandler = (err: Error | MongoError, req: Request, res: Response, next: NextFunction) => {
   let error = err as AppError;
   error.message = err.message;
 
   // Log the error
-  logger.error(`${error.message}\n${error.stack}`);
+  logger.error(`${error.statusCode} - ${Date.now() - error.createdAt}ms - ${error.message}`, {
+    requestId: req.requestId || 'unknown',
+    context: req.path || 'unknown',
+    data: req.method === 'POST' ? JSON.stringify(req.body) : req.query,
+  });
 
   // Mongoose bad ObjectId
   if (err.name === 'CastError') {
@@ -30,9 +37,9 @@ const errorHandler = (
 
   // Mongoose validation error
   if (err.name === 'ValidationError' && 'errors' in err) {
-    const message = Object.values(
-      err.errors as Record<string, { message: string }>
-    ).map((val) => val.message);
+    const message = Object.values(err.errors as Record<string, { message: string }>).map(
+      (val) => val.message,
+    );
     error = new AppError(message.join(', '), 400);
   }
 

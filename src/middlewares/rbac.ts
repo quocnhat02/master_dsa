@@ -3,7 +3,6 @@ import { ForbiddenError } from '../utils/errors';
 import { ac } from './roleMiddleware';
 import { getListRoles } from '../services/rbac.service';
 import { logger } from '../utils';
-
 // Add more roles and permissions as needed
 
 /**
@@ -24,14 +23,22 @@ export const checkAccess = (action: string, resource: string) => {
       // Use the authenticated user's role instead of query parameter
       const userRole = req.query?.role as string;
       if (!userRole) {
+        logger.error('User role not found', {
+          context: req.path,
+          requestId: req.requestId,
+          data: req.query,
+        });
         return next(new ForbiddenError('User role not found'));
       }
-      logger.info(`User role: ${userRole}, Action: ${action}, Resource: ${resource}`);
 
       const permission = ac.can(userRole)[action](resource);
-      logger.info(`Permission granted: ${permission.granted}`);
 
       if (!permission.granted) {
+        logger.error('You do not have permission to perform this action', {
+          context: req.path,
+          requestId: req.requestId,
+          data: req.query,
+        });
         return next(new ForbiddenError('You do not have permission to perform this action'));
       }
 
@@ -40,7 +47,11 @@ export const checkAccess = (action: string, resource: string) => {
 
       next();
     } catch (error) {
-      logger.error('RBAC Error:', error);
+      logger.error('An error occurred while checking permissions', {
+        context: req.path,
+        requestId: req.requestId,
+        data: req.query,
+      });
       next(new ForbiddenError('An error occurred while checking permissions'));
     }
   };

@@ -38,19 +38,3 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
     next(error);
   }
 };
-
-export const authorize = (allowedRoles: string[]) => {
-  return (req: Request, res: Response, next: NextFunction) => {
-    if (!req.user) {
-      return next(new ForbiddenError('You are not logged in'));
-    }
-
-    const userRole = req.user.usr_role.toString();
-
-    if (!allowedRoles.includes(userRole)) {
-      return next(new ForbiddenError('You do not have permission to perform this action'));
-    }
-
-    next();
-  };
-};

@@ -9,12 +9,7 @@ const startServer = async () => {
 
     app.listen(config.port, () => {
       logger.info(`Server running on http://${config.host}:${config.port}`, {
-        data: {
-          host: config.host,
-          port: config.port,
-        },
-        context: '/src/server.ts',
-        timestamp: new Date().toISOString(),
+        context: `Server NodeJS ${process.pid}`,
       });
     });
   } catch (error) {

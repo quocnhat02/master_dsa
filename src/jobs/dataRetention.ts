@@ -1,6 +1,4 @@
 import cron from 'node-cron';
-import User from '../models/User';
-import logger from '../utils/logger';
 import redisService from '../services/redis.service';
 
 const RETENTION_PERIOD_DAYS = 90;
@@ -15,38 +13,38 @@ const releaseLock = async (): Promise<void> => {
   await redisService.del(LOCK_KEY);
 };
 
-const anonymizeInactiveUsers = async () => {
-  const hasLock = await acquireLock();
-  if (!hasLock) {
-    logger.info('Data retention job is already running on another instance');
-    return;
-  }
+// const anonymizeInactiveUsers = async () => {
+//   const hasLock = await acquireLock();
+//   if (!hasLock) {
+//     logger.info('Data retention job is already running on another instance');
+//     return;
+//   }
 
-  try {
-    const cutoffDate = new Date();
-    cutoffDate.setDate(cutoffDate.getDate() - RETENTION_PERIOD_DAYS);
+//   try {
+//     const cutoffDate = new Date();
+//     cutoffDate.setDate(cutoffDate.getDate() - RETENTION_PERIOD_DAYS);
 
-    const result = await User.updateMany(
-      {
-        isActive: false,
-        deactivatedAt: { $lt: cutoffDate },
-      },
-      {
-        $set: {
-          name: 'Anonymous User',
-          email: `anonymous_${Date.now()}@example.com`,
-          password: 'anonymized',
-        },
-      },
-    );
+//     const result = await User.updateMany(
+//       {
+//         usr_status: false,
+//         usr_deactivated_at: { $lt: cutoffDate },
+//       },
+//       {
+//         $set: {
+//           name: 'Anonymous User',
+//           email: `anonymous_${Date.now()}@example.com`,
+//           password: 'anonymized',
+//         },
+//       },
+//     );
 
-    logger.info(`Anonymized ${result.modifiedCount} inactive user records`);
-  } catch (error) {
-    logger.error('Error in data retention job:', error);
-  } finally {
-    await releaseLock();
-  }
-};
+//     logger.info(`Anonymized ${result.modifiedCount} inactive user records`);
+//   } catch (error) {
+//     logger.error('Error in data retention job:', error);
+//   } finally {
+//     await releaseLock();
+//   }
+// };
 
-// Run job every day at midnight
-cron.schedule('0 0 * * *', anonymizeInactiveUsers);
+// // Run job every day at midnight
+// cron.schedule('0 0 * * *', anonymizeInactiveUsers);
