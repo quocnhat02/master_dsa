@@ -1,7 +1,7 @@
 import mongoose, { Document, Schema } from 'mongoose';
 import slugify from 'slugify';
 
-const DOCUMENT_NAME = 'SPU';
+const DOCUMENT_NAME = 'Spu';
 const COLLECTION_NAME = 'spus';
 
 export interface ISPU extends Document {
