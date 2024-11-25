@@ -1,20 +1,17 @@
-function find_average_size_k(arr, k) {
-  // Array with all elements with average of k size
-  let result = [];
-
+function find_max_sum_subarray_of_k_size(arr, k) {
+  let max = 0;
   let sum = 0;
 
   for (let idx = 0; idx < arr.length; idx++) {
     sum += arr[idx];
 
     if (idx >= k - 1) {
-      const avg = sum / k;
-      result.push(avg);
+      max = Math.max(max, sum);
       sum -= arr[idx - k + 1];
     }
   }
 
-  return result;
+  return max;
 }
 
-console.log(find_average_size_k([1, 3, 2, 6, -1, 4, 1, 8, 2], 5));
+console.log(find_max_sum_subarray_of_k_size([2, 1, 5, 1, 3, 2], 3));
