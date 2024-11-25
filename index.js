@@ -1,17 +1,19 @@
-function find_max_sum_subarray_of_k_size(arr, k) {
-  let max = 0;
+function find_smallest_subarray_with_sum(arr, s) {
+  let small = arr.length + 1;
   let sum = 0;
+  let idx_sub = 0;
 
   for (let idx = 0; idx < arr.length; idx++) {
     sum += arr[idx];
 
-    if (idx >= k - 1) {
-      max = Math.max(max, sum);
-      sum -= arr[idx - k + 1];
+    while (sum >= s) {
+      small = Math.min(small, idx - idx_sub + 1);
+      sum -= arr[idx_sub];
+      idx_sub++;
     }
   }
 
-  return max;
+  return small === arr.length + 1 ? 0 : small;
 }
 
-console.log(find_max_sum_subarray_of_k_size([2, 1, 5, 1, 3, 2], 3));
+console.log(find_smallest_subarray_with_sum([2, 1, 5, 2, 3, 2], 7));
