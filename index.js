@@ -1,24 +1,14 @@
-function longestSubstringAfterReplacement(s, k) {
-  let start = 0;
-  let maxFreq = 0;
-  const charCount = {};
-  let maxLength = 0;
+function hasDuplicates(nums) {
+  const numSet = new Set();
+  const length = nums.length;
 
-  for (let end = 0; end < s.length; end++) {
-    const endChar = s[end];
-    charCount[endChar] = (charCount[endChar] || 0) + 1;
-    maxFreq = Math.max(maxFreq, charCount[endChar]);
-
-    while (end - start + 1 - maxFreq > k) {
-      const startChar = s[start];
-      charCount[startChar]--;
-      start++;
-    }
-
-    maxLength = Math.max(maxLength, end - start + 1);
+  for (let idx = 0; idx < length; idx++) {
+    if (numSet.has(nums[idx])) return true;
+    numSet.add(nums[idx]);
   }
-  return maxLength;
+
+  return false;
 }
 
-console.log(longestSubstringAfterReplacement('ABAB', 2));
-console.log(longestSubstringAfterReplacement('AABABBA', 1));
+console.log(hasDuplicates([1, 2, 3, 3]));
+console.log(hasDuplicates([1, 2, 3, 4]));
