@@ -1,19 +1,26 @@
-function find_smallest_subarray_with_sum(arr, s) {
-  let small = arr.length + 1;
-  let sum = 0;
+function find_longest_substring_with_k_distinct_chars(str, k) {
+  const count_char = new Map();
+  let longest = 0;
   let idx_sub = 0;
 
-  for (let idx = 0; idx < arr.length; idx++) {
-    sum += arr[idx];
+  for (let idx = 0; idx < str.length; idx++) {
+    count_char.set(str[idx], (count_char.get(str[idx]) || 0) + 1);
 
-    while (sum >= s) {
-      small = Math.min(small, idx - idx_sub + 1);
-      sum -= arr[idx_sub];
+    while (count_char.size > k) {
+      count_char.set(str[idx_sub], count_char.get(str[idx_sub]) - 1);
+      if (count_char.get(str[idx_sub]) == 0) {
+        count_char.delete(str[idx_sub]);
+      }
       idx_sub++;
     }
+
+    longest =
+      count_char.size == k ? Math.max(longest, idx - idx_sub + 1) : longest;
   }
 
-  return small === arr.length + 1 ? 0 : small;
+  return longest;
 }
 
-console.log(find_smallest_subarray_with_sum([2, 1, 5, 2, 3, 2], 7));
+console.log(find_longest_substring_with_k_distinct_chars('araaci', 2));
+console.log(find_longest_substring_with_k_distinct_chars('araaci', 1));
+console.log(find_longest_substring_with_k_distinct_chars('cbbebi', 3));
