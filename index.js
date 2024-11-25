@@ -1,26 +1,25 @@
-function find_longest_substring_with_k_distinct_chars(str, k) {
+function find_fruits_into_basket(fruits) {
   const count_char = new Map();
-  let longest = 0;
   let idx_sub = 0;
+  let max = 0;
 
-  for (let idx = 0; idx < str.length; idx++) {
-    count_char.set(str[idx], (count_char.get(str[idx]) || 0) + 1);
+  for (let idx = 0; idx < fruits.length; idx++) {
+    count_char.set(fruits[idx], (count_char.get(fruits[idx]) | 0) + 1);
 
-    while (count_char.size > k) {
-      count_char.set(str[idx_sub], count_char.get(str[idx_sub]) - 1);
-      if (count_char.get(str[idx_sub]) == 0) {
-        count_char.delete(str[idx_sub]);
+    while (count_char.size > 2) {
+      const sub_elm = fruits[idx_sub];
+      count_char.set(sub_elm, count_char.get(sub_elm) - 1);
+      if (count_char.get(sub_elm) == 0) {
+        count_char.delete(sub_elm);
       }
       idx_sub++;
     }
 
-    longest =
-      count_char.size == k ? Math.max(longest, idx - idx_sub + 1) : longest;
+    max = count_char.size == 2 ? Math.max(max, idx - idx_sub + 1) : max;
   }
 
-  return longest;
+  return max;
 }
 
-console.log(find_longest_substring_with_k_distinct_chars('araaci', 2));
-console.log(find_longest_substring_with_k_distinct_chars('araaci', 1));
-console.log(find_longest_substring_with_k_distinct_chars('cbbebi', 3));
+console.log(find_fruits_into_basket(['A', 'B', 'C', 'A', 'C']));
+console.log(find_fruits_into_basket(['A', 'B', 'C', 'B', 'B', 'C']));
