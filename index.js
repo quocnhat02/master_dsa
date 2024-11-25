@@ -1,26 +1,24 @@
-function find_longest_no_repeat_sub_string(str) {
-  const count_char = new Map();
-  let idx_sub = 0;
-  let longest = 0;
+function longestSubstringAfterReplacement(s, k) {
+  let start = 0;
+  let maxFreq = 0;
+  const charCount = {};
+  let maxLength = 0;
 
-  for (let idx = 0; idx < str.length; idx++) {
-    count_char.set(str[idx], (count_char.get(str[idx]) | 0) + 1);
+  for (let end = 0; end < s.length; end++) {
+    const endChar = s[end];
+    charCount[endChar] = (charCount[endChar] || 0) + 1;
+    maxFreq = Math.max(maxFreq, charCount[endChar]);
 
-    while (count_char.get(str[idx]) > 1) {
-      const sub_elm = str[idx_sub];
-      count_char.set(sub_elm, count_char.get(sub_elm) - 1);
-      if (count_char.get(sub_elm) == 0) {
-        count_char.delete(sub_elm);
-      }
-      idx_sub++;
+    while (end - start + 1 - maxFreq > k) {
+      const startChar = s[start];
+      charCount[startChar]--;
+      start++;
     }
 
-    longest = Math.max(longest, count_char.size);
+    maxLength = Math.max(maxLength, end - start + 1);
   }
-
-  return longest;
+  return maxLength;
 }
 
-console.log(find_longest_no_repeat_sub_string('aabccbb'));
-console.log(find_longest_no_repeat_sub_string('abbbb'));
-console.log(find_longest_no_repeat_sub_string('abcbeaf'));
+console.log(longestSubstringAfterReplacement('ABAB', 2));
+console.log(longestSubstringAfterReplacement('AABABBA', 1));
