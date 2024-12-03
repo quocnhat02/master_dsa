@@ -1,17 +1,15 @@
-function findDuplicates(arr) {
-  if (arr.length == 0) {
+function findMax(array) {
+  if (array.length === 0) {
     return null;
   }
 
-  const setNum = new Set();
+  let max = array[0];
 
-  for (let idx = 0; idx < arr.length; idx++) {
-    if (setNum.has(arr[idx])) return true;
-    setNum.add(arr[idx]);
+  for (let idx = 1; idx < array.length; idx++) {
+    max = Math.max(max, array[idx]);
   }
 
-  return false;
+  return max;
 }
 
-nums = [1, 2, 3, 4];
-console.log(findDuplicates(nums));
+console.log(findMax([1, 2, 3, 4, 5, 6]));
