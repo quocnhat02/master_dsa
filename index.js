@@ -1,15 +1,12 @@
-function twoSum(array, target) {
-  if (array.length === 0 || target == undefined || target === null) {
+function findMissingNumber(array, n) {
+  if (n === 0) {
     return null;
   }
-  const map = new Map();
-  for (let idx = 0; idx < array.length; idx++) {
-    const complement = target - array[idx];
-    if (map.has(complement)) return [array[map.get(complement)], array[idx]];
-    map.set(array[idx], idx);
-  }
 
-  return null;
+  const sum = array.reduce((a, b) => a + b, 0);
+  const total = (n * (n + 1)) / 2;
+
+  return total - sum;
 }
 
-console.log(twoSum([1, 2, 3, 4, 5], 8));
+console.log(findMissingNumber([1, 2, 3, 4, 5, 7], 7));
