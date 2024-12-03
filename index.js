@@ -1,15 +1,28 @@
-function findMax(array) {
-  if (array.length === 0) {
-    return null;
+function reverseArray(array) {
+  if (array.length <= 1) {
+    return array;
   }
 
-  let max = array[0];
+  let reversed = [];
+  let left = 0,
+    right = array.length - 1;
 
-  for (let idx = 1; idx < array.length; idx++) {
-    max = Math.max(max, array[idx]);
+  while (left <= right) {
+    if (left == right) {
+      reversed[left] = array[left];
+    } else {
+      reversed[left] = array[right];
+      reversed[right] = array[left];
+    }
+    left++;
+    right--;
   }
 
-  return max;
+  return reversed;
 }
 
-console.log(findMax([1, 2, 3, 4, 5, 6]));
+// function reverseArray(str) {
+//   return str.reverse();
+// }
+
+console.log(reverseArray([1, 2, 3, 4, 5]));
