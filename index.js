@@ -1,16 +1,17 @@
-function isAnagram(s, t) {
-  const countChar = {};
-  for (let idx = 0; idx < s.length; idx++) {
-    countChar[s[idx]] = (s[idx], (countChar[s[idx]] || 0) + 1);
+function findDuplicates(arr) {
+  if (arr.length == 0) {
+    return null;
   }
 
-  for (const elm of t) {
-    if (!countChar[elm]) return false;
-    countChar[elm]--;
+  const setNum = new Set();
+
+  for (let idx = 0; idx < arr.length; idx++) {
+    if (setNum.has(arr[idx])) return true;
+    setNum.add(arr[idx]);
   }
 
-  return true;
+  return false;
 }
 
-console.log(isAnagram('anagram', 'nagaram')); // Output: true
-console.log(isAnagram('rat', 'car')); // Output: false
+nums = [1, 2, 3, 4];
+console.log(findDuplicates(nums));
