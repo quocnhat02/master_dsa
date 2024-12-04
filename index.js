@@ -1,12 +1,22 @@
-function findMissingNumber(array, n) {
-  if (n === 0) {
+function maxSumOSubarrayWithK(array, k) {
+  if (array.length === 0) {
     return null;
   }
 
-  const sum = array.reduce((a, b) => a + b, 0);
-  const total = (n * (n + 1)) / 2;
+  let max = 0;
+  let sum = 0;
 
-  return total - sum;
+  for (let idx = 0; idx < array.length; idx++) {
+    const element = array[idx];
+    sum += element;
+
+    if (idx >= k - 1) {
+      max = Math.max(max, sum);
+      sum -= array[idx - k + 1];
+    }
+  }
+
+  return max;
 }
 
-console.log(findMissingNumber([1, 2, 3, 4, 5, 7], 7));
+console.log(maxSumOSubarrayWithK([1, 3, 2, 5, 1, 2, 3], 2));
