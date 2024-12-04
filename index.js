@@ -1,24 +1,22 @@
-function longestSubstringWithKChar(str, k) {
+function longestNonDuplicatesSubstring(str) {
   if (str.length === 0) {
     return null;
   }
 
   let longest = 0;
-  const countChar = new Map();
+  const setChar = new Set();
   let leftChar = 0;
 
   for (let rightChar = 0; rightChar < str.length; rightChar++) {
     const rightElm = str[rightChar];
-    countChar.set(rightElm, countChar.get(rightElm | 0) + 1);
 
-    while (countChar.size > k) {
+    while (setChar.has(rightElm)) {
       const leftElm = str[leftChar];
-      countChar.set(leftElm, countChar.get(leftElm) - 1);
-      if (!countChar.get(leftElm)) {
-        countChar.delete(leftElm);
-      }
+      setChar.delete(leftElm);
       leftChar++;
     }
+
+    setChar.add(rightElm);
 
     longest = Math.max(longest, rightChar - leftChar + 1);
   }
@@ -26,4 +24,4 @@ function longestSubstringWithKChar(str, k) {
   return longest;
 }
 
-console.log(longestSubstringWithKChar('abaaaccaaaaa', 2));
+console.log(longestNonDuplicatesSubstring('abcbdef'));
