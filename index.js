@@ -1,22 +1,29 @@
-function maxSumOSubarrayWithK(array, k) {
-  if (array.length === 0) {
+function longestSubstringWithKChar(str, k) {
+  if (str.length === 0) {
     return null;
   }
 
-  let max = 0;
-  let sum = 0;
+  let longest = 0;
+  const countChar = new Map();
+  let leftChar = 0;
 
-  for (let idx = 0; idx < array.length; idx++) {
-    const element = array[idx];
-    sum += element;
+  for (let rightChar = 0; rightChar < str.length; rightChar++) {
+    const rightElm = str[rightChar];
+    countChar.set(rightElm, countChar.get(rightElm | 0) + 1);
 
-    if (idx >= k - 1) {
-      max = Math.max(max, sum);
-      sum -= array[idx - k + 1];
+    while (countChar.size > k) {
+      const leftElm = str[leftChar];
+      countChar.set(leftElm, countChar.get(leftElm) - 1);
+      if (!countChar.get(leftElm)) {
+        countChar.delete(leftElm);
+      }
+      leftChar++;
     }
+
+    longest = Math.max(longest, rightChar - leftChar + 1);
   }
 
-  return max;
+  return longest;
 }
 
-console.log(maxSumOSubarrayWithK([1, 3, 2, 5, 1, 2, 3], 2));
+console.log(longestSubstringWithKChar('abaaaccaaaaa', 2));
