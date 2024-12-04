@@ -1,27 +1,25 @@
-function longestNonDuplicatesSubstring(str) {
-  if (str.length === 0) {
+function MinLenSumTarget(array, target) {
+  const length = array.length;
+  if (length === 0) {
     return null;
   }
 
-  let longest = 0;
-  const setChar = new Set();
-  let leftChar = 0;
+  let minLen = length + 1;
+  let curSum = 0;
+  let left = 0;
 
-  for (let rightChar = 0; rightChar < str.length; rightChar++) {
-    const rightElm = str[rightChar];
+  for (let right = 0; right < length; right++) {
+    const element = array[right];
+    curSum += element;
 
-    while (setChar.has(rightElm)) {
-      const leftElm = str[leftChar];
-      setChar.delete(leftElm);
-      leftChar++;
+    while (curSum >= target) {
+      minLen = Math.min(minLen, right - left + 1);
+      curSum -= array[left];
+      left++;
     }
-
-    setChar.add(rightElm);
-
-    longest = Math.max(longest, rightChar - leftChar + 1);
   }
 
-  return longest;
+  return minLen === length + 1 ? 0 : minLen;
 }
 
-console.log(longestNonDuplicatesSubstring('abcbdef'));
+console.log(MinLenSumTarget([1, 3, 5, 3, 2], 5));
