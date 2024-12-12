@@ -1,25 +1,20 @@
-function MinLenSumTarget(array, target) {
-  const length = array.length;
-  if (length === 0) {
+function twoSum(nums, target) {
+  if (nums.length < 1 || target == undefined) {
     return null;
   }
+  const numMap = new Map();
 
-  let minLen = length + 1;
-  let curSum = 0;
-  let left = 0;
+  for (let idx = 0; idx < nums.length; idx++) {
+    const result = target - nums[idx];
 
-  for (let right = 0; right < length; right++) {
-    const element = array[right];
-    curSum += element;
-
-    while (curSum >= target) {
-      minLen = Math.min(minLen, right - left + 1);
-      curSum -= array[left];
-      left++;
-    }
+    if (numMap.has(result)) return [numMap.get(result), idx];
+    numMap.set(nums[idx], idx);
   }
 
-  return minLen === length + 1 ? 0 : minLen;
+  return null;
 }
 
-console.log(MinLenSumTarget([1, 3, 5, 3, 2], 5));
+let nums = [3, 3],
+  target = 6;
+
+console.log(twoSum(nums, target));
