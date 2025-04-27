@@ -1,29 +1,36 @@
-// Given an array of positive numbers and a positive number S,
-// find the length of the smallest contiguous subarray whose sum is greater than or equal to S
+// Given a string, find the length of the longest substring in it
+// with no more than k distance characters
 
-// arr= [1, 2, 3, 4, 2, 5, 3], s = 5-> 1
-// pre_idx = 0, sum = 0, smallest = 0
+// charMap = {}, pre_idx = 0, longest = 0
+// 'abcabaaad' => 'abaaad'
+// { b: 1, c: 1}
 
-function findLengthOfSmallestGreaterS(nums, s) {
-  const length = nums.length
+function findLongestSubString(str, k) {
+  const length = str.length;
 
-  if (length < 1) {
-    return 0;
-  }
-
-  let pre_idx = 0, sum = 0, smallest = length;
-  
+  let pre_idx = 0,
+    longest = 0;
+  const charMap = new Map();
 
   for (let idx = 0; idx < length; idx++) {
-    sum += nums[idx]
-    while (sum >= s) {
-      smallest = Math.min(smallest, idx - pre_idx + 1)
-      sum -= nums[pre_idx++]
+    const rightChar = str.charAt(idx);
+    charMap.set(rightChar, (charMap.get(rightChar) || 0) + 1);
+
+    while (charMap.size > k) {
+      const leftChar = str.charAt(pre_idx);
+      charMap.set(leftChar, charMap.get(leftChar) - 1);
+
+      if (charMap.get(leftChar) === 0) {
+        charMap.delete(leftChar);
+      }
+      pre_idx++;
     }
+
+    longest = Math.max(longest, idx - pre_idx + 1);
   }
+  console.log(charMap);
 
-  return smallest;
-
+  return longest;
 }
 
-console.log(findLengthOfSmallestGreaterS([1, 2, 3, 4, 2, 5, 3], 5));
+console.log(findLongestSubString('abcabaaad', 2));
