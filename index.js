@@ -1,31 +1,31 @@
 // You have give an array of characters where each character represents a fruit.
-// You have 2 baskets, find max number of fruits.
+// You have 2 baskets, find max number of str.
 // Each baskets can only hold a single type of fruit.
 
-// fruitMap = {}, pre_idx = 0, max = 0
-// 'abcabaaad' => 'abaaa'
-// { b: 1, c: 1}
+//  charMap = {}, pre_idx = 0, max = 0
+// 'abcdbaeaad' => 'abcd'
 
-function findMaxNumberFruits(fruits) {
-  const length = fruits.length;
+function findLongestLengthWithoutRepeat(str) {
+  const length = str.length;
 
   let pre_idx = 0,
     max = 0;
-  const fruitMap = new Map();
+  const charMap = new Map();
 
   for (let idx = 0; idx < length; idx++) {
-    const rightFruit = fruits.charAt(idx);
-    fruitMap.set(rightFruit, (fruitMap.get(rightFruit) || 0) + 1);
+    const rightChar = str.charAt(idx);
 
-    while (fruitMap.size > 2) {
-      const leftFruit = fruits.charAt(pre_idx);
-      fruitMap.set(leftFruit, fruitMap.get(leftFruit) - 1);
+    while (charMap.has(rightChar)) {
+      const leftChar = str.charAt(pre_idx);
+      charMap.set(leftChar, charMap.get(leftChar) - 1);
 
-      if (fruitMap.get(leftFruit) === 0) {
-        fruitMap.delete(leftFruit);
+      if (charMap.get(leftChar) === 0) {
+        charMap.delete(leftChar);
       }
       pre_idx++;
     }
+
+    charMap.set(rightChar, (charMap.get(rightChar) || 0) + 1);
 
     max = Math.max(max, idx - pre_idx + 1);
   }
@@ -33,4 +33,4 @@ function findMaxNumberFruits(fruits) {
   return max;
 }
 
-console.log(findMaxNumberFruits('abcacaaad', 2));
+console.log(findLongestLengthWithoutRepeat('abcdbaeaad'));
