@@ -1,36 +1,32 @@
 // You have give an array of characters where each character represents a fruit.
-// You have 2 baskets, find max number of str.
+// You have 2 baskets, find longest number of nums.
 // Each baskets can only hold a single type of fruit.
 
-//  charMap = {}, pre_idx = 0, max = 0
-// 'abcdbaeaad' => 'abcd'
+//  numMap = {}, pre_idx = 0, longest = 0, k = 2
+// [01100010110] => 2
 
-function findLongestLengthWithoutRepeat(str) {
-  const length = str.length;
+function findLongestOnes(nums, k) {
+  const length = nums.length;
 
   let pre_idx = 0,
-    max = 0;
-  const charMap = new Map();
+    longest = 0;
+  const numMap = new Map();
 
   for (let idx = 0; idx < length; idx++) {
-    const rightChar = str.charAt(idx);
+    const rightElm = nums[idx];
+    numMap.set(rightElm, (numMap.get(rightElm) || 0) + 1);
 
-    while (charMap.has(rightChar)) {
-      const leftChar = str.charAt(pre_idx);
-      charMap.set(leftChar, charMap.get(leftChar) - 1);
+    while (numMap.get(0) > k) {
+      const leftElm = nums[pre_idx];
+      numMap.set(leftElm, numMap.get(leftElm) - 1);
 
-      if (charMap.get(leftChar) === 0) {
-        charMap.delete(leftChar);
-      }
       pre_idx++;
     }
 
-    charMap.set(rightChar, (charMap.get(rightChar) || 0) + 1);
-
-    max = Math.max(max, idx - pre_idx + 1);
+    longest = Math.max(longest, idx - pre_idx + 1);
   }
 
-  return max;
+  return longest;
 }
 
-console.log(findLongestLengthWithoutRepeat('abcdbaeaad'));
+console.log(findLongestOnes([0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0], 2));
