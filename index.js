@@ -5,28 +5,33 @@
 //  numMap = {}, pre_idx = 0, longest = 0, k = 2
 // [01100010110] => 2
 
-function findLongestOnes(nums, k) {
-  const length = nums.length;
+function containPermutation(s1, s2) {
+  const length1 = s1.length;
+  const length2 = s2.length;
 
-  let pre_idx = 0,
-    longest = 0;
-  const numMap = new Map();
-
-  for (let idx = 0; idx < length; idx++) {
-    const rightElm = nums[idx];
-    numMap.set(rightElm, (numMap.get(rightElm) || 0) + 1);
-
-    while (numMap.get(0) > k) {
-      const leftElm = nums[pre_idx];
-      numMap.set(leftElm, numMap.get(leftElm) - 1);
-
-      pre_idx++;
-    }
-
-    longest = Math.max(longest, idx - pre_idx + 1);
+  if (length1 > length2) {
+    return false;
   }
 
-  return longest;
+  let pre_idx = 0;
+
+  for (let idx = length2 - 1; idx >= 0; idx--) {
+    const rightElm = s2.charAt(idx);
+
+    if (rightElm == s1.charAt(pre_idx)) {
+      pre_idx++;
+    } else if (rightElm == s1.charAt(0)) {
+      pre_idx = 1;
+    } else {
+      pre_idx = 0;
+    }
+
+    if (pre_idx == length1) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
-console.log(findLongestOnes([0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0], 2));
+console.log(containPermutation('ab', 'eidbbcaaoaoo'));
