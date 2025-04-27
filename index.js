@@ -1,36 +1,36 @@
-// Given a string, find the length of the longest substring in it
-// with no more than k distance characters
+// You have give an array of characters where each character represents a fruit.
+// You have 2 baskets, find max number of fruits.
+// Each baskets can only hold a single type of fruit.
 
-// charMap = {}, pre_idx = 0, longest = 0
-// 'abcabaaad' => 'abaaad'
+// fruitMap = {}, pre_idx = 0, max = 0
+// 'abcabaaad' => 'abaaa'
 // { b: 1, c: 1}
 
-function findLongestSubString(str, k) {
-  const length = str.length;
+function findMaxNumberFruits(fruits) {
+  const length = fruits.length;
 
   let pre_idx = 0,
-    longest = 0;
-  const charMap = new Map();
+    max = 0;
+  const fruitMap = new Map();
 
   for (let idx = 0; idx < length; idx++) {
-    const rightChar = str.charAt(idx);
-    charMap.set(rightChar, (charMap.get(rightChar) || 0) + 1);
+    const rightFruit = fruits.charAt(idx);
+    fruitMap.set(rightFruit, (fruitMap.get(rightFruit) || 0) + 1);
 
-    while (charMap.size > k) {
-      const leftChar = str.charAt(pre_idx);
-      charMap.set(leftChar, charMap.get(leftChar) - 1);
+    while (fruitMap.size > 2) {
+      const leftFruit = fruits.charAt(pre_idx);
+      fruitMap.set(leftFruit, fruitMap.get(leftFruit) - 1);
 
-      if (charMap.get(leftChar) === 0) {
-        charMap.delete(leftChar);
+      if (fruitMap.get(leftFruit) === 0) {
+        fruitMap.delete(leftFruit);
       }
       pre_idx++;
     }
 
-    longest = Math.max(longest, idx - pre_idx + 1);
+    max = Math.max(max, idx - pre_idx + 1);
   }
-  console.log(charMap);
 
-  return longest;
+  return max;
 }
 
-console.log(findLongestSubString('abcabaaad', 2));
+console.log(findMaxNumberFruits('abcacaaad', 2));
