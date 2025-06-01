@@ -1,24 +1,26 @@
-function findMaxLengthAtMostKDistinctChars(s, k) {
-  const mapChar = new Map();
-  let left = 0,
-    maxLen = 0;
+function mergeInterval(arr) {
+  if (!arr.length) return [];
 
-  for (let right = 0; right < s.length; right++) {
-    const rightChar = s.charAt(right);
-    mapChar.set(rightChar, (mapChar.get(rightChar) || 0) + 1);
+  const result = [arr[0]];
 
-    while (mapChar.size > k) {
-      const leftChar = s.charAt(left);
-      mapChar.set(leftChar, mapChar.get(leftChar) - 1);
-
-      if (mapChar.get(leftChar) === 0) mapChar.delete(leftChar);
-      left++;
+  for (let i = 1; i < arr.length; i++) {
+    const [start, end] = arr[i];
+    const lastResult = result[result.length - 1];
+    if (lastResult[1] >= start) {
+      lastResult[1] = Math.max(end, lastResult[1]);
+    } else {
+      result.push(arr[i]);
     }
-
-    maxLen = Math.max(maxLen, right - left + 1);
   }
 
-  return maxLen;
+  return result;
 }
 
-console.log(findMaxLengthAtMostKDistinctChars('eceba', 2)); // Output: 3 ("ece")
+console.log(
+  mergeInterval([
+    [1, 3],
+    [2, 6],
+    [8, 10],
+    [15, 18],
+  ])
+);
