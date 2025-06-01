@@ -1,26 +1,21 @@
-function getNext(n) {
-  let sum = 0;
+function detectCycle(head) {
+  let slow = head;
+  let fast = head;
 
-  while (n > 0) {
-    let d = n % 10;
-    sum += d * d;
-    n = Math.floor(n / 10);
+  while (fast && fast.next) {
+    slow = slow.next;
+    fast = fast.next.next;
+
+    if (slow === fast) {
+      slow = head;
+      while (slow !== fast) {
+        slow = slow.next;
+        fast = fast.next;
+      }
+
+      return slow;
+    }
   }
 
-  return sum;
+  return null;
 }
-
-function isHappy(n) {
-  let slow = n;
-  let fast = getNext(n);
-
-  while (fast !== 1 && slow !== fast) {
-    slow = getNext(slow);
-    fast = getNext(getNext(fast));
-  }
-
-  return fast === 1;
-}
-
-console.log(isHappy(19));
-console.log(isHappy(20));
