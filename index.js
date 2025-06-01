@@ -1,13 +1,19 @@
-function reverseString(s) {
+function mostArea(height) {
   let left = 0,
-    right = s.length - 1;
+    right = height.length - 1;
+
+  let maxArea = 0;
+
   while (left < right) {
-    [s[left], s[right]] = [s[right], s[left]];
-    left++;
-    right--;
+    const area = Math.min(height[left], height[right]) * (right - left);
+
+    maxArea = Math.max(maxArea, area);
+
+    if (height[left] < height[right]) left++;
+    else right--;
   }
 
-  return s;
+  return maxArea;
 }
 
-console.log(reverseString(['a', 'b', 'c', 'd', 'e']));
+console.log(mostArea([1, 8, 6, 2, 5, 4, 8, 3, 7]));
