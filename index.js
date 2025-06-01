@@ -1,19 +1,20 @@
-function twoSum(arr, target) {
+function moveZeros(arr) {
   let left = 0,
     right = arr.length - 1;
   while (left < right) {
-    const sum = arr[left] + arr[right];
-
-    if (sum === target) {
-      return [arr[left], arr[right]];
-    } else if (sum < target) {
+    while (arr[left] === 0) {
       left++;
+    }
+    if (arr[right] === 0) {
+      let temp = arr[left];
+      arr[left] = arr[right];
+      arr[right] = temp;
     } else {
       right--;
     }
   }
 
-  return null;
+  return arr;
 }
 
-console.log(twoSum([1, 2, 2, 3, 4, 5], 5));
+console.log(moveZeros([0, 1, 1, 1, 0, 1, 0, 1, 1]));
