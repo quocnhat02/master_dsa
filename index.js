@@ -1,18 +1,13 @@
-function moveZeros(arr) {
+function reverseString(s) {
   let left = 0,
-    right = arr.length - 1;
+    right = s.length - 1;
   while (left < right) {
-    while (arr[left] === 0) {
-      left++;
-    }
-    if (arr[right] === 0) {
-      [arr[left], arr[right]] = [arr[right], arr[left]];
-    } else {
-      right--;
-    }
+    [s[left], s[right]] = [s[right], s[left]];
+    left++;
+    right--;
   }
 
-  return arr;
+  return s;
 }
 
-console.log(moveZeros([0, 1, 1, 1, 0, 1, 0, 1, 1]));
+console.log(reverseString(['a', 'b', 'c', 'd', 'e']));
