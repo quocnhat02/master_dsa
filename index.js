@@ -1,31 +1,24 @@
-function findMinimumSizeSumSubarray(arr, target) {
-  let minSize = 0,
-    left = 0,
-    currentSum = 0,
-    idx = 0;
+function findMaxLengthAtMostKDistinctChars(s, k) {
+  const mapChar = new Map();
+  let left = 0,
+    maxLen = 0;
 
-  while (currentSum < target) {
-    currentSum += arr[idx];
-    idx++;
-  }
+  for (let right = 0; right < s.length; right++) {
+    const rightChar = s.charAt(right);
+    mapChar.set(rightChar, (mapChar.get(rightChar) || 0) + 1);
 
-  minSize = idx;
+    while (mapChar.size > k) {
+      const leftChar = s.charAt(left);
+      mapChar.set(leftChar, mapChar.get(leftChar) - 1);
 
-  while (idx < arr.length) {
-    currentSum += arr[idx];
-
-    while (currentSum >= target && idx >= left) {
-      minSize = Math.min(minSize, idx - left + 1);
-      currentSum -= arr[left];
-
+      if (mapChar.get(leftChar) === 0) mapChar.delete(leftChar);
       left++;
     }
 
-    idx++;
+    maxLen = Math.max(maxLen, right - left + 1);
   }
 
-  return minSize;
+  return maxLen;
 }
 
-console.log(findMinimumSizeSumSubarray([2, 3, 1, 2, 4, 3], 7));
-console.log(findMinimumSizeSumSubarray([1, 2, 3, 5, 2, 7], 7));
+console.log(findMaxLengthAtMostKDistinctChars('eceba', 2)); // Output: 3 ("ece")
