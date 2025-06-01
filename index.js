@@ -1,26 +1,36 @@
-function mergeInterval(arr) {
-  if (!arr.length) return [];
+function insertInterval(intervals, newInterval) {
+  if (intervals.length === 0) {
+    return [newInterval];
+  }
+  const result = [];
+  let i = 0;
+  let [start, end] = newInterval;
 
-  const result = [arr[0]];
+  while (i < intervals.length && intervals[i][1] < start) {
+    result.push(intervals[i++]);
+  }
 
-  for (let i = 1; i < arr.length; i++) {
-    const [start, end] = arr[i];
-    const lastResult = result[result.length - 1];
-    if (lastResult[1] >= start) {
-      lastResult[1] = Math.max(end, lastResult[1]);
-    } else {
-      result.push(arr[i]);
-    }
+  while (i < intervals.length && intervals[i][0] <= end) {
+    start = Math.min(start, intervals[i][0]);
+    end = Math.max(end, intervals[i][1]);
+    i++;
+  }
+
+  result.push([start, end]);
+
+  while (i < intervals.length) {
+    result.push(intervals[i++]);
   }
 
   return result;
 }
 
 console.log(
-  mergeInterval([
-    [1, 3],
-    [2, 6],
-    [8, 10],
-    [15, 18],
-  ])
+  insertInterval(
+    [
+      [1, 3],
+      [6, 9],
+    ],
+    [2, 5]
+  )
 );
