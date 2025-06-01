@@ -1,16 +1,19 @@
-function hasDuplicate(arr) {
+function twoSum(arr, target) {
   let left = 0,
-    right = 1;
-  while (right < arr.length) {
-    if (arr[left] === arr[right]) {
-      return true;
-    }
+    right = arr.length - 1;
+  while (left < right) {
+    const sum = arr[left] + arr[right];
 
-    left++;
-    right++;
+    if (sum === target) {
+      return [arr[left], arr[right]];
+    } else if (sum < target) {
+      left++;
+    } else {
+      right--;
+    }
   }
 
-  return false;
+  return null;
 }
 
-console.log(hasDuplicate([1, 2, 2, 3, 4, 5]));
+console.log(twoSum([1, 2, 2, 3, 4, 5], 5));
