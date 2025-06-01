@@ -1,22 +1,21 @@
-function sumSubarraySizeK(arr, k) {
-  if (arr.length < k) {
-    return null;
-  }
-  let maxSum = 0,
-    currentSum = 0;
+function longestSubstringWithoutRepeat(s) {
+  const charMap = new Set();
 
-  for (let idx = 0; idx < k; idx++) {
-    currentSum += arr[idx];
-  }
+  let left = 0,
+    longest = 0;
 
-  maxSum = currentSum;
+  for (let idx = 0; idx < s.length; idx++) {
+    while (charMap.has(s.charAt(idx))) {
+      charMap.delete(s.charAt(left));
+      left++;
+    }
+    charMap.add(s.charAt(idx));
 
-  for (let idx = k; idx < arr.length; idx++) {
-    currentSum = currentSum + arr[idx] - arr[idx - k];
-    maxSum = Math.max(maxSum, currentSum);
+    longest = Math.max(longest, idx - left + 1);
   }
 
-  return maxSum;
+  return longest;
 }
 
-console.log(sumSubarraySizeK([2, 1, 5, 1, 3, 2], 3));
+console.log(longestSubstringWithoutRepeat('abcabcbb'));
+console.log(longestSubstringWithoutRepeat('cabcdef'));
