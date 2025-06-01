@@ -1,36 +1,35 @@
-function insertInterval(intervals, newInterval) {
-  if (intervals.length === 0) {
-    return [newInterval];
-  }
+function intervalList(a, b) {
   const result = [];
-  let i = 0;
-  let [start, end] = newInterval;
+  let i = 0,
+    j = 0;
 
-  while (i < intervals.length && intervals[i][1] < start) {
-    result.push(intervals[i++]);
-  }
+  while (i < a.length && j < b.length) {
+    const [startA, endA] = a[i];
+    const [startB, endB] = b[j];
 
-  while (i < intervals.length && intervals[i][0] <= end) {
-    start = Math.min(start, intervals[i][0]);
-    end = Math.max(end, intervals[i][1]);
-    i++;
-  }
+    let start = Math.max(startA, startB);
+    let end = Math.min(endA, endB);
 
-  result.push([start, end]);
+    if (start <= end) result.push([start, end]);
 
-  while (i < intervals.length) {
-    result.push(intervals[i++]);
+    if (endA < endB) i++;
+    else j++;
   }
 
   return result;
 }
 
-console.log(
-  insertInterval(
-    [
-      [1, 3],
-      [6, 9],
-    ],
-    [2, 5]
-  )
-);
+let A = [
+    [0, 2],
+    [5, 10],
+    [13, 23],
+    [24, 25],
+  ],
+  B = [
+    [1, 5],
+    [8, 12],
+    [15, 24],
+    [25, 26],
+  ];
+
+console.log(intervalList(A, B));
