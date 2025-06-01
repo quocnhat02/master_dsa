@@ -1,21 +1,31 @@
-function longestSubstringWithoutRepeat(s) {
-  const charMap = new Set();
+function findMinimumSizeSumSubarray(arr, target) {
+  let minSize = 0,
+    left = 0,
+    currentSum = 0,
+    idx = 0;
 
-  let left = 0,
-    longest = 0;
-
-  for (let idx = 0; idx < s.length; idx++) {
-    while (charMap.has(s.charAt(idx))) {
-      charMap.delete(s.charAt(left));
-      left++;
-    }
-    charMap.add(s.charAt(idx));
-
-    longest = Math.max(longest, idx - left + 1);
+  while (currentSum < target) {
+    currentSum += arr[idx];
+    idx++;
   }
 
-  return longest;
+  minSize = idx;
+
+  while (idx < arr.length) {
+    currentSum += arr[idx];
+
+    while (currentSum >= target && idx >= left) {
+      minSize = Math.min(minSize, idx - left + 1);
+      currentSum -= arr[left];
+
+      left++;
+    }
+
+    idx++;
+  }
+
+  return minSize;
 }
 
-console.log(longestSubstringWithoutRepeat('abcabcbb'));
-console.log(longestSubstringWithoutRepeat('cabcdef'));
+console.log(findMinimumSizeSumSubarray([2, 3, 1, 2, 4, 3], 7));
+console.log(findMinimumSizeSumSubarray([1, 2, 3, 5, 2, 7], 7));
