@@ -1,28 +1,26 @@
-function isPalindrome(head) {
-  let slow = head;
-  let fast = head;
+function getNext(n) {
+  let sum = 0;
 
-  while (fast && fast.next) {
-    slow = slow.next;
-    fast = fast.next.next;
+  while (n > 0) {
+    let d = n % 10;
+    sum += d * d;
+    n = Math.floor(n / 10);
   }
 
-  let prev = null;
-
-  while (slow) {
-    let next = slow.next;
-    slow.next = prev;
-    prev = slow;
-    slow = next;
-  }
-
-  let left = head,
-    right = prev;
-  while (right) {
-    if (left.value !== right.value) return false;
-    left = left.next;
-    right = right.next;
-  }
-
-  return true;
+  return sum;
 }
+
+function isHappy(n) {
+  let slow = n;
+  let fast = getNext(n);
+
+  while (fast !== 1 && slow !== fast) {
+    slow = getNext(slow);
+    fast = getNext(getNext(fast));
+  }
+
+  return fast === 1;
+}
+
+console.log(isHappy(19));
+console.log(isHappy(20));
