@@ -6,9 +6,7 @@ function moveZeros(arr) {
       left++;
     }
     if (arr[right] === 0) {
-      let temp = arr[left];
-      arr[left] = arr[right];
-      arr[right] = temp;
+      [arr[left], arr[right]] = [arr[right], arr[left]];
     } else {
       right--;
     }
