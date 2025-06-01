@@ -1,26 +1,30 @@
-function validWordAbbreviation(word, abbr) {
-  let i = 0,
-    j = 0;
+function isStrobogrammatic(number) {
+  const map = {
+    0: '0',
+    1: '1',
+    6: '9',
+    8: '8',
+    9: '6',
+  };
 
-  while (i < word.length && j < abbr.length) {
-    if (isNaN(abbr[j])) {
-      if (word[i] !== abbr[j]) return false;
-      i++;
-      j++;
-    } else {
-      if (abbr[j] === '0') return false;
-
-      let num = 0;
-      while (j < abbr.length && !isNaN(abbr[j])) {
-        num = num * 10 + parseInt(abbr[j]);
-        j++;
-      }
-      i += num;
+  let left = 0,
+    right = number.length - 1;
+  while (left < right) {
+    const l = number[left];
+    const r = number[right];
+    if (!(l in map) || map[l] !== r) {
+      return false;
     }
+
+    left++;
+    right--;
   }
 
-  return i === word.length && j === abbr.length;
+  return true;
 }
 
-console.log(validWordAbbreviation('internationalization', 'i12iz4n')); // true
-console.log(validWordAbbreviation('apple', 'a2e')); // false
+console.log(isStrobogrammatic('69')); // true  → 69 → xoay thành 96 → đúng
+console.log(isStrobogrammatic('88')); // true  → xoay vẫn là 88
+console.log(isStrobogrammatic('962')); // false → 9→6, 6→9, nhưng 2 không hợp lệ
+console.log(isStrobogrammatic('1')); // true
+console.log(isStrobogrammatic('2')); // false
