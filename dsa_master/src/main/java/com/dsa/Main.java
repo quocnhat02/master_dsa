@@ -10,9 +10,9 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        Integer[] nums = {1,5,7,4,8};
-        Arrays.sort(nums);
-        System.out.println(Arrays.toString(nums));
+        String[] names = {"Nhat", "Light", "Anh", "Phuc"};
+        Arrays.sort(names);
+        System.out.println(Arrays.toString(names));
     }
 
 }
