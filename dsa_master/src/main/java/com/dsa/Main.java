@@ -14,7 +14,6 @@ public class Main {
 
         while (left < right) {
             int sum = nums[left] + nums[right];
-
             if (sum == target) {
                 return new int[]{left, right};
             } else if (sum < target) {
@@ -22,10 +21,9 @@ public class Main {
             } else {
                 right--;
             }
-
         }
 
-        return new int[]{-1, -1};
+        return new int[]{0, 0};
     }
 
     public static void main(String[] args) {
