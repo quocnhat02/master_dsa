@@ -23,13 +23,13 @@ public class Main {
             }
         }
 
-        return new int[]{0, 0};
+        return new int[]{};
     }
 
     public static void main(String[] args) {
-        int[] nums = {1,2,3,4,5,6};
+        int[] nums = {1,2,3,4,5,6,7,8};
 
-        System.out.println(Arrays.toString((twoSum(nums, 5))));
+        System.out.println(Arrays.toString((twoSum(nums, 7))));
     }
 
 }
