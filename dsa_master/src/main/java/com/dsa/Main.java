@@ -9,27 +9,84 @@ import java.util.Comparator;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
 
-    public static int[] twoSum(int[] nums, int target) {
-        int left = 0, right = nums.length - 1;
+    public static int[] sortColors(int[] colors) {
 
-        while (left < right) {
-            int sum = nums[left] + nums[right];
-            if (sum == target) {
-                return new int[]{left, right};
-            } else if (sum < target) {
-                left++;
-            } else {
-                right--;
+        int red = 0;
+        int white = 0;
+        int blue = colors.length - 1;
+
+        while (white <= blue) {
+
+            if (colors[white] == 0) {
+
+                if (colors[red] != 0) {
+                    int temp = colors[red];
+                    colors[red] = colors[white];
+                    colors[white] = temp;
+                }
+
+                white++;
+                red++;
+            }
+
+            else if (colors[white] == 1) {
+                white++;
+            }
+
+            else {
+                if (colors[blue] != 2) {
+                    int temp = colors[white];
+                    colors[white] = colors[blue];
+                    colors[blue] = temp;
+                }
+
+                blue--;
             }
         }
 
-        return new int[]{};
+        return colors;
     }
+
+
 
     public static void main(String[] args) {
-        int[] nums = {1,2,3,4,5,6,7,8};
+        int[][] inputs = {
+                {0, 1, 0},
+                {1, 1, 0, 2},
+                {2, 1, 1, 0, 0},
+                {2, 2, 2, 0, 1, 0},
+                {2, 1, 1, 0, 1, 0, 2}
+        };
 
-        System.out.println(Arrays.toString((twoSum(nums, 7))));
+        for (int i = 0; i < inputs.length; i++) {
+            System.out.println((i + 1) + ".\tcolors: " + Print.arrayToString(inputs[i]));
+
+            int[] sortedColors = sortColors(inputs[i].clone());
+            System.out.println("\n\tThe sorted array is: " + Print.arrayToString(sortedColors));
+
+            System.out.println(Print.repeat("-", 100));
+        }
+    }
+}
+class Print{
+    public static String repeat(String str, int pValue) {
+        String out = "";
+        for (int i = 0; i < pValue; i++) {
+            out += str;
+        }
+        return out;
     }
 
+    public static String arrayToString(int[] array) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (int i = 0; i < array.length; i++) {
+            sb.append(array[i]);
+            if (i < array.length - 1) {
+                sb.append(", ");
+            }
+        }
+        sb.append("]");
+        return sb.toString();
+    }
 }
